@@ -1,0 +1,13 @@
+# CloseReport — Python dependencies
+# Install: pip install -r requirements.txt
+
+# Core ETL
+pandas>=2.0.0
+openpyxl>=3.1.0
+
+# Validation & reporting
+rich>=13.0.0        # clean terminal output for ETL scripts
+
+# Future phases (uncomment when needed)
+# sqlalchemy>=2.0.0   # Phase 3+ SQLite / PostgreSQL
+# psycopg2-binary     # Phase 6+ PostgreSQL

@@ -1,0 +1,604 @@
+﻿==========
+00.00_METADATOS
+==========
+
+RADAR_TYPE........: RADAR_FULL.HUMAN
+PROYECTO..........: CloseReport
+ROOT..............: C:\01. GitHub\CloseReport
+GENERADO..........: 2026-06-30 17:39:35
+SCRIPT............: 06.TOOLS\RADAR.ps1
+SKILL_REF.........: 09.SKILL.RADAR.txt v1.4
+HASH_UMBRAL_MB....: 50
+EXCLUSIONES.......: .git\, 90.TEMP\, 03.DATA\raw\, 04.REPORTS\outputs\, __pycache__\
+ENCODING..........: UTF-8
+
+==========
+01.00_PROPOSITO
+==========
+
+Compilacion del contenido de 00.CANON\.
+Sube este archivo a la IA para contexto operativo del proyecto.
+
+================================================================
+SOURCE_FILE: 00.CANON\BATON.STATE.CloseReport.txt
+TAMANO    : 5924 bytes
+MODIFICADO: 2026-06-30 21:33:18
+SHA256    : CA0A6EEB49BF101C5B4C038D5F7FFCEB1982352C54FE27D4567A0E784062A4ED
+================================================================
+
+==========
+00.00_METADATOS
+==========
+
+ID_UNICO..........: BATON.STATE.CLOSEREPORT.01.01
+NOMBRE_SUGERIDO...: BATON.STATE.CloseReport.txt
+VERSION...........: v1.1-SESION-001
+FECHA.............: 2026-06-30
+HORA..............: 17:30
+CIUDAD............: Santiago, Chile
+UBICACION_SISTEMA.: C:\01. GitHub\CloseReport\00.CANON\
+AUTOR_HUMANO......: PABLO
+NOTA..............: Actualizar al cerrar cada sesion. Derivado de HUMAN + SKILLS.
+
+==========
+01.00_IDENTIFICACION_DEL_PROYECTO
+==========
+
+PROYECTO..........: CloseReport
+ROOT..............: C:\01. GitHub\CloseReport
+OUTPUT_TYPE.......: DELIVERABLE_DONE
+PRECISION_RULE....: 4 decimales fijos en todos los exports CSV
+IDIOMA_EXCEL......: ingles (columnas, Power Query, nombres SQL)
+
+==========
+02.00_CONTEXTO_MINIMO_PARA_IA_EN_BLANCO
+==========
+
+ESTE_PROYECTO_TRATA_DE:
+  Reemplazar el armado manual del Comite de Finanzas mensual de
+  SN Holding (Kumquat + KMT). Hoy son ~10 archivos Excel con
+  formulas rotas y categorias inconsistentes.
+  CloseReport: fuente unica -> ETL Python -> CSV -> Power Query -> reportes.
+
+OBJETIVO_ACTIVO_HOY:
+  Sesion 001 completada: repo bootstrapped, RADAR corriendo.
+  Siguiente sesion: primer git commit + Fase 0 clean_bases.py.
+
+PRIMERA_ENTREGA_ACORDADA:
+  Fases 0 + 1 completas:
+  - clean_bases.py normaliza Bases sin errores
+  - movements.csv exportado en 03.DATA/staging/ con 4 decimales
+  - CloseReport.xlsm: F.C.KMT / F.CKUM / F.CMC via Power Query
+  - Totales coinciden con presentacion PDF mayo 2026 (diferencia = 0.0000)
+
+==========
+03.00_PRIORIDADES_ACTIVAS
+==========
+
+P0 (INMEDIATO — proxima sesion):
+  - Primer git commit (ver 09.00 para comandos exactos)
+  - Fase 0: clean_bases.py
+
+P1 (SIGUIENTE):
+  - Fase 1: load_movements.py + movements.csv
+  - Fase 1: CloseReport.xlsm Power Query setup
+  - Validacion: validate_totals.py confirma 0.0000 diferencia
+
+P2 (BACKLOG):
+  - Fases 2-6: resto de tablas y entidades
+
+==========
+04.00_ESTADO_DE_FASES
+==========
+
+  FASE  DESCRIPCION               STATUS
+  ----  ------------------------  ----------
+  0     Limpieza Bases            PENDING
+  1     MOVEMENTS table           PENDING
+  2     USA cashflow              BACKLOG
+  3     Units + Sales             BACKLOG
+  4     Loans EP                  BACKLOG
+  5     Budget BS2                BACKLOG
+  6     BS1 Full Flow (view)      BACKLOG
+
+==========
+05.00_ESTADO_DEL_REPO
+==========
+
+RADAR_RUN.........: 20260630_173022
+RADAR_ARCHIVOS....: 41 archivos / 11 carpetas / 375.18 KB
+RADAR_STATUS......: 6 outputs OK en 05.DOCS\
+ULTIMO_COMMIT.....: NINGUNO — pendiente primer commit
+RAMA..............: main (sin commits aun)
+
+OBSERVACIONES_RADAR:
+  - RADAR.LITE tenia 0 bytes en INDEX (artefacto del primer run fallido).
+    Se autocorrige en el proximo run post-commit.
+  - 02.ETL\00.clean y 02.ETL\01.load tenian .gitkeep faltante.
+    Corregido en esta sesion — incluir en primer commit.
+
+==========
+06.00_DECISIONES_TOMADAS
+==========
+
+DEC-001  OUTPUT_TYPE = DELIVERABLE_DONE
+DEC-002  Excel en ingles (columnas, Power Query, SQL)
+DEC-003  Precision fija = 4 decimales en todos los CSV
+DEC-004  Excel original congelado como referencia de validacion
+DEC-005  06.TOOLS\ para scripts de validacion y utilidades
+DEC-006  07.SKILLS\ para bundles SkillsMachine del proyecto
+DEC-007  03.DATA/raw/ ignorado en git (datos sensibles)
+DEC-008  Primera entrega: Fase 0+1 -> movements.csv + CloseReport.xlsm
+DEC-009  RADAR.ps1 compatible con PS 5.1 (fix @() y variables Sep)
+DEC-010  copy_skills.ps1 compatible con PS 5.1
+
+==========
+07.00_LIMITES_OPERATIVOS_IA
+==========
+
+PROJECT_ROOT......: C:\01. GitHub\CloseReport
+ESCRITURA_OK......: 00.CANON, 01.DB, 02.ETL, 05.DOCS, 06.TOOLS, 07.SKILLS
+READ_ONLY.........: 03.DATA\raw (datos fuente originales)
+IGNORADO_GIT......: 03.DATA\raw, 04.REPORTS\outputs, 90.TEMP
+CANON_AUTO........: PROHIBIDO — IA no modifica canon sin validacion explicita
+
+==========
+08.00_ARTEFACTOS_DE_REFERENCIA
+==========
+
+HUMAN_ROOT........: 00.CANON\HUMAN.CloseReport.txt
+WHOAMI............: 00.CANON\WHOAMI.CloseReport.txt
+RADAR_LITE........: 05.DOCS\RADAR.LITE.CloseReport.txt (run 20260630_173022)
+RADAR_INDEX.......: 05.DOCS\RADAR.INDEX.CloseReport.txt
+SKILLS_BUNDLE.....: 07.SKILLS\00.BUNDLE.CORE.txt
+                    07.SKILLS\01.BUNDLE.CONTINUITY.txt
+                    07.SKILLS\02.BUNDLE.GOVERNANCE.txt
+
+==========
+09.00_COMO_INICIAR_IA_EN_BLANCO
+==========
+
+  1. Subir este archivo: BATON.STATE.CloseReport.txt
+  2. Subir: 05.DOCS\RADAR.LITE.CloseReport.txt  (mapa rapido del repo)
+  3. Subir: 07.SKILLS\00.BUNDLE.CORE.txt
+  4. Subir: 07.SKILLS\01.BUNDLE.CONTINUITY.txt
+  5. Declarar objetivo de la sesion en 1 linea
+
+  Para Fase 0 (clean_bases.py), subir ademas:
+  6. 03.DATA\raw\2026_Mayo__2_.xlsx  (o resultado de clean previa)
+
+==========
+10.00_COMANDOS_PRIMER_COMMIT
+==========
+
+  # Desde C:\01. GitHub\CloseReport\
+
+  git init
+  git branch -M main
+  git add .
+  git status          # verificar que raw\ y outputs\ NO aparezcan
+  git commit -m "phase-0: project bootstrap -- canon, tools, RADAR"
+
+  # Opcional: conectar a remote
+  git remote add origin https://github.com/[usuario]/CloseReport.git
+  git push -u origin main
+
+==========
+11.00_RIESGOS_ACTIVOS
+==========
+
+RIESGO-001  03.DATA\raw\ nunca sube a git — datos sensibles
+RIESGO-002  Bases: 115 categorias inconsistentes — Fase 0 critica
+RIESGO-003  Precision 4 decimales en todo el pipeline
+RIESGO-004  Excel congelado = referencia para validate_totals.py
+RIESGO-005  Plan B activa si Power Query no conecta tras 2 sesiones
+
+PLAN_B_TRIGGER....: Power Query no conecta o totales no coinciden tras 2 sesiones
+PLAN_B_ACTION.....: Entregar movements.csv + instrucciones carga manual.
+
+==========
+12.00_TIMELOG
+==========
+
+  SESION  FECHA       FOCO                                    HRS_EST
+  ------  ----------  ------------------------------------    -------
+  001     2026-06-30  Bootstrap + arquitectura + RADAR         1.5h
+
+================================================================
+SOURCE_FILE: 00.CANON\HUMAN.CloseReport.txt
+TAMANO    : 11526 bytes
+MODIFICADO: 2026-06-30 17:12:26
+SHA256    : A76099805DBD21CA3B7E8FA6047F884A16E30A3F1C4DAA0B218D5095FF6EDC8C
+================================================================
+
+==========
+00.00_METADATOS
+==========
+
+ID_UNICO..........: HUMAN.CLOSEREPORT.01.00
+NOMBRE_SUGERIDO...: HUMAN.CloseReport.txt
+VERSION...........: v1.0-BOOTSTRAP
+FECHA.............: 2026-06-30
+HORA..............: HH:MM
+CIUDAD............: Santiago, Chile
+UBICACION_SISTEMA.: C:\01. GitHub\CloseReport\00.CANON\
+AUTOR_HUMANO......: PABLO
+
+ALCANCE...........:
+Documentación profunda y explicativa del proyecto CloseReport.
+Responde "por qué" de las decisiones técnicas y de negocio.
+Complementa WHOAMI (estado operativo) y BATON (snapshot IA).
+
+NO_CUBRE..........:
+No reemplaza BATON (snapshot sesión).
+No reemplaza WHOAMI (estado rápido).
+No es un manual de usuario final.
+
+==========
+00.10_INDICE
+==========
+
+01.00  Contexto de negocio
+02.00  Problema que resuelve
+03.00  Arquitectura técnica
+04.00  Modelo de datos
+05.00  Decisiones técnicas y su justificación
+06.00  Convenciones del proyecto
+07.00  Fuentes de datos originales
+08.00  Roadmap de fases
+09.00  Plan B y límites
+10.00  Changelog
+
+==========
+01.00_CONTEXTO_DE_NEGOCIO
+==========
+
+SN Holding es un grupo inmobiliario chileno compuesto por dos
+entidades principales:
+
+  KMT (Kumquat Gestión Inmobiliaria SPA):
+  Gestora que opera proyectos y recibe fees de administración.
+  Principales ingresos: Bahía Barnes, Marina, Be Smart, EOL,
+  LUX, Movem, Argomedo.
+
+  Kumquat Holding Inmobiliario S.P.A.:
+  Holding que agrupa inversiones. Ingresos: Barnes, Koke,
+  otros ingresos.
+
+  Proyectos principales activos:
+  - Be Smart 1: proyecto inmobiliario en comercialización (~108 dptos)
+  - Be Smart 2: proyecto en etapa de permisos/diseño
+  - Koke (Keep Koke + Neo Koke): proyectos 100% vendidos
+  - EOL: proyecto de lotes
+  - Entidades USA: Medici, KS Garden (Whispering Lakes),
+    Howth (Sunset Lakes), Jordan BVI, Jordan Corp
+
+  El Comité de Finanzas se reúne mensualmente. Recibe un PDF
+  con ~18 slides de tablas y gráficos que cubren flujos de caja,
+  proyecciones, status de ventas y créditos.
+
+==========
+02.00_PROBLEMA_QUE_RESUELVE
+==========
+
+02.10_ESTADO_ACTUAL_ANTES_DE_CLOSEREPORT:
+
+  - ~10 archivos Excel distintos sin fuente única de verdad
+  - Hoja "Bases" en 2026_Mayo.xlsx: 4.500+ filas, libro mayor real
+    pero con problemas de calidad de datos:
+      * Columna IngEgr: 12 variantes (Ingreso/ingreso/Egreso/egreso/
+        Traspaso/traspaso/trapaso/Prestamo/prestamo/Prestamo SN/
+        Saldo Inicio/Fondo Mutuo/Mutuo)
+      * CentroCosto: 115 valores con duplicados por mayúsculas/espacios
+      * FormaPago: duplicados (Cheque/cheque, Nomina/Nomina+espacio)
+  - Entidades USA en archivos separados con estructura pivot
+    (meses = columnas) incompatible con Bases
+  - Be Smart 1: flujo de caja manual, sin fórmulas automáticas
+  - Fórmulas #REF! en BS1.CCF (créditos)
+  - Proyecciones tecleadas directamente en celdas de formato
+
+02.20_IMPACTO:
+
+  - Cada cierre mensual requiere horas de trabajo manual
+  - Riesgo de error en copia entre archivos
+  - Imposible hacer análisis retrospectivo sin reconstruir
+  - No escalable a más entidades o períodos
+
+==========
+03.00_ARQUITECTURA_TECNICA
+==========
+
+03.10_PIPELINE:
+
+  [FUENTE]          [ETL]              [STAGING]     [REPORTE]
+  Bases (xlsx)  →   clean_bases.py  →  movements.csv →
+  USA files     →   unpivot_usa.py  →  usa_cashflow.csv →  CloseReport.xlsm
+  BS1 files     →   load_*.py       →  *.csv         →  (Power Query)
+
+03.20_CAPAS:
+
+  CAPA 1 — Raw:     03.DATA/raw/      Excel originales (READ ONLY)
+  CAPA 2 — ETL:     02.ETL/           Scripts Python de transformación
+  CAPA 3 — Staging: 03.DATA/staging/  CSVs normalizados (4 decimales)
+  CAPA 4 — Report:  04.REPORTS/       Excel con Power Query conectado
+  CAPA 5 — Tools:   06.TOOLS/         Scripts de validación y utilidades
+
+03.30_EVOLUCION_DE_DB:
+
+  Fase 1-2: CSV planos en staging/ (Excel lee directo via Power Query)
+  Fase 3-5: SQLite (un archivo .db, Python+ODBC, sin servidor)
+  Fase 6+:  PostgreSQL (Supabase free tier, multi-usuario, cloud)
+
+==========
+04.00_MODELO_DE_DATOS
+==========
+
+04.10_TABLA_MOVIMIENTOS (primera entrega — extiende Bases):
+
+  Columna             Tipo      Fuente en Bases   Descripción
+  ------------------  --------  ----------------  --------------------------
+  id                  int       (generado)        PK autoincremental
+  entity              text      Empresa           Entidad contable
+  date                date      Fecha             Fecha de la transacción
+  supplier            text      Proveedor         Proveedor o contraparte
+  invoice             text      Factura           N° factura (nullable)
+  detail              text      Detalle           Descripción libre
+  amount_original     decimal   Monto             Monto en moneda original
+  currency            text      (nuevo)           CLP / USD
+  payment_method      text      Forma de Pago     Normalizado
+  cost_center         text      Centro de Costo   Normalizado
+  category            text      Detalle2          Agrupador para reportes
+  entry_type          text      Ingreso/Egreso    Normalizado (5 valores)
+  amount_clp          decimal   Monto 2           Monto en CLP
+  amount_uf           decimal   UF                Monto en UF (4 dec)
+  year                int       Año               Año de la transacción
+  month               int       Mes               Mes de la transacción
+  record_type         text      (nuevo)           Real / Projected / Budget
+
+04.20_VALORES_CANONICOS_ENTRY_TYPE:
+
+  Valor canónico    Variantes que absorbe
+  ----------------  ------------------------------------
+  Income            Ingreso, ingreso
+  Expense           Egreso, egreso
+  Transfer          Traspaso, traspaso, trapaso
+  Financing         Prestamo, prestamo, Prestamo SN,
+                    Mutuo, Fondo Mutuo
+  Opening Balance   Saldo Inicio
+
+04.30_TABLAS_BACKLOG (documentar al entrar a cada fase):
+
+  usa_cashflow    — Fase 2: flujos entidades USA en USD
+  units           — Fase 3: registro de unidades Be Smart 1 / Koke
+  sales           — Fase 3: ventas y rescisiones por unidad
+  loans_ep        — Fase 4: créditos hipotecarios por EP
+  budget_bs2      — Fase 5: presupuesto especialidades Be Smart 2
+
+==========
+05.00_DECISIONES_TECNICAS_Y_JUSTIFICACION
+==========
+
+DEC-001  OUTPUT_TYPE = DELIVERABLE_DONE
+         Razón: el primer output es un Excel funcional, no un
+         sistema deployable. Evita over-engineering prematuro.
+
+DEC-002  Excel en inglés (columnas, Power Query, SQL)
+         Razón: consistencia con convención del repo y compatibilidad
+         con futuras integraciones internacionales (entidades USA).
+
+DEC-003  Precisión fija = 4 decimales
+         Razón: evitar diferencias de redondeo entre el Excel
+         congelado (referencia) y los CSVs generados por Python.
+         Python: round(value, 4). Power Query: 4 decimal places fixed.
+
+DEC-004  Excel original congelado como referencia
+         Razón: permite validar automáticamente que los nuevos
+         CSVs producen exactamente los mismos totales.
+         Archivo de referencia: 03.DATA/raw/2026_Mayo__2_.xlsx
+         (los valores de Bases en ese archivo son el benchmark).
+
+DEC-005  06.TOOLS/ separado del ETL
+         Razón: los scripts de validación son ortogonales al ETL.
+         Deben poder correr independientemente para auditoría.
+
+DEC-006  07.SKILLS/ en el repo
+         Razón: garantizar que cualquier IA que opere sobre este
+         repo tenga acceso a los bundles sin depender de uploads
+         externos. Bundles copiados desde SkillsMachine.
+
+DEC-007  03.DATA/raw/ en .gitignore
+         Razón: los Excel fuente contienen datos financieros
+         sensibles (montos, clientes, operaciones). No deben
+         subirse a repositorios remotos.
+
+DEC-008  CSV como formato de staging inicial
+         Razón: Excel lee CSV nativamente via Power Query sin
+         instalar drivers adicionales. Permite validar el modelo
+         de datos antes de comprometerse con SQLite/PostgreSQL.
+
+==========
+06.00_CONVENCIONES_DEL_PROYECTO
+==========
+
+IDIOMA_CODIGO.....: inglés (variables, funciones, columnas SQL, Power Query)
+IDIOMA_DOCS.......: español (comentarios Python, documentación, canon)
+IDIOMA_EXCEL......: inglés (nombres de columnas, queries, fórmulas)
+PRECISION.........: 4 decimales en todos los exports numéricos
+ENCODING..........: UTF-8 sin BOM para todos los archivos .txt/.py/.csv
+NEWLINES..........: CRLF en archivos .txt (Windows), LF en .py
+GIT_BRANCH........: main (sin branches para primeras 3 fases)
+COMMIT_TRIGGER....: al completar cada fase (Fase 0, Fase 1, validación)
+COMMIT_FORMAT.....: "phase-N: descripción breve en inglés"
+NAMING_PY.........: snake_case
+NAMING_SQL........: snake_case
+NAMING_EXCEL......: PascalCase para sheets, snake_case para columnas PQ
+
+==========
+07.00_FUENTES_DE_DATOS_ORIGINALES
+==========
+
+ARCHIVO                                          ENTIDAD           SHEETS_CLAVE
+-----------------------------------------------  ----------------  --------------------------------
+2026_Mayo__2_.xlsx                               KMT + Kumquat     Bases, F.C.KMT, F.CKUM, F.CMC
+Flujo_de_Caja_Be_Smart_1_Proyectado_*.xlsx       Be Smart 1        Flujo de Caja Proyectado,
+                                                                   Ventas Reales Cierre Mayo,
+                                                                   Créditos Be Smart
+Calendario_Costo_Financiero.xlsx                 Be Smart 1        Estatus Operaciones,
+                                                                   Devengados Mayo 26
+Flujo_WL_Presentacion.xlsx                       Whispering Lakes  Resumen Presentacion
+Flujo_KS_Garden.xlsx                             KS Garden         Control de C. Planificado KS
+Flujo_Medici.xlsx                                Medici            Caja Medici
+Flujo_Sunset_Lakes.xlsx                          Howth             Control de C. Planificado
+Flujo_Jordan_Limited.xlsx                        Jordan BVI        Control de C. Planificado BVI
+Flujo_Jordan_Corp.xlsx                           Jordan Corp       Control de C. Planificado Corp
+
+NOTA: Todos en 03.DATA/raw/ — READ ONLY — ignorados en git.
+
+==========
+08.00_ROADMAP_DE_FASES
+==========
+
+FASE  TABLA             SLIDES  CRITERIO_DONE
+----  ----------------  ------  -----------------------------------------------
+0     (limpieza)        3,4,5   clean_bases.py sin errores, 0 variantes sucias
+1     movements         3,4,5   movements.csv + Power Query = mismos totales PDF
+2     usa_cashflow      12-18   6 archivos USA → usa_cashflow.csv unificado
+3     units + sales     8,10,11 tabla unidades + ventas BS1 y Koke
+4     loans_ep          9       EP con capital/intereses/fechas/estado
+5     budget_bs2        6       especialidades BS2 real vs proyectado
+6     BS1 flow (view)   7       vista SQL consolida todo → slide 7 automático
+
+==========
+09.00_PLAN_B_Y_LIMITES
+==========
+
+MAX_SESSIONS_PRIMERA_ENTREGA: 3
+PLAN_B_TRIGGER: Power Query no conecta o totales no coinciden tras 2 sesiones
+PLAN_B_ACTION:
+  1. Entregar movements.csv validado manualmente
+  2. Documentar instrucciones de carga manual en Excel existente
+  3. No avanzar a SQLite ni fases siguientes hasta resolver
+  4. Registrar blocker en BATON + abrir PROBLEM en 08.SKILL.PROBLEM_TROUBLE
+
+==========
+10.00_CHANGELOG
+==========
+
+2026-06-30  v1.0-BOOTSTRAP
+  - Creación inicial del HUMAN
+  - Arquitectura definida y validada con Pablo
+  - Constitution gate aprobado (DEC-001 a DEC-008)
+
+================================================================
+SOURCE_FILE: 00.CANON\WHOAMI.CloseReport.txt
+TAMANO    : 3480 bytes
+MODIFICADO: 2026-06-30 17:12:26
+SHA256    : 9D4E95CA79C5776025D58536484BA28620D73C77D0F91551395B3F29CCC574F2
+================================================================
+
+==========
+00.00_METADATOS
+==========
+
+ID_UNICO..........: WHOAMI.CLOSEREPORT.01.00
+NOMBRE_SUGERIDO...: WHOAMI.CloseReport.txt
+VERSION...........: v1.0-BOOTSTRAP
+FECHA.............: 2026-06-30
+HORA..............: HH:MM
+CIUDAD............: Santiago, Chile
+UBICACION_SISTEMA.: C:\01. GitHub\CloseReport\00.CANON\
+AUTOR_HUMANO......: PABLO
+ACTUALIZAR_CUANDO.: cambia estado, entregable, siguiente paso, o foco principal
+
+==========
+01.00_QUE_ES_ESTE_PROYECTO
+==========
+
+NOMBRE............: CloseReport
+TIPO..............: Financial Close Reporting System
+OWNER.............: Pablo (SN Holding — Kumquat + KMT)
+ROOT..............: C:\01. GitHub\CloseReport
+REPO..............: github.com/[usuario]/CloseReport
+
+PROPOSITO.........:
+Reemplazar el proceso manual de armado del Comité de Finanzas
+mensual de SN Holding. Hoy ese proceso requiere copiar datos entre
+~10 archivos Excel distintos, con fórmulas rotas, categorías
+inconsistentes y sin fuente única de verdad.
+
+CloseReport establece una base de datos central que alimenta
+todos los reportes del comité automáticamente al refrescar.
+
+COMO_FUNCIONA.....:
+  Fuente (Excel raw)
+    → ETL Python (clean + normalize + export)
+      → CSV staging
+        → Excel Power Query (CloseReport.xlsm)
+          → Slides del Comité de Finanzas
+
+TECNOLOGIAS.......:
+  Python 3.x + pandas + openpyxl
+  PowerShell (orquestador)
+  Excel Power Query (inglés)
+  CSV (fase 1-2) → SQLite (fase 3-5) → PostgreSQL (fase 6+)
+  VS Code + Git
+
+==========
+02.00_ESTADO_ACTUAL
+==========
+
+FASE_ACTIVA.......: BOOTSTRAP — arquitectura validada, sin código aún
+SESION_ACTUAL.....: 1 (arranque del proyecto)
+PRIMERA_ENTREGA...: Fases 0 + 1 → movements.csv + CloseReport.xlsm
+                    con slides 3, 4, 5 recalculando sin intervención manual
+
+ENTREGABLES_LOGRADOS:
+  [x] Arquitectura de carpetas definida
+  [x] Constitution gate validado
+  [x] Decisiones documentadas (DEC-001 a DEC-008)
+  [x] Artefactos de canon generados (esta sesión)
+
+PENDIENTES:
+  [ ] PASO 2: .gitignore + requirements.txt + README.md
+  [ ] PASO 3: 06.TOOLS/validate_totals.py
+  [ ] PASO 4: Fase 0 — clean_bases.py
+
+==========
+03.00_FASES_DEL_PROYECTO
+==========
+
+  FASE  TABLA(S)            SLIDES    STATUS
+  ----  ------------------  --------  ----------
+  0     (ninguna nueva)     3,4,5     PENDING
+  1     movements           3,4,5     PENDING
+  2     usa_cashflow        12-18     BACKLOG
+  3     units + sales       8,10,11   BACKLOG
+  4     loans_ep            9         BACKLOG
+  5     budget_bs2          6         BACKLOG
+  6     BS1 flow (view)     7         BACKLOG
+
+==========
+04.00_SIGUIENTE_ACCION
+==========
+
+PRIORIDAD_INMEDIATA:
+  PASO 2 → generar .gitignore + requirements.txt + README.md
+  PASO 3 → generar validate_totals.py (gate de validación)
+  PASO 4 → Fase 0: clean_bases.py
+
+PARA_INICIAR_IA_EN_BLANCO:
+  1. Subir BATON.STATE.CloseReport.txt (este mismo directorio)
+  2. Subir 07.SKILLS/00.BUNDLE.CORE.txt
+  3. Subir 07.SKILLS/01.BUNDLE.CONTINUITY.txt
+  4. Declarar objetivo de la sesión en 1 línea
+
+==========
+05.00_RIESGOS_Y_PUNTOS_SENSIBLES
+==========
+
+RIESGO-001  Datos sensibles en 03.DATA/raw/ → nunca subir a git
+RIESGO-002  Bases tiene 115 categorías inconsistentes → Fase 0 crítica
+RIESGO-003  Precisión 4 decimales debe mantenerse en todo el pipeline
+RIESGO-004  Excel congelado es la referencia de verdad para validación
+RIESGO-005  Plan B se activa si Power Query no conecta tras 2 sesiones
+

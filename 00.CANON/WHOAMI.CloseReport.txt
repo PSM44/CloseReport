@@ -1,0 +1,105 @@
+==========
+00.00_METADATOS
+==========
+
+ID_UNICO..........: WHOAMI.CLOSEREPORT.01.00
+NOMBRE_SUGERIDO...: WHOAMI.CloseReport.txt
+VERSION...........: v1.0-BOOTSTRAP
+FECHA.............: 2026-06-30
+HORA..............: HH:MM
+CIUDAD............: Santiago, Chile
+UBICACION_SISTEMA.: C:\01. GitHub\CloseReport\00.CANON\
+AUTOR_HUMANO......: PABLO
+ACTUALIZAR_CUANDO.: cambia estado, entregable, siguiente paso, o foco principal
+
+==========
+01.00_QUE_ES_ESTE_PROYECTO
+==========
+
+NOMBRE............: CloseReport
+TIPO..............: Financial Close Reporting System
+OWNER.............: Pablo (SN Holding — Kumquat + KMT)
+ROOT..............: C:\01. GitHub\CloseReport
+REPO..............: github.com/[usuario]/CloseReport
+
+PROPOSITO.........:
+Reemplazar el proceso manual de armado del Comité de Finanzas
+mensual de SN Holding. Hoy ese proceso requiere copiar datos entre
+~10 archivos Excel distintos, con fórmulas rotas, categorías
+inconsistentes y sin fuente única de verdad.
+
+CloseReport establece una base de datos central que alimenta
+todos los reportes del comité automáticamente al refrescar.
+
+COMO_FUNCIONA.....:
+  Fuente (Excel raw)
+    → ETL Python (clean + normalize + export)
+      → CSV staging
+        → Excel Power Query (CloseReport.xlsm)
+          → Slides del Comité de Finanzas
+
+TECNOLOGIAS.......:
+  Python 3.x + pandas + openpyxl
+  PowerShell (orquestador)
+  Excel Power Query (inglés)
+  CSV (fase 1-2) → SQLite (fase 3-5) → PostgreSQL (fase 6+)
+  VS Code + Git
+
+==========
+02.00_ESTADO_ACTUAL
+==========
+
+FASE_ACTIVA.......: BOOTSTRAP — arquitectura validada, sin código aún
+SESION_ACTUAL.....: 1 (arranque del proyecto)
+PRIMERA_ENTREGA...: Fases 0 + 1 → movements.csv + CloseReport.xlsm
+                    con slides 3, 4, 5 recalculando sin intervención manual
+
+ENTREGABLES_LOGRADOS:
+  [x] Arquitectura de carpetas definida
+  [x] Constitution gate validado
+  [x] Decisiones documentadas (DEC-001 a DEC-008)
+  [x] Artefactos de canon generados (esta sesión)
+
+PENDIENTES:
+  [ ] PASO 2: .gitignore + requirements.txt + README.md
+  [ ] PASO 3: 06.TOOLS/validate_totals.py
+  [ ] PASO 4: Fase 0 — clean_bases.py
+
+==========
+03.00_FASES_DEL_PROYECTO
+==========
+
+  FASE  TABLA(S)            SLIDES    STATUS
+  ----  ------------------  --------  ----------
+  0     (ninguna nueva)     3,4,5     PENDING
+  1     movements           3,4,5     PENDING
+  2     usa_cashflow        12-18     BACKLOG
+  3     units + sales       8,10,11   BACKLOG
+  4     loans_ep            9         BACKLOG
+  5     budget_bs2          6         BACKLOG
+  6     BS1 flow (view)     7         BACKLOG
+
+==========
+04.00_SIGUIENTE_ACCION
+==========
+
+PRIORIDAD_INMEDIATA:
+  PASO 2 → generar .gitignore + requirements.txt + README.md
+  PASO 3 → generar validate_totals.py (gate de validación)
+  PASO 4 → Fase 0: clean_bases.py
+
+PARA_INICIAR_IA_EN_BLANCO:
+  1. Subir BATON.STATE.CloseReport.txt (este mismo directorio)
+  2. Subir 07.SKILLS/00.BUNDLE.CORE.txt
+  3. Subir 07.SKILLS/01.BUNDLE.CONTINUITY.txt
+  4. Declarar objetivo de la sesión en 1 línea
+
+==========
+05.00_RIESGOS_Y_PUNTOS_SENSIBLES
+==========
+
+RIESGO-001  Datos sensibles en 03.DATA/raw/ → nunca subir a git
+RIESGO-002  Bases tiene 115 categorías inconsistentes → Fase 0 crítica
+RIESGO-003  Precisión 4 decimales debe mantenerse en todo el pipeline
+RIESGO-004  Excel congelado es la referencia de verdad para validación
+RIESGO-005  Plan B se activa si Power Query no conecta tras 2 sesiones

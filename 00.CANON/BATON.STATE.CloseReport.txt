@@ -1,0 +1,177 @@
+==========
+00.00_METADATOS
+==========
+
+ID_UNICO..........: BATON.STATE.CLOSEREPORT.01.01
+NOMBRE_SUGERIDO...: BATON.STATE.CloseReport.txt
+VERSION...........: v1.1-SESION-001
+FECHA.............: 2026-06-30
+HORA..............: 17:30
+CIUDAD............: Santiago, Chile
+UBICACION_SISTEMA.: C:\01. GitHub\CloseReport\00.CANON\
+AUTOR_HUMANO......: PABLO
+NOTA..............: Actualizar al cerrar cada sesion. Derivado de HUMAN + SKILLS.
+
+==========
+01.00_IDENTIFICACION_DEL_PROYECTO
+==========
+
+PROYECTO..........: CloseReport
+ROOT..............: C:\01. GitHub\CloseReport
+OUTPUT_TYPE.......: DELIVERABLE_DONE
+PRECISION_RULE....: 4 decimales fijos en todos los exports CSV
+IDIOMA_EXCEL......: ingles (columnas, Power Query, nombres SQL)
+
+==========
+02.00_CONTEXTO_MINIMO_PARA_IA_EN_BLANCO
+==========
+
+ESTE_PROYECTO_TRATA_DE:
+  Reemplazar el armado manual del Comite de Finanzas mensual de
+  SN Holding (Kumquat + KMT). Hoy son ~10 archivos Excel con
+  formulas rotas y categorias inconsistentes.
+  CloseReport: fuente unica -> ETL Python -> CSV -> Power Query -> reportes.
+
+OBJETIVO_ACTIVO_HOY:
+  Sesion 001 completada: repo bootstrapped, RADAR corriendo.
+  Siguiente sesion: primer git commit + Fase 0 clean_bases.py.
+
+PRIMERA_ENTREGA_ACORDADA:
+  Fases 0 + 1 completas:
+  - clean_bases.py normaliza Bases sin errores
+  - movements.csv exportado en 03.DATA/staging/ con 4 decimales
+  - CloseReport.xlsm: F.C.KMT / F.CKUM / F.CMC via Power Query
+  - Totales coinciden con presentacion PDF mayo 2026 (diferencia = 0.0000)
+
+==========
+03.00_PRIORIDADES_ACTIVAS
+==========
+
+P0 (INMEDIATO — proxima sesion):
+  - Primer git commit (ver 09.00 para comandos exactos)
+  - Fase 0: clean_bases.py
+
+P1 (SIGUIENTE):
+  - Fase 1: load_movements.py + movements.csv
+  - Fase 1: CloseReport.xlsm Power Query setup
+  - Validacion: validate_totals.py confirma 0.0000 diferencia
+
+P2 (BACKLOG):
+  - Fases 2-6: resto de tablas y entidades
+
+==========
+04.00_ESTADO_DE_FASES
+==========
+
+  FASE  DESCRIPCION               STATUS
+  ----  ------------------------  ----------
+  0     Limpieza Bases            PENDING
+  1     MOVEMENTS table           PENDING
+  2     USA cashflow              BACKLOG
+  3     Units + Sales             BACKLOG
+  4     Loans EP                  BACKLOG
+  5     Budget BS2                BACKLOG
+  6     BS1 Full Flow (view)      BACKLOG
+
+==========
+05.00_ESTADO_DEL_REPO
+==========
+
+RADAR_RUN.........: 20260630_173022
+RADAR_ARCHIVOS....: 41 archivos / 11 carpetas / 375.18 KB
+RADAR_STATUS......: 6 outputs OK en 05.DOCS\
+ULTIMO_COMMIT.....: NINGUNO — pendiente primer commit
+RAMA..............: main (sin commits aun)
+
+OBSERVACIONES_RADAR:
+  - RADAR.LITE tenia 0 bytes en INDEX (artefacto del primer run fallido).
+    Se autocorrige en el proximo run post-commit.
+  - 02.ETL\00.clean y 02.ETL\01.load tenian .gitkeep faltante.
+    Corregido en esta sesion — incluir en primer commit.
+
+==========
+06.00_DECISIONES_TOMADAS
+==========
+
+DEC-001  OUTPUT_TYPE = DELIVERABLE_DONE
+DEC-002  Excel en ingles (columnas, Power Query, SQL)
+DEC-003  Precision fija = 4 decimales en todos los CSV
+DEC-004  Excel original congelado como referencia de validacion
+DEC-005  06.TOOLS\ para scripts de validacion y utilidades
+DEC-006  07.SKILLS\ para bundles SkillsMachine del proyecto
+DEC-007  03.DATA/raw/ ignorado en git (datos sensibles)
+DEC-008  Primera entrega: Fase 0+1 -> movements.csv + CloseReport.xlsm
+DEC-009  RADAR.ps1 compatible con PS 5.1 (fix @() y variables Sep)
+DEC-010  copy_skills.ps1 compatible con PS 5.1
+
+==========
+07.00_LIMITES_OPERATIVOS_IA
+==========
+
+PROJECT_ROOT......: C:\01. GitHub\CloseReport
+ESCRITURA_OK......: 00.CANON, 01.DB, 02.ETL, 05.DOCS, 06.TOOLS, 07.SKILLS
+READ_ONLY.........: 03.DATA\raw (datos fuente originales)
+IGNORADO_GIT......: 03.DATA\raw, 04.REPORTS\outputs, 90.TEMP
+CANON_AUTO........: PROHIBIDO — IA no modifica canon sin validacion explicita
+
+==========
+08.00_ARTEFACTOS_DE_REFERENCIA
+==========
+
+HUMAN_ROOT........: 00.CANON\HUMAN.CloseReport.txt
+WHOAMI............: 00.CANON\WHOAMI.CloseReport.txt
+RADAR_LITE........: 05.DOCS\RADAR.LITE.CloseReport.txt (run 20260630_173022)
+RADAR_INDEX.......: 05.DOCS\RADAR.INDEX.CloseReport.txt
+SKILLS_BUNDLE.....: 07.SKILLS\00.BUNDLE.CORE.txt
+                    07.SKILLS\01.BUNDLE.CONTINUITY.txt
+                    07.SKILLS\02.BUNDLE.GOVERNANCE.txt
+
+==========
+09.00_COMO_INICIAR_IA_EN_BLANCO
+==========
+
+  1. Subir este archivo: BATON.STATE.CloseReport.txt
+  2. Subir: 05.DOCS\RADAR.LITE.CloseReport.txt  (mapa rapido del repo)
+  3. Subir: 07.SKILLS\00.BUNDLE.CORE.txt
+  4. Subir: 07.SKILLS\01.BUNDLE.CONTINUITY.txt
+  5. Declarar objetivo de la sesion en 1 linea
+
+  Para Fase 0 (clean_bases.py), subir ademas:
+  6. 03.DATA\raw\2026_Mayo__2_.xlsx  (o resultado de clean previa)
+
+==========
+10.00_COMANDOS_PRIMER_COMMIT
+==========
+
+  # Desde C:\01. GitHub\CloseReport\
+
+  git init
+  git branch -M main
+  git add .
+  git status          # verificar que raw\ y outputs\ NO aparezcan
+  git commit -m "phase-0: project bootstrap -- canon, tools, RADAR"
+
+  # Opcional: conectar a remote
+  git remote add origin https://github.com/[usuario]/CloseReport.git
+  git push -u origin main
+
+==========
+11.00_RIESGOS_ACTIVOS
+==========
+
+RIESGO-001  03.DATA\raw\ nunca sube a git — datos sensibles
+RIESGO-002  Bases: 115 categorias inconsistentes — Fase 0 critica
+RIESGO-003  Precision 4 decimales en todo el pipeline
+RIESGO-004  Excel congelado = referencia para validate_totals.py
+RIESGO-005  Plan B activa si Power Query no conecta tras 2 sesiones
+
+PLAN_B_TRIGGER....: Power Query no conecta o totales no coinciden tras 2 sesiones
+PLAN_B_ACTION.....: Entregar movements.csv + instrucciones carga manual.
+
+==========
+12.00_TIMELOG
+==========
+
+  SESION  FECHA       FOCO                                    HRS_EST
+  ------  ----------  ------------------------------------    -------
+  001     2026-06-30  Bootstrap + arquitectura + RADAR         1.5h
