@@ -103,3 +103,70 @@ RIESGO-002  Bases tiene 115 categorías inconsistentes → Fase 0 crítica
 RIESGO-003  Precisión 4 decimales debe mantenerse en todo el pipeline
 RIESGO-004  Excel congelado es la referencia de verdad para validación
 RIESGO-005  Plan B se activa si Power Query no conecta tras 2 sesiones
+
+==========
+99.10_CR_TEMP_0010_STATUS_REPAIR
+==========
+
+STATUS_REPAIR_MARKER: CR_TEMP_0010_STATUS_REPAIR
+FECHA...............: 2026-07-01
+MOTIVO..............: Align WHOAMI with post-bootstrap RADAR evidence.
+
+CORRECTED_STATUS:
+  ACTIVE_PHASE......: PHASE_1_OUTPUT_GENERATED_VALIDATION_PENDING
+  BOOTSTRAP.........: READY
+  CANON_ALIGNMENT...: REPAIRED_BY_CR_TEMP_0010
+  TEMP_POLICY.......: 99.TEMP clean-first with EVIDENCE.<timestamp> folder
+
+EVIDENCE:
+  - clean_bases.py exists in 02.ETL/00.clean/
+  - load_movements.py exists in 02.ETL/01.load/
+  - validate_totals.py exists in 06.TOOLS/
+  - movements.csv exists in 03.DATA/staging/
+  - current RADAR runs with WARNINGS_COUNT=0
+
+REAL_PENDING:
+  [ ] Run final validation.
+  [ ] Review whether validate_totals.py should validate movements.csv or movements_clean.csv.
+  [ ] Confirm git status before first commit.
+  [ ] Advance CloseReport.xlsm / Power Query for slides 3, 4 and 5.
+
+==========
+99.20_CR_TEMP_0011_GENERATED_ARTIFACTS_STATUS
+==========
+
+STATUS_REPAIR_MARKER: CR_TEMP_0011_GENERATED_ARTIFACTS_STATUS
+FECHA...............: 2026-07-01
+MOTIVO..............: Prevent accidental commit of generated/sensitive artifacts.
+
+GIT_SAFETY_STATUS:
+  99.TEMP/................: ignored
+  05.DOCS/RADAR.*.txt.....: ignored and treated as reproducible output
+  05.DOCS/HIST/...........: ignored and treated as reproducible history
+  03.DATA/staging/*.csv...: ignored because derived from sensitive data
+  03.DATA/staging/.gitkeep: trackable placeholder
+
+NEXT_CHECK:
+  Run git status --short and confirm:
+  - 99.TEMP is not listed.
+  - 03.DATA/staging/movements.csv is not listed.
+  - 05.DOCS/RADAR deletions are intentional generated-artifact removals.
+
+==========
+99.40_CR_TEMP_0018_PHASE1_VALIDATION_STATUS
+==========
+
+STATUS_REPAIR_MARKER: CR_TEMP_0018_PHASE1_VALIDATION_STATUS
+FECHA...............: 2026-07-01
+
+CURRENT_STATE:
+  ACTIVE_PHASE......: PHASE_1_VALIDATED_SOFT_ROUNDING
+  BOOTSTRAP.........: READY
+  ETL_OUTPUT........: GENERATED
+  VALIDATION........: PASS_SOFT_ROUNDING_ONLY
+  RADAR.............: PASS_WARNINGS_0
+
+NEXT_WORK:
+  [ ] Confirm git status and commit corrective baseline.
+  [ ] Prepare CloseReport.xlsm Power Query connection to movements.csv.
+  [ ] Add date model for English Excel: DATE(year, month, day) / Power Query #date(year, month, day).

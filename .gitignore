@@ -1,7 +1,8 @@
 # === SENSITIVE DATA — never commit ===
 03.DATA/raw/
 04.REPORTS/outputs/
-90.TEMP/
+# === RADAR HIST — local archive, not in git ===
+05.DOCS/HIST/
 
 # === Python ===
 __pycache__/
@@ -29,3 +30,20 @@ desktop.ini
 *.db
 *.db-shm
 *.db-wal
+99.TEMP/
+05.DOCS/RADAR.*.txt
+03.DATA/staging/*.csv
+!03.DATA/staging/.gitkeep
+
+# GENERATED_ARTIFACTS_POLICY_CR_TEMP_0011
+# Generated local-only artifacts:
+# - 99.TEMP/ contains one-shots, evidence, RADAR_ACTIVE outputs, upload context.
+# - 05.DOCS/RADAR.*.txt are legacy generated RADAR outputs; local-only.
+# - 05.DOCS/HIST/ is local-only.
+# - 03.DATA/staging/*.csv is derived from sensitive raw data; local-only unless sanitized.
+98.IA.History/
+
+# AI_HISTORY_POLICY_CR_TEMP_0012
+# AI conversation/history exports are local-only by default.
+# They may contain sensitive context and should only be committed if sanitized and explicitly approved.
+98.IA.History/

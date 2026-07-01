@@ -111,7 +111,7 @@ DEC-010  copy_skills.ps1 compatible con PS 5.1
 PROJECT_ROOT......: C:\01. GitHub\CloseReport
 ESCRITURA_OK......: 00.CANON, 01.DB, 02.ETL, 05.DOCS, 06.TOOLS, 07.SKILLS
 READ_ONLY.........: 03.DATA\raw (datos fuente originales)
-IGNORADO_GIT......: 03.DATA\raw, 04.REPORTS\outputs, 90.TEMP
+IGNORADO_GIT......: 03.DATA\raw, 04.REPORTS\outputs, 99.TEMP
 CANON_AUTO........: PROHIBIDO — IA no modifica canon sin validacion explicita
 
 ==========
@@ -175,3 +175,102 @@ PLAN_B_ACTION.....: Entregar movements.csv + instrucciones carga manual.
   SESION  FECHA       FOCO                                    HRS_EST
   ------  ----------  ------------------------------------    -------
   001     2026-06-30  Bootstrap + arquitectura + RADAR         1.5h
+
+==========
+99.10_CR_TEMP_0010_BATON_REPAIR
+==========
+
+STATUS_REPAIR_MARKER: CR_TEMP_0010_BATON_REPAIR
+FECHA...............: 2026-07-01
+MOTIVO..............: Update BATON to actual evidence after CR_TEMP_0008.
+
+CORRECTED_OPERATIONAL_STATUS:
+  BOOTSTRAP_STATUS...: READY
+  TEMP_POLICY........: CLEAN_99_TEMP_BEFORE_CREATE_WITH_EVIDENCE_FOLDER
+  RADAR_STATUS.......: PASS_WARNINGS_0
+  ETL_STATUS.........: PHASE_1_OUTPUT_GENERATED_VALIDATION_PENDING
+  COMMIT_STATUS......: PENDING
+
+ADDITIONAL_DECISIONS:
+  DEC-011  load_movements.py infers entry_type for confirmed NULL rows.
+  DEC-012  99.TEMP is the canonical temporary workspace; 99.TEMP is obsolete in CloseReport.
+  DEC-013  Runtime evidence goes under 99.TEMP/EVIDENCE.<timestamp>/.
+  DEC-014  Local RADAR output goes under 99.TEMP/RADAR_ACTIVE.<timestamp>/.
+
+NEXT_ACTION:
+  1. Run validate_totals.py.
+  2. If it validates movements_clean.csv but not movements.csv, decide whether to split validations.
+  3. Run git status.
+  4. Confirm 99.TEMP is not listed in staging.
+  5. First commit only after canon/config is clean.
+
+==========
+99.20_CR_TEMP_0011_GENERATED_ARTIFACTS_POLICY
+==========
+
+STATUS_REPAIR_MARKER: CR_TEMP_0011_GENERATED_ARTIFACTS_POLICY
+FECHA...............: 2026-07-01
+MOTIVO..............: Formalize generated artifacts before first commit.
+
+POLICY:
+  99.TEMP/................: local-only temporary workspace
+  05.DOCS/RADAR.*.txt.....: legacy generated RADAR outputs, local-only
+  05.DOCS/HIST/...........: legacy RADAR history, local-only
+  03.DATA/staging/*.csv...: generated from sensitive source data, local-only
+  03.DATA/staging/.gitkeep: keep tracked to preserve folder
+
+GIT_DECISION:
+  Previously tracked 05.DOCS/RADAR outputs may appear as deleted.
+  This is acceptable if the project confirms RADAR outputs now live under 99.TEMP/RADAR_ACTIVE.<timestamp>/.
+  Do not commit staging CSVs unless sanitized and explicitly approved.
+
+==========
+99.30_CR_TEMP_0012_AI_HISTORY_POLICY
+==========
+
+STATUS_REPAIR_MARKER: CR_TEMP_0012_AI_HISTORY_POLICY
+FECHA...............: 2026-07-01
+MOTIVO..............: Keep AI history exports local-only before first commit.
+
+POLICY:
+  98.IA.History/ is ignored by default.
+  It may contain sensitive context and should only be committed if sanitized and explicitly approved.
+
+PRECOMMIT_RULE:
+  Do not commit 98.IA.History/ in CloseReport baseline.
+
+==========
+99.40_CR_TEMP_0018_PHASE1_VALIDATION_DECISION
+==========
+
+STATUS_REPAIR_MARKER: CR_TEMP_0018_PHASE1_VALIDATION_DECISION
+FECHA...............: 2026-07-01
+MOTIVO..............: Record Phase 1 validation gate after ETL regeneration.
+
+VALIDATION_RESULT:
+  clean_bases.py........: PASS
+  load_movements.py.....: PASS
+  validate_totals.py....: PASS_SOFT_ROUNDING_ONLY
+  RADAR.................: PASS_WARNINGS_0
+
+EVIDENCE:
+  ROWS_MOVEMENTS........: 4501
+  ROWS_REFERENCE........: 4501
+  GROUPS_MOVEMENTS......: 588
+  GROUPS_REFERENCE......: 588
+  TOTAL_DELTA_UF........: 0.0003
+  MISMATCHES............: 50
+  MAX_DELTA_ABS.........: 0.0004
+  SUM_DELTA_ABS.........: 0.0116
+  OVER_SOFT_GROUP.......: 0
+
+DECISION:
+  DEC-015 Phase 1 accepts soft rounding validation when:
+    - total_delta_uf <= 0.0010
+    - max_delta_abs <= 0.0010
+    - over_soft_group = 0
+  Current run satisfies the policy.
+
+NEXT_ACTION:
+  Proceed to Power Query setup for CloseReport.xlsm using English Excel conventions.
+  Date fields should support Excel DATE(year, month, day) or Power Query #date(year, month, day).

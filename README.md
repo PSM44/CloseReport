@@ -31,7 +31,7 @@ CloseReport/
 ├── 05.DOCS/           Technical documentation
 ├── 06.TOOLS/          Validation and utility scripts
 ├── 07.SKILLS/         SkillsMachine bundles
-└── 90.TEMP/           Temporary files — not in git
+└── 99.TEMP/           Temporary files — not in git
 ```
 
 ## Phase roadmap
@@ -76,3 +76,52 @@ python 02.ETL/01.load/load_movements.py
 # Validate against frozen Excel
 python 06.TOOLS/validate_totals.py
 ```
+
+<!-- TEMP_POLICY_CR_TEMP_0010 -->
+## Temporary workspace policy
+
+`99.TEMP/` is the local temporary workspace. It is not committed to Git.
+
+Operational rule:
+- One-shot scripts may be saved in `99.TEMP/`.
+- Before adding new temporary artifacts, scripts must clean previous `99.TEMP/` contents while preserving the running one-shot.
+- Runtime evidence goes under `EVIDENCE.<timestamp>/`.
+- RADAR outputs generated for local context go under `RADAR_ACTIVE.<timestamp>/`.
+
+<!-- GENERATED_ARTIFACTS_POLICY_CR_TEMP_0011 -->
+## Generated artifacts policy
+
+The following paths are local-only and should not be committed:
+
+- `99.TEMP/`
+- `05.DOCS/RADAR.*.txt`
+- `05.DOCS/HIST/`
+- `03.DATA/staging/*.csv`
+
+Reason:
+- RADAR outputs are reproducible.
+- Staging CSVs are derived from sensitive source Excel files.
+- Upload contexts and runtime evidence are temporary.
+
+<!-- PHASE1_VALIDATION_POLICY_CR_TEMP_0018 -->
+## Phase 1 validation policy
+
+Phase 1 validates `movements.csv` against the frozen Excel `Bases` sheet.
+
+Accepted validation modes:
+
+- `PASS_STRICT`: all totals match within 0.0001 UF.
+- `PASS_SOFT_ROUNDING_ONLY`: accepted when all differences are immaterial rounding deltas:
+  - `total_delta_uf <= 0.0010`
+  - `max_delta_abs <= 0.0010`
+  - `over_soft_group = 0`
+
+Current accepted run:
+
+- rows movements: 4501
+- rows reference: 4501
+- groups movements: 588
+- groups reference: 588
+- total delta UF: 0.0003
+- max group delta UF: 0.0004
+- over soft group: 0

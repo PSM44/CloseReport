@@ -1,422 +1,412 @@
-<#
-.SYNOPSIS
-    RADAR generator for CloseReport -- produces 6 outputs per SKILL.RADAR v1.4 contract.
+# RADAR.ps1 -- CloseReport
+# Safe repaired version from CR-TEMP-0006
+# Compatible: Windows PowerShell 5.1 and PowerShell 7+
+#
+# Contract:
+# - Cleans 99.TEMP BEFORE creating any new TEMP artifact.
+# - When called by a TEMP one-shot, preserves paths listed in CR_TEMP_PRESERVE_PATHS.
+# - Writes RADAR outputs to isolated 99.TEMP\RADAR_ACTIVE.<timestamp>.
+# - Excludes previous RADAR outputs under 05.DOCS and 99.TEMP from scan.
+# - Handles locked/unreadable files as warnings, not red terminal errors.
+# - Emits visible AI_TAIL banners and machine-readable AI_TAIL lines.
 
-.DESCRIPTION
-    Active outputs written to 05.DOCS\:
-      RADAR.LITE.CloseReport.txt
-      RADAR.INDEX.CloseReport.txt
-      RADAR.CORE.CloseReport.txt
-      RADAR.FULL.CloseReport.txt
-      RADAR.FULL.HUMAN.CloseReport.txt
-      RADAR.FULL.SKILLS.CloseReport.txt
-
-    HIST structure -- one subfolder per run (no mixing between runs):
-      05.DOCS\HIST\<RunTimestamp>\
-        RADAR.LITE.CloseReport.txt
-        RADAR.INDEX.CloseReport.txt
-        RADAR.CORE.CloseReport.txt
-        RADAR.FULL.CloseReport.txt
-        RADAR.FULL.HUMAN.CloseReport.txt
-        RADAR.FULL.SKILLS.CloseReport.txt
-
-    Note: 05.DOCS\HIST\ is gitignored (local archive only).
-          Active 05.DOCS\RADAR.*.txt files ARE tracked in git.
-
-    Exclusions: .git\, 90.TEMP\, 03.DATA\raw\, 04.REPORTS\outputs\, __pycache__\
-    Compatible: Windows PowerShell 5.1+
-    Exit 0 = all 6 outputs written. Exit 1 = failure.
-
-.USAGE
-    .\06.TOOLS\RADAR.ps1
-    .\06.TOOLS\RADAR.ps1 -NoHist
-#>
-
-[CmdletBinding()]
 param(
-    [switch]$NoHist
+    [switch]$NoHist,
+    [string]$Root,
+    [string]$OutDir
 )
 
-Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+$MB_ID = "CR-SYS-000-RADAR"
 
-# ---------------------------------------------------------------------------
-# Config
-# ---------------------------------------------------------------------------
-$ProjectRoot     = (Resolve-Path "$PSScriptRoot\..").Path
-$ProjectName     = "CloseReport"
-$DocsDir         = Join-Path $ProjectRoot "05.DOCS"
-$HistDir         = Join-Path $DocsDir "HIST"
-$HashThresholdMB = 50
-$RunTS           = Get-Date -Format "yyyyMMdd_HHmmss"
-$RunTSHuman      = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-$Sep64           = "=" * 64
-
-$ExcludeDirs = @(".git", "90.temp", "03.data\raw", "04.reports\outputs", "__pycache__")
-
-$KnownPurpose = @{
-    "WHOAMI.CloseReport.txt"             = "Human-readable project identity and current state"
-    "BATON.STATE.CloseReport.txt"        = "AI handoff snapshot -- upload to blank AI to resume work"
-    "HUMAN.CloseReport.txt"              = "Deep documentation -- decisions, architecture, conventions"
-    "RADAR.LITE.CloseReport.txt"         = "RADAR output -- inventory summary (active, tracked in git)"
-    "RADAR.INDEX.CloseReport.txt"        = "RADAR output -- full file inventory with SHA256 (active, tracked)"
-    "RADAR.CORE.CloseReport.txt"         = "RADAR output -- text content by layer (active, tracked)"
-    "RADAR.FULL.CloseReport.txt"         = "RADAR output -- INDEX + CORE consolidated (active, tracked)"
-    "RADAR.FULL.HUMAN.CloseReport.txt"   = "RADAR output -- compiled HUMAN content for AI (active, tracked)"
-    "RADAR.FULL.SKILLS.CloseReport.txt"  = "RADAR output -- compiled SKILLS content for AI (active, tracked)"
-    "ROADMAP.md"                         = "Phase roadmap with criteria for done"
-    "SCHEMA.md"                          = "Database table descriptions"
-    "clean_bases.py"                     = "Phase 0 ETL -- normalize Bases categories and entry types"
-    "load_movements.py"                  = "Phase 1 ETL -- export movements.csv from clean Bases"
-    "validate_totals.py"                 = "Gate tool -- compare CSV totals vs frozen Excel reference"
-    "copy_skills.ps1"                    = "Tool -- copy SkillsMachine bundles to 07.SKILLS\"
-    "RADAR.ps1"                          = "Tool -- generate all 6 RADAR outputs (this script)"
-    "run_etl.ps1"                        = "Orchestrator -- runs full ETL pipeline"
-    "requirements.txt"                   = "Python dependencies"
-    "README.md"                          = "Project overview and quick start"
-    ".gitignore"                         = "Git exclusion rules -- HIST and raw\ are local-only"
-    ".gitattributes"                     = "Line ending policy -- LF in repo, CRLF for .ps1 on checkout"
-    "movements.csv"                      = "Phase 1 output -- normalized movements in staging\"
-    ".gitkeep"                           = "Placeholder to keep folder tracked in git"
+if ([string]::IsNullOrWhiteSpace($Root)) {
+    $Root = Split-Path -Parent $PSScriptRoot
 }
 
-# ---------------------------------------------------------------------------
-# Helpers
-# ---------------------------------------------------------------------------
+$TempRoot = Join-Path $Root "99.TEMP"
 
-function Get-RelPath([string]$full) {
-    return $full.Substring($ProjectRoot.Length).TrimStart("\")
-}
-
-function Get-FileType([string]$ext) {
-    switch ($ext.ToLower()) {
-        { $_ -in @(".txt",".md",".ps1",".py",".sql",".csv",".json",".gitignore",".gitattributes",".gitkeep") } { return "text" }
-        { $_ -in @(".xlsx",".xlsm",".xls") } { return "xlsx" }
-        ".pdf"                                { return "pdf" }
-        { $_ -in @(".zip",".gz",".tar") }    { return "archive" }
-        { $_ -in @(".png",".jpg",".svg") }   { return "image" }
-        default                               { return "binary" }
+function Test-SamePath {
+    param(
+        [Parameter(Mandatory=$true)][string]$A,
+        [Parameter(Mandatory=$true)][string]$B
+    )
+    try {
+        $ra = [System.IO.Path]::GetFullPath($A).TrimEnd("\")
+        $rb = [System.IO.Path]::GetFullPath($B).TrimEnd("\")
+        return $ra.Equals($rb, [System.StringComparison]::OrdinalIgnoreCase)
+    }
+    catch {
+        return $false
     }
 }
 
-function Get-SHA256([string]$path, [long]$sizeBytes) {
-    $threshold = $HashThresholdMB * 1MB
-    if ($sizeBytes -gt $threshold) { return "HASH_OMITIDO_POR_TAMANO" }
-    try   { return (Get-FileHash -Path $path -Algorithm SHA256).Hash }
-    catch { return "HASH_ERROR" }
+function Clear-TempPreserve {
+    param(
+        [Parameter(Mandatory=$true)][string]$Path,
+        [string[]]$PreservePaths = @()
+    )
+
+    if (-not (Test-Path $Path)) {
+        New-Item -ItemType Directory -Path $Path -Force | Out-Null
+        return
+    }
+
+    foreach ($item in @(Get-ChildItem -LiteralPath $Path -Force)) {
+        $preserve = $false
+        foreach ($p in $PreservePaths) {
+            if (-not [string]::IsNullOrWhiteSpace($p)) {
+                if (Test-SamePath -A $item.FullName -B $p) {
+                    $preserve = $true
+                    break
+                }
+            }
+        }
+
+        if (-not $preserve) {
+            Remove-Item -LiteralPath $item.FullName -Recurse -Force
+        }
+    }
 }
 
-function Test-Excluded([string]$relPath) {
-    $rel = $relPath.ToLower()
-    foreach ($excl in $ExcludeDirs) {
-        if ($rel -eq $excl -or $rel.StartsWith($excl + "\")) { return $true }
+$preservePaths = @()
+if (-not [string]::IsNullOrWhiteSpace($env:CR_TEMP_PRESERVE_PATHS)) {
+    $preservePaths = @($env:CR_TEMP_PRESERVE_PATHS -split "\|" | Where-Object { -not [string]::IsNullOrWhiteSpace($_) })
+}
+
+# Hard operational rule:
+# Before adding any new artifact to TEMP, delete previous TEMP contents.
+Clear-TempPreserve -Path $TempRoot -PreservePaths $preservePaths
+
+if ([string]::IsNullOrWhiteSpace($OutDir)) {
+    $OutDir = Join-Path $TempRoot "RADAR_ACTIVE.$(Get-Date -Format 'yyyyMMdd_HHmmss')"
+}
+
+$ProjectName = "CloseReport"
+$RunStamp = Get-Date -Format "yyyyMMdd-HHmmss"
+$RunHuman = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+$HashThresholdBytes = 50MB
+$Warnings = New-Object System.Collections.Generic.List[string]
+
+$ExcludedDirFragments = @(
+    "\.git\",
+    "\99.TEMP\",
+    "\90.TEMP\",
+    "\03.DATA\raw\",
+    "\04.REPORTS\outputs\",
+    "\05.DOCS\HIST\",
+    "\__pycache__\"
+)
+
+$ExcludedFilePatterns = @(
+    "05.DOCS\RADAR.LITE.CloseReport.txt",
+    "05.DOCS\RADAR.INDEX.CloseReport.txt",
+    "05.DOCS\RADAR.CORE.CloseReport.txt",
+    "05.DOCS\RADAR.FULL.CloseReport.txt",
+    "05.DOCS\RADAR.FULL.HUMAN.CloseReport.txt",
+    "05.DOCS\RADAR.FULL.SKILLS.CloseReport.txt"
+)
+
+$TextExtensions = @(
+    ".txt", ".md", ".ps1", ".py", ".json", ".csv", ".sql", ".m",
+    ".yml", ".yaml", ".xml", ".ini", ".cfg", ".gitignore", ".gitattributes", ".gitkeep"
+)
+
+function Write-Utf8NoBom {
+    param(
+        [Parameter(Mandatory=$true)][string]$Path,
+        [Parameter(Mandatory=$true)][string]$Content
+    )
+    $dir = Split-Path -Parent $Path
+    if (-not (Test-Path $dir)) { New-Item -ItemType Directory -Path $dir -Force | Out-Null }
+    $enc = New-Object System.Text.UTF8Encoding($false)
+    [System.IO.File]::WriteAllText($Path, $Content, $enc)
+}
+
+function Get-RelPath {
+    param([Parameter(Mandatory=$true)][string]$FullPath)
+    return $FullPath.Substring($Root.Length).TrimStart("\", "/")
+}
+
+function Is-Excluded {
+    param([Parameter(Mandatory=$true)][string]$FullPath)
+
+    $rel = (Get-RelPath -FullPath $FullPath).Replace("/", "\")
+    $normalized = "\" + $rel
+
+    foreach ($pattern in $ExcludedFilePatterns) {
+        if ($rel.Equals($pattern, [System.StringComparison]::OrdinalIgnoreCase)) {
+            return $true
+        }
     }
+
+    foreach ($frag in $ExcludedDirFragments) {
+        if ($normalized.ToLowerInvariant().Contains($frag.ToLowerInvariant())) {
+            return $true
+        }
+    }
+
     return $false
 }
 
-function New-Utf8Writer([string]$path) {
-    return [System.IO.StreamWriter]::new($path, $false, [System.Text.Encoding]::UTF8)
+function Get-LogicalType {
+    param([Parameter(Mandatory=$true)][System.IO.FileInfo]$File)
+    $ext = $File.Extension.ToLowerInvariant()
+    if ($TextExtensions -contains $ext) { return "text" }
+    if ($ext -eq ".xlsx" -or $ext -eq ".xlsm" -or $ext -eq ".xls") { return "xlsx" }
+    if ($ext -eq ".pdf") { return "pdf" }
+    if (@(".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg") -contains $ext) { return "image" }
+    return "binary"
 }
 
-function Write-WbsHeader([System.IO.StreamWriter]$sw, [string]$type) {
-    $sw.WriteLine("==========")
-    $sw.WriteLine("00.00_METADATOS")
-    $sw.WriteLine("==========")
-    $sw.WriteLine("")
-    $sw.WriteLine("RADAR_TYPE........: $type")
-    $sw.WriteLine("PROYECTO..........: $ProjectName")
-    $sw.WriteLine("ROOT..............: $ProjectRoot")
-    $sw.WriteLine("GENERADO..........: $RunTSHuman")
-    $sw.WriteLine("SCRIPT............: 06.TOOLS\RADAR.ps1")
-    $sw.WriteLine("SKILL_REF.........: 09.SKILL.RADAR.txt v1.4")
-    $sw.WriteLine("HASH_UMBRAL_MB....: $HashThresholdMB")
-    $sw.WriteLine("EXCLUSIONES.......: .git\, 90.TEMP\, 03.DATA\raw\, 04.REPORTS\outputs\, __pycache__\")
-    $sw.WriteLine("HIST_ESTRUCTURA...: 05.DOCS\HIST\<RunTimestamp>\ (un subfolder por run)")
-    $sw.WriteLine("HIST_GIT..........: IGNORADO (gitignore) -- solo archivos activos van a git")
-    $sw.WriteLine("ENCODING..........: UTF-8")
-    $sw.WriteLine("")
-}
+function Get-ShaSafe {
+    param([Parameter(Mandatory=$true)][System.IO.FileInfo]$File)
 
-# ---------------------------------------------------------------------------
-# Ensure output dirs
-# ---------------------------------------------------------------------------
-if (-not (Test-Path $DocsDir)) { New-Item -ItemType Directory -Path $DocsDir -Force | Out-Null }
-if (-not (Test-Path $HistDir))  { New-Item -ItemType Directory -Path $HistDir  -Force | Out-Null }
-
-$OutLite       = Join-Path $DocsDir "RADAR.LITE.$ProjectName.txt"
-$OutIndex      = Join-Path $DocsDir "RADAR.INDEX.$ProjectName.txt"
-$OutCore       = Join-Path $DocsDir "RADAR.CORE.$ProjectName.txt"
-$OutFull       = Join-Path $DocsDir "RADAR.FULL.$ProjectName.txt"
-$OutFullHuman  = Join-Path $DocsDir "RADAR.FULL.HUMAN.$ProjectName.txt"
-$OutFullSkills = Join-Path $DocsDir "RADAR.FULL.SKILLS.$ProjectName.txt"
-
-Write-Host ""
-Write-Host $Sep64
-Write-Host "  RADAR.ps1 -- $ProjectName"
-Write-Host "  Run: $RunTSHuman"
-Write-Host $Sep64
-Write-Host ""
-
-# ---------------------------------------------------------------------------
-# [1/7] Scan
-# ---------------------------------------------------------------------------
-Write-Host "  [1/7] Scanning $ProjectRoot ..."
-
-$AllFiles = @(
-    Get-ChildItem -Path $ProjectRoot -Recurse -File |
-    Where-Object { -not (Test-Excluded (Get-RelPath $_.FullName)) } |
-    Sort-Object FullName
-)
-
-$FileData = @(foreach ($f in $AllFiles) {
-    $rel  = Get-RelPath $f.FullName
-    $ext  = $f.Extension
-    $type = Get-FileType $ext
-    $sha  = Get-SHA256 $f.FullName $f.Length
-    $purp = if ($KnownPurpose.ContainsKey($f.Name)) { $KnownPurpose[$f.Name] } else { "" }
-
-    [PSCustomObject]@{
-        FullPath = $f.FullName
-        RelPath  = $rel
-        Name     = $f.Name
-        Ext      = if ($ext) { $ext } else { "(none)" }
-        SizeB    = $f.Length
-        Modified = $f.LastWriteTime.ToString("yyyy-MM-dd HH:mm:ss")
-        Type     = $type
-        SHA256   = $sha
-        Purpose  = $purp
-        Folder   = (Split-Path $rel -Parent)
+    if ($File.Length -gt $HashThresholdBytes) {
+        return "HASH_OMITIDO_POR_TAMANO"
     }
-})
 
-$HumanFiles  = @($FileData | Where-Object { $_.RelPath -like "00.CANON\*" })
-$SkillsFiles = @($FileData | Where-Object { $_.RelPath -like "07.SKILLS\*" })
-$TextFiles   = @($FileData | Where-Object { $_.Type -eq "text" })
-$TotalFiles  = $FileData.Count
-$TotalSizeKB = [math]::Round(($FileData | Measure-Object -Property SizeB -Sum).Sum / 1KB, 2)
-$UniqFolders = @($FileData | Select-Object -ExpandProperty Folder | Sort-Object -Unique)
-$TotalFolders = $UniqFolders.Count
+    try {
+        return (Get-FileHash -Algorithm SHA256 -LiteralPath $File.FullName -ErrorAction Stop).Hash
+    }
+    catch {
+        $rel = Get-RelPath -FullPath $File.FullName
+        $Warnings.Add("HASH_ERROR: $rel -- $($_.Exception.Message)") | Out-Null
+        return "HASH_ERROR_LOCKED_OR_UNREADABLE"
+    }
+}
 
-Write-Host ("      Found $TotalFiles files in ~$TotalFolders folders ($TotalSizeKB KB)")
+function Write-RadarHeader {
+    param(
+        [Parameter(Mandatory=$true)][System.Text.StringBuilder]$Sb,
+        [Parameter(Mandatory=$true)][string]$RadarType
+    )
+    [void]$Sb.AppendLine("==========")
+    [void]$Sb.AppendLine("00.00_METADATOS")
+    [void]$Sb.AppendLine("==========")
+    [void]$Sb.AppendLine("")
+    [void]$Sb.AppendLine("RADAR_TYPE........: $RadarType")
+    [void]$Sb.AppendLine("PROYECTO..........: $ProjectName")
+    [void]$Sb.AppendLine("ROOT..............: $Root")
+    [void]$Sb.AppendLine("OUTDIR............: $OutDir")
+    [void]$Sb.AppendLine("GENERADO..........: $RunHuman")
+    [void]$Sb.AppendLine("SCRIPT............: 06.TOOLS\RADAR.ps1")
+    [void]$Sb.AppendLine("SKILL_REF.........: 09.SKILL.RADAR.txt v1.4")
+    [void]$Sb.AppendLine("HASH_UMBRAL_MB....: 50")
+    [void]$Sb.AppendLine("EXCLUSIONES.......: .git\, 99.TEMP\, 90.TEMP\, 03.DATA\raw\, 04.REPORTS\outputs\, 05.DOCS\HIST\, 05.DOCS\RADAR.*.txt, __pycache__\")
+    [void]$Sb.AppendLine("TEMP_POLICY.......: CLEAN_99_TEMP_BEFORE_CREATE")
+    [void]$Sb.AppendLine("ENCODING..........: UTF-8")
+    [void]$Sb.AppendLine("")
+}
 
-# ---------------------------------------------------------------------------
-# [2/7] LITE
-# ---------------------------------------------------------------------------
+function Append-Warnings {
+    param([Parameter(Mandatory=$true)][System.Text.StringBuilder]$Sb)
+    [void]$Sb.AppendLine("")
+    [void]$Sb.AppendLine("==========")
+    [void]$Sb.AppendLine("99.00_WARNINGS")
+    [void]$Sb.AppendLine("==========")
+    if ($Warnings.Count -eq 0) {
+        [void]$Sb.AppendLine("WARNINGS_COUNT: 0")
+    }
+    else {
+        [void]$Sb.AppendLine("WARNINGS_COUNT: $($Warnings.Count)")
+        foreach ($w in $Warnings) { [void]$Sb.AppendLine("- $w") }
+    }
+}
+
+function Append-FileContent {
+    param(
+        [Parameter(Mandatory=$true)][System.Text.StringBuilder]$Sb,
+        [Parameter(Mandatory=$true)][System.IO.FileInfo]$File,
+        [string]$Label = "FILE",
+        [int64]$MaxTextBytes = 2000000
+    )
+    $rel = Get-RelPath -FullPath $File.FullName
+    [void]$Sb.AppendLine("")
+    [void]$Sb.AppendLine("----------------------------------------------------------------------")
+    [void]$Sb.AppendLine(("{0}: {1}" -f $Label, $rel))
+    [void]$Sb.AppendLine("BYTES: $($File.Length)")
+    [void]$Sb.AppendLine("MODIFIED: $($File.LastWriteTime.ToString('yyyy-MM-dd HH:mm:ss'))")
+    [void]$Sb.AppendLine("----------------------------------------------------------------------")
+    if ($File.Length -gt $MaxTextBytes) {
+        [void]$Sb.AppendLine("SKIPPED_TOO_LARGE")
+        return
+    }
+    try {
+        [void]$Sb.AppendLine((Get-Content -LiteralPath $File.FullName -Raw -Encoding UTF8 -ErrorAction Stop))
+    }
+    catch {
+        $Warnings.Add("READ_ERROR: $rel -- $($_.Exception.Message)") | Out-Null
+        [void]$Sb.AppendLine("READ_ERROR: $($_.Exception.Message)")
+    }
+}
+
+function Save-Output {
+    param(
+        [Parameter(Mandatory=$true)][string]$Name,
+        [Parameter(Mandatory=$true)][string]$Content
+    )
+    $activePath = Join-Path $OutDir $Name
+    Write-Utf8NoBom -Path $activePath -Content $Content
+    return $activePath
+}
+
+$sep = "=" * 64
+Write-Host ""
+Write-Host $sep
+Write-Host "  RADAR.ps1 -- CloseReport  [CR-SYS-000]"
+Write-Host "  Run: $RunHuman"
+Write-Host "  Out: $OutDir"
+Write-Host $sep
+Write-Host ""
+
+if (-not (Test-Path $OutDir)) { New-Item -ItemType Directory -Path $OutDir -Force | Out-Null }
+
+Write-Host "  [1/7] Scanning $Root ..."
+$allFilesRaw = @(Get-ChildItem -Path $Root -Recurse -File -Force -ErrorAction Stop)
+$allFiles = @($allFilesRaw | Where-Object { -not (Is-Excluded -FullPath $_.FullName) } | Sort-Object FullName)
+$folders = @($allFiles | ForEach-Object { Split-Path -Parent (Get-RelPath -FullPath $_.FullName) } | Sort-Object -Unique)
+$totalBytes = 0
+foreach ($f in $allFiles) { $totalBytes += $f.Length }
+$totalKb = [math]::Round($totalBytes / 1KB, 2)
+Write-Host "      Found $($allFiles.Count) files in ~$($folders.Count) folders ($totalKb KB)"
+
+$fileRows = @()
+foreach ($file in $allFiles) {
+    $fileRows += [PSCustomObject]@{
+        RelPath = Get-RelPath -FullPath $file.FullName
+        Bytes = $file.Length
+        Modified = $file.LastWriteTime.ToString("yyyy-MM-dd HH:mm:ss")
+        Extension = $file.Extension
+        LogicalType = Get-LogicalType -File $file
+        Sha256 = Get-ShaSafe -File $file
+        File = $file
+    }
+}
+
 Write-Host "  [2/7] Writing RADAR.LITE ..."
-$sw = New-Utf8Writer $OutLite
-Write-WbsHeader $sw "RADAR_LITE"
-$sw.WriteLine("==========")
-$sw.WriteLine("01.00_ESTADO_CONTROL_CAMBIOS")
-$sw.WriteLine("==========")
-$sw.WriteLine("")
-$sw.WriteLine("ESTADO............: version_0 -- no aplica control de cambios")
-$sw.WriteLine("EJECUCION_PREVIA..: ninguna")
-$sw.WriteLine("")
-$sw.WriteLine("==========")
-$sw.WriteLine("02.00_RESUMEN")
-$sw.WriteLine("==========")
-$sw.WriteLine("")
-$sw.WriteLine("TOTAL_ARCHIVOS....: $TotalFiles")
-$sw.WriteLine("TOTAL_CARPETAS....: $TotalFolders")
-$sw.WriteLine("TOTAL_PESO_KB.....: $TotalSizeKB")
-$sw.WriteLine("ARCHIVOS_HUMAN....: $($HumanFiles.Count)")
-$sw.WriteLine("ARCHIVOS_SKILLS...: $($SkillsFiles.Count)")
-$sw.WriteLine("ARCHIVOS_TEXTO....: $($TextFiles.Count)")
-$sw.WriteLine("")
-$sw.WriteLine("HUMAN_CAMBIOS_DETECTADOS: NO (version_0)")
-$sw.WriteLine("")
-$sw.WriteLine("==========")
-$sw.WriteLine("03.00_PUNTEROS")
-$sw.WriteLine("==========")
-$sw.WriteLine("")
-$sw.WriteLine("RADAR_INDEX.......: 05.DOCS\RADAR.INDEX.$ProjectName.txt")
-$sw.WriteLine("RADAR_CORE........: 05.DOCS\RADAR.CORE.$ProjectName.txt")
-$sw.WriteLine("RADAR_FULL........: 05.DOCS\RADAR.FULL.$ProjectName.txt")
-$sw.WriteLine("RADAR_FULL.HUMAN..: 05.DOCS\RADAR.FULL.HUMAN.$ProjectName.txt")
-$sw.WriteLine("RADAR_FULL.SKILLS.: 05.DOCS\RADAR.FULL.SKILLS.$ProjectName.txt")
-$sw.WriteLine("HIST_DIR..........: 05.DOCS\HIST\$RunTS\ (este run)")
-$sw.WriteLine("HIST_GIT..........: IGNORADO -- local only")
-$sw.WriteLine("RUN_TIMESTAMP.....: $RunTS")
-$sw.WriteLine("")
-$sw.WriteLine("==========")
-$sw.WriteLine("04.00_ARBOL_RESUMEN")
-$sw.WriteLine("==========")
-$sw.WriteLine("")
-foreach ($folder in $UniqFolders) {
-    $cnt   = @($FileData | Where-Object { $_.Folder -eq $folder }).Count
-    $label = if ($folder) { $folder } else { "(root)" }
-    $sw.WriteLine(("  " + $label.PadRight(44) + "$cnt file(s)"))
+$lite = New-Object System.Text.StringBuilder
+Write-RadarHeader -Sb $lite -RadarType "RADAR_LITE"
+[void]$lite.AppendLine("==========")
+[void]$lite.AppendLine("01.00_RESUMEN")
+[void]$lite.AppendLine("==========")
+[void]$lite.AppendLine("TOTAL_ARCHIVOS.......: $($allFiles.Count)")
+[void]$lite.AppendLine("TOTAL_CARPETAS.......: $($folders.Count)")
+[void]$lite.AppendLine("TOTAL_PESO_KB........: $totalKb")
+[void]$lite.AppendLine("")
+[void]$lite.AppendLine("ARCHIVOS_CLAVE:")
+foreach ($r in @($fileRows | Where-Object {
+    $_.RelPath -like "00.CANON\*" -or
+    $_.RelPath -eq "README.md" -or
+    $_.RelPath -eq "requirements.txt" -or
+    $_.RelPath -like "06.TOOLS\*" -or
+    $_.RelPath -like "02.ETL\*" -or
+    $_.RelPath -like "01.DB\schema\*"
+})) {
+    [void]$lite.AppendLine("- $($r.RelPath)")
 }
-$sw.Close()
+Append-Warnings -Sb $lite
+$litePath = Save-Output -Name "RADAR.LITE.CloseReport.txt" -Content $lite.ToString()
 
-# ---------------------------------------------------------------------------
-# [3/7] INDEX
-# ---------------------------------------------------------------------------
 Write-Host "  [3/7] Writing RADAR.INDEX ..."
-$sw = New-Utf8Writer $OutIndex
-Write-WbsHeader $sw "RADAR_INDEX"
-$sw.WriteLine("==========")
-$sw.WriteLine("01.00_INVENTARIO_COMPLETO")
-$sw.WriteLine("==========")
-$sw.WriteLine("")
-$sw.WriteLine(("  " + "RUTA".PadRight(60) + "  " + "BYTES".PadLeft(8) + "  MODIFICADO            EXT        TIPO_LOGICO  SHA256"))
-$sw.WriteLine(("  " + ("-" * 150)))
-foreach ($f in $FileData) {
-    $sw.WriteLine(("  " + $f.RelPath.PadRight(60) + "  " +
-                   $f.SizeB.ToString().PadLeft(8) + "  " +
-                   $f.Modified + "  " +
-                   $f.Ext.PadRight(10) + "  " +
-                   $f.Type.PadRight(12) + "  " +
-                   $f.SHA256))
+$index = New-Object System.Text.StringBuilder
+Write-RadarHeader -Sb $index -RadarType "RADAR_INDEX"
+[void]$index.AppendLine("==========")
+[void]$index.AppendLine("01.00_INVENTARIO_COMPLETO")
+[void]$index.AppendLine("==========")
+[void]$index.AppendLine(("  {0,-72} {1,12}  {2,-19}  {3,-10}  {4,-12}  {5}" -f "RUTA", "BYTES", "MODIFICADO", "EXT", "TIPO_LOGICO", "SHA256"))
+[void]$index.AppendLine("  " + ("-" * 160))
+foreach ($r in $fileRows) {
+    [void]$index.AppendLine(("  {0,-72} {1,12}  {2,-19}  {3,-10}  {4,-12}  {5}" -f $r.RelPath, $r.Bytes, $r.Modified, $r.Extension, $r.LogicalType, $r.Sha256))
 }
-$sw.WriteLine("")
-$sw.WriteLine("==========")
-$sw.WriteLine("02.00_TOTALES")
-$sw.WriteLine("==========")
-$sw.WriteLine("")
-$sw.WriteLine("TOTAL_ARCHIVOS: $TotalFiles")
-$sw.WriteLine("TOTAL_PESO_KB : $TotalSizeKB")
-$sw.Close()
+[void]$index.AppendLine("")
+[void]$index.AppendLine("==========")
+[void]$index.AppendLine("02.00_TOTALES")
+[void]$index.AppendLine("==========")
+[void]$index.AppendLine("TOTAL_ARCHIVOS: $($allFiles.Count)")
+[void]$index.AppendLine("TOTAL_PESO_KB : $totalKb")
+Append-Warnings -Sb $index
+$indexPath = Save-Output -Name "RADAR.INDEX.CloseReport.txt" -Content $index.ToString()
 
-# ---------------------------------------------------------------------------
-# [4/7] CORE
-# ---------------------------------------------------------------------------
 Write-Host "  [4/7] Writing RADAR.CORE ..."
-$sw = New-Utf8Writer $OutCore
-Write-WbsHeader $sw "RADAR_CORE"
-$sw.WriteLine("==========")
-$sw.WriteLine("01.00_CONTENIDO_POR_CAPA")
-$sw.WriteLine("==========")
-$sw.WriteLine("")
-$groupedFolders = @($FileData | Group-Object -Property Folder | Sort-Object Name)
-foreach ($group in $groupedFolders) {
-    $folderLabel = if ($group.Name) { $group.Name } else { "(root)" }
-    $sw.WriteLine("==========")
-    $sw.WriteLine("CAPA: $folderLabel")
-    $sw.WriteLine("==========")
-    $sw.WriteLine("")
-    foreach ($f in ($group.Group | Sort-Object Name)) {
-        $sw.WriteLine("----------")
-        $sw.WriteLine("ARCHIVO...: $($f.Name)")
-        $sw.WriteLine("RUTA......: $($f.RelPath)")
-        $sw.WriteLine("TIPO......: $($f.Type)")
-        $sw.WriteLine("TAMANO....: $($f.SizeB) bytes")
-        $sw.WriteLine("MODIFICADO: $($f.Modified)")
-        if ($f.Purpose) { $sw.WriteLine("PROPOSITO.: $($f.Purpose)") }
-        if ($f.Type -eq "text") {
-            $sw.WriteLine("CONTENIDO.:")
-            try { foreach ($line in (Get-Content -Path $f.FullPath -Encoding UTF8 -ErrorAction Stop)) { $sw.WriteLine("  $line") } }
-            catch { $sw.WriteLine("  [ERROR reading: $_]") }
-        } else { $sw.WriteLine("CONTENIDO.: [BINARIO -- omitido]") }
-        $sw.WriteLine("")
-    }
+$core = New-Object System.Text.StringBuilder
+Write-RadarHeader -Sb $core -RadarType "RADAR_CORE"
+[void]$core.AppendLine("==========")
+[void]$core.AppendLine("01.00_CONTENIDO_TEXTO")
+[void]$core.AppendLine("==========")
+$textRows = @($fileRows | Where-Object { $_.LogicalType -eq "text" })
+foreach ($r in $textRows) {
+    Append-FileContent -Sb $core -File $r.File -Label "TEXT_FILE"
 }
-$sw.Close()
+Append-Warnings -Sb $core
+$corePath = Save-Output -Name "RADAR.CORE.CloseReport.txt" -Content $core.ToString()
 
-# ---------------------------------------------------------------------------
-# [5/7] FULL
-# ---------------------------------------------------------------------------
 Write-Host "  [5/7] Writing RADAR.FULL ..."
-$sw = New-Utf8Writer $OutFull
-Write-WbsHeader $sw "RADAR_FULL"
-$sw.WriteLine("==========")
-$sw.WriteLine("01.00_NOTA")
-$sw.WriteLine("==========")
-$sw.WriteLine("")
-$sw.WriteLine("Consolida INDEX + CORE. Alto costo de tokens -- usar con criterio.")
-$sw.WriteLine("")
-foreach ($l in (Get-Content -Path $OutIndex -Encoding UTF8)) { $sw.WriteLine($l) }
-$sw.WriteLine("")
-foreach ($l in (Get-Content -Path $OutCore  -Encoding UTF8)) { $sw.WriteLine($l) }
-$sw.Close()
-
-# ---------------------------------------------------------------------------
-# [6/7] FULL.HUMAN
-# ---------------------------------------------------------------------------
-Write-Host "  [6/7] Writing RADAR.FULL.HUMAN ..."
-$sw = New-Utf8Writer $OutFullHuman
-Write-WbsHeader $sw "RADAR_FULL.HUMAN"
-$sw.WriteLine("==========")
-$sw.WriteLine("01.00_PROPOSITO")
-$sw.WriteLine("==========")
-$sw.WriteLine("")
-$sw.WriteLine("Compilacion de 00.CANON\. Sube en lugar de archivos individuales.")
-$sw.WriteLine("")
-foreach ($f in ($HumanFiles | Sort-Object Name)) {
-    $sw.WriteLine(("=" * 64))
-    $sw.WriteLine("SOURCE_FILE: $($f.RelPath)")
-    $sw.WriteLine("SHA256    : $($f.SHA256)")
-    $sw.WriteLine(("=" * 64))
-    $sw.WriteLine("")
-    if ($f.Type -eq "text") {
-        try { foreach ($line in (Get-Content -Path $f.FullPath -Encoding UTF8 -ErrorAction Stop)) { $sw.WriteLine($line) } }
-        catch { $sw.WriteLine("[ERROR reading: $_]") }
-    }
-    $sw.WriteLine("")
+$full = New-Object System.Text.StringBuilder
+Write-RadarHeader -Sb $full -RadarType "RADAR_FULL"
+[void]$full.AppendLine("==========")
+[void]$full.AppendLine("01.00_INDEX")
+[void]$full.AppendLine("==========")
+[void]$full.AppendLine($index.ToString())
+[void]$full.AppendLine("")
+[void]$full.AppendLine("==========")
+[void]$full.AppendLine("02.00_CORE")
+[void]$full.AppendLine("==========")
+[void]$full.AppendLine($core.ToString())
+[void]$full.AppendLine("")
+[void]$full.AppendLine("==========")
+[void]$full.AppendLine("03.00_TREE_SIZE")
+[void]$full.AppendLine("==========")
+$grouped = @($allFiles | Group-Object { Split-Path -Parent (Get-RelPath -FullPath $_.FullName) } | Sort-Object Name)
+foreach ($g in $grouped) {
+    $sum = 0
+    foreach ($f in $g.Group) { $sum += $f.Length }
+    [void]$full.AppendLine(("{0,-80} {1,12}" -f $g.Name, $sum))
 }
-$sw.Close()
+Append-Warnings -Sb $full
+$fullPath = Save-Output -Name "RADAR.FULL.CloseReport.txt" -Content $full.ToString()
 
-# ---------------------------------------------------------------------------
-# [7/7] FULL.SKILLS
-# ---------------------------------------------------------------------------
-Write-Host "  [7/7] Writing RADAR.FULL.SKILLS ..."
-$sw = New-Utf8Writer $OutFullSkills
-Write-WbsHeader $sw "RADAR_FULL.SKILLS"
-$sw.WriteLine("==========")
-$sw.WriteLine("01.00_PROPOSITO")
-$sw.WriteLine("==========")
-$sw.WriteLine("")
-$sw.WriteLine("Compilacion de 07.SKILLS\. Sube en lugar de bundles individuales.")
-$sw.WriteLine("")
-foreach ($f in ($SkillsFiles | Sort-Object Name)) {
-    $sw.WriteLine(("=" * 64))
-    $sw.WriteLine("SOURCE_FILE: $($f.RelPath)")
-    $sw.WriteLine("SHA256    : $($f.SHA256)")
-    $sw.WriteLine(("=" * 64))
-    $sw.WriteLine("")
-    if ($f.Type -eq "text") {
-        try { foreach ($line in (Get-Content -Path $f.FullPath -Encoding UTF8 -ErrorAction Stop)) { $sw.WriteLine($line) } }
-        catch { $sw.WriteLine("[ERROR reading: $_]") }
-    }
-    $sw.WriteLine("")
+Write-Host "  [6/7] Writing RADAR.FULL.HUMAN / RADAR.FULL.SKILLS ..."
+$human = New-Object System.Text.StringBuilder
+Write-RadarHeader -Sb $human -RadarType "RADAR_FULL_HUMAN"
+$humanRows = @($textRows | Where-Object { $_.RelPath -like "00.CANON\*" -or $_.RelPath -eq "README.md" })
+foreach ($r in $humanRows) {
+    Append-FileContent -Sb $human -File $r.File -Label "HUMAN_OR_CANON_FILE"
 }
-$sw.Close()
+Append-Warnings -Sb $human
+$humanPath = Save-Output -Name "RADAR.FULL.HUMAN.CloseReport.txt" -Content $human.ToString()
 
-# ---------------------------------------------------------------------------
-# HIST -- per-run subfolder (no mixing between runs)
-# ---------------------------------------------------------------------------
-if (-not $NoHist) {
-    $RunHistDir = Join-Path $HistDir $RunTS
-    if (-not (Test-Path $RunHistDir)) {
-        New-Item -ItemType Directory -Path $RunHistDir -Force | Out-Null
-    }
-    Write-Host ("  [+]   Writing HIST\$RunTS\ ...")
-    foreach ($src in @($OutLite, $OutIndex, $OutCore, $OutFull, $OutFullHuman, $OutFullSkills)) {
-        $leaf = [System.IO.Path]::GetFileName($src)   # e.g. RADAR.LITE.CloseReport.txt
-        Copy-Item -Path $src -Destination (Join-Path $RunHistDir $leaf) -Force
-    }
-    Write-Host ("        --> 05.DOCS\HIST\$RunTS\ (6 files, gitignored)")
+$skills = New-Object System.Text.StringBuilder
+Write-RadarHeader -Sb $skills -RadarType "RADAR_FULL_SKILLS"
+$skillRows = @($textRows | Where-Object { $_.RelPath -like "07.SKILLS\*" })
+foreach ($r in $skillRows) {
+    Append-FileContent -Sb $skills -File $r.File -Label "SKILL_FILE"
 }
+Append-Warnings -Sb $skills
+$skillsPath = Save-Output -Name "RADAR.FULL.SKILLS.CloseReport.txt" -Content $skills.ToString()
 
-# ---------------------------------------------------------------------------
-# Summary
-# ---------------------------------------------------------------------------
+Write-Host "  [7/7] Done."
 Write-Host ""
-Write-Host $Sep64
-Write-Host ("  RESULT: OK -- 6 active outputs in 05.DOCS\") -ForegroundColor Green
+
 Write-Host ""
-Write-Host "    RADAR.LITE.$ProjectName.txt     (tracked in git)"
-Write-Host "    RADAR.INDEX.$ProjectName.txt    (tracked in git)"
-Write-Host "    RADAR.CORE.$ProjectName.txt     (tracked in git)"
-Write-Host "    RADAR.FULL.$ProjectName.txt     (tracked in git)"
-Write-Host "    RADAR.FULL.HUMAN.$ProjectName.txt  (tracked in git)"
-Write-Host "    RADAR.FULL.SKILLS.$ProjectName.txt (tracked in git)"
-if (-not $NoHist) {
-    Write-Host ""
-    Write-Host "    HIST\$RunTS\ --> 6 files (local only, gitignored)"
-}
 Write-Host ""
-Write-Host "  Files scanned : $TotalFiles"
-Write-Host "  Total size KB : $TotalSizeKB"
 Write-Host ""
-exit 0
+Write-Host "++++++++++++++++++++++++++++++AI_TAIL_START++++++++++++++++++"
+Write-Host "AI_TAIL_START"
+Write-Host "AI_TAIL_SCHEMA=v1"
+Write-Host "MB_ID=$MB_ID"
+Write-Host "RUNTIME=PowerShell"
+Write-Host "ROOT=$Root"
+Write-Host "OUTDIR=$OutDir"
+Write-Host "FINAL_STATUS=PASS"
+Write-Host "BLOCKER=NONE"
+Write-Host "WARNINGS_COUNT=$($Warnings.Count)"
+Write-Host "FILES_CREATED=$litePath | $indexPath | $corePath | $fullPath | $humanPath | $skillsPath"
+Write-Host "VALIDATION_STATUS=RADAR_OUTPUTS_CREATED"
+Write-Host "TEMP_POLICY=CLEAN_99_TEMP_BEFORE_CREATE"
+Write-Host "COMMIT_PUSH_PERFORMED=NO"
+Write-Host "NEXT_ACTION=Use current RADAR output folder or run compile context script"
+Write-Host "AI_TAIL_END"
+Write-Host "++++++++++++++++++++++++++++++AI_TAIL_END++++++++++++++++++++"
+Write-Host ""
+Write-Host ""
+Write-Host ""
