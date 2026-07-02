@@ -1,0 +1,137 @@
+==========
+00.00_METADATOS
+==========
+
+ID_UNICO..........: BACKLOG.CLOSEREPORT.01.00
+NOMBRE_SUGERIDO...: BACKLOG.CloseReport.txt
+VERSION...........: v0.1-SESSION-CLOSE
+FECHA.............: 2026-07-02
+HORA_LOCAL........: 08:45
+CIUDAD............: Santiago, Chile
+UBICACION_SISTEMA.: C:\01. GitHub\CloseReport\00.CANON\
+AUTOR_HUMANO......: PABLO
+ALCANCE...........: Backlog, deuda tecnica, ideas y path operativo de CloseReport.
+NO_CUBRE..........: No reemplaza BATON, WHOAMI, README ni CHANGE.LOG del workbook.
+
+==========
+01.00_ESTADO_ACTUAL
+==========
+
+PROJECT...........: CloseReport
+ROOT..............: C:\01. GitHub\CloseReport
+ACTIVE_PHASE......: PHASE_1_VISIBLE_FUNCTIONAL_WORKBOOK
+CURRENT_DELIVERABLE: 04.REPORTS\outputs\CloseReport.xlsm
+STATUS............: Workbook v0.1 visible and functional, not yet management-final.
+
+==========
+02.00_DEUDA_TECNICA_ACUMULADA
+==========
+
+TD-001 | NUEVA | Workbook generator scripts are temporary one-shots, not canonical tools.
+  IMPACT: Workbook can be regenerated manually through Temp scripts but not through stable command.
+  NEXT: Promote generator/audit scripts to 06.TOOLS only after layout stabilizes.
+
+TD-002 | NUEVA | CR_TEMP_0024 false PASS due missing post-save persistence audit.
+  IMPACT: Trust issue in workbook automation if not audited after reopen.
+  NEXT: Keep post-save reopen audit as mandatory workbook automation gate.
+
+TD-003 | EXISTENTE | Soft rounding policy accepted but needs Finance review.
+  IMPACT: Technically immaterial, but Finance should approve tolerance.
+  EVIDENCE: total_delta_uf=0.0003; max_delta_abs=0.0004; over_soft_group=0.
+  NEXT: Include in management/Finance acceptance notes.
+
+TD-004 | NUEVA | Entity filters for F.C.KMT/F.CKUM are heuristic text filters.
+  IMPACT: Risk of inclusion/exclusion error if entity labels vary.
+  NEXT: Build explicit entity dimension/mapping table.
+
+TD-005 | NUEVA | Layout is not equivalent to manual report.
+  IMPACT: Current workbook is functional, not yet presentation-ready.
+  NEXT: CR-PQ-0004 and CR-PQ-0005.
+
+TD-006 | EXISTENTE | No slide-level reconciliation against manual PDF/report yet.
+  IMPACT: Cannot claim full replacement of manual committee report.
+  NEXT: CR-PQ-0005.
+
+TD-007 | EXISTENTE | CSV staging is a good Phase 1 bridge but not final data architecture.
+  IMPACT: Multi-month/historical analysis will need database or model layer.
+  NEXT: Evaluate SQLite/DuckDB after management acceptance.
+
+==========
+03.00_BACKLOG_FUNCIONAL_ACUMULADO
+==========
+
+BL-001 | P0 | CR-PQ-0004 refine EXEC.SUMMARY and F.CMC summaries.
+BL-002 | P0 | CR-PQ-0005 reconcile workbook against May 2026 manual report.
+BL-003 | P0 | CR-PQ-0006 build management-ready v0.1 package.
+BL-004 | P1 | Add refresh checklist for Finance users.
+BL-005 | P1 | Add explicit entity mapping table.
+BL-006 | P1 | Decide whether to promote workbook scripts into 06.TOOLS.
+BL-007 | P1 | Add workbook audit command as canonical validation step.
+BL-008 | P2 | Phase 2 usa_cashflow slides 12-18.
+BL-009 | P2 | Phase 3 units + sales slides 8, 10, 11.
+BL-010 | P2 | Phase 4 loans_ep slide 9.
+BL-011 | P2 | Phase 5 budget_bs2 slide 6.
+BL-012 | P2 | Phase 6 BS1 flow/view slide 7.
+BL-013 | P2 | Evaluate SQLite/DuckDB for historical staging.
+
+==========
+04.00_IDEAS_Y_OPORTUNIDADES_ACUMULADAS
+==========
+
+OP-001 | Treat CloseReport as a finance data product, not just an Excel.
+OP-002 | Keep Excel as consumption layer while moving logic to ETL/PQ.
+OP-003 | Use workbook CHANGE.LOG for management-visible control.
+OP-004 | Create a one-click refresh / close checklist.
+OP-005 | Export workbook to PDF for committee review.
+OP-006 | Add a management acceptance checklist.
+OP-007 | Consider Power BI only after Excel workflow is accepted.
+OP-008 | Add automated workbook open/refresh/audit gate after every workbook change.
+
+==========
+05.00_HECHO_Y_VALIDADO
+==========
+
+DONE-001 Bootstrap, repository structure and generated-artifact policy.
+DONE-002 ETL clean/load created and validated.
+DONE-003 movements.csv contract fixed for Power Query: movement_id, amount, day.
+DONE-004 Phase 1 validation accepted under soft rounding policy.
+DONE-005 Power Query workbook created at 04.REPORTS\outputs\CloseReport.xlsm.
+DONE-006 Workbook opens in Excel.
+DONE-007 Workbook includes base query sheets and control sheets after CR_TEMP_0025.
+DONE-008 Git baseline commits pushed through 1818a75.
+
+==========
+06.00_FALTA
+==========
+
+TODO-001 Refine visible managerial layout.
+TODO-002 Compare against manual May 2026 report.
+TODO-003 Create acceptance checklist.
+TODO-004 Decide canonicalization of workbook generator/audit scripts.
+TODO-005 Prepare v0.1 handoff package for management.
+TODO-006 Continue phases 2-6 only after Phase 1 acceptance or explicit prioritization.
+
+==========
+07.00_PATH_MINIBATTLES_BATTLES_ENTREGABLE
+==========
+
+MINIBATTLE | OBJETIVO | OUTPUT | BATTLE | ENTREGABLE_GERENCIA | ESTADO
+CR-PQ-0004 | Refine managerial summaries | Better EXEC.SUMMARY/F.CMC | CR-PHASE1 | CloseReport.xlsm v0.1 | NEXT
+CR-PQ-0005 | Reconcile vs manual report | Gap/reconciliation report | CR-PHASE1 | Management confidence | BACKLOG
+CR-PQ-0006 | Package v0.1 | workbook + checklist + limitations | CR-PHASE1 | Functional demo to management | BACKLOG
+CR-PHASE2-001 | Ingest usa_cashflow | validated dataset | CR-PHASE2 | slides 12-18 | BACKLOG
+CR-PHASE3-001 | Ingest units/sales | validated dataset | CR-PHASE3 | slides 8/10/11 | BACKLOG
+
+==========
+08.00_NEXT_ACTION
+==========
+
+NEXT_ACTION.......: CR-PQ-0004 refine EXEC.SUMMARY and F.CMC into a management-readable v0.1.
+
+==========
+09.00_CHANGELOG
+==========
+
+2026-07-02, v0.1-SESSION-CLOSE
+- Created backlog/debt/ideas file at session close.
+- Captures CloseReport status after visible workbook milestone.

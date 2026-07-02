@@ -274,3 +274,83 @@ DECISION:
 NEXT_ACTION:
   Proceed to Power Query setup for CloseReport.xlsm using English Excel conventions.
   Date fields should support Excel DATE(year, month, day) or Power Query #date(year, month, day).
+
+==========
+99.60_CR_TEMP_0026_SESSION_CLOSE_20260702
+==========
+
+STATUS_REPAIR_MARKER: CR_TEMP_0026_SESSION_CLOSE_20260702
+FECHA...............: 2026-07-02
+HORA_LOCAL..........: 08:45
+MOTIVO..............: Formal session close after CloseReport.xlsm visible workbook milestone.
+
+CURRENT_STATE:
+  ACTIVE_PHASE......: PHASE_1_VISIBLE_FUNCTIONAL_WORKBOOK
+  BOOTSTRAP.........: DONE
+  ETL_PHASE_0.......: PASS
+  ETL_PHASE_1.......: PASS
+  VALIDATION........: PASS_SOFT_ROUNDING_ONLY
+  POWER_QUERY.......: CREATED_AND_AUDITED
+  WORKBOOK..........: 04.REPORTS/outputs/CloseReport.xlsm
+  WORKBOOK_STATUS...: Opens in Excel; visible sheets confirmed after CR_TEMP_0025
+  RADAR.............: PASS_WARNINGS_0
+  GIT_BASELINE......: 1818a75 pushed to origin/main before workbook layout work
+
+CONFIRMED_VISIBLE_SHEETS:
+  - README
+  - Movements_Model
+  - F.C.KMT
+  - F.CKUM
+  - F.CMC
+  - EXEC.SUMMARY
+  - LAYOUT.CONTRACT
+  - CHANGE.LOG
+
+KEY_DECISIONS:
+  DEC-016 CloseReport.xlsm is the consumption workbook, not the source of truth.
+  DEC-017 Source of truth remains raw/current/main.xlsx + validated ETL pipeline.
+  DEC-018 movements.csv is the curated local dataset for Phase 1.
+  DEC-019 Workbook outputs remain local-only and ignored by Git.
+  DEC-020 CHANGE.LOG is required inside the workbook for workbook-level traceability.
+  DEC-021 Next development must improve managerial usability, not add more raw sources yet.
+
+ACCUMULATED_TECH_DEBT:
+  TD-001 Workbook generator script CR_TEMP_0021/0024 is temporary, not yet promoted to canonical reusable tool.
+  TD-002 CR_TEMP_0024 produced false PASS because it did not audit post-save persistence.
+  TD-003 Layout is still basic; not yet equivalent to manual committee deck.
+  TD-004 Entity filters for F.C.KMT/F.CKUM use text contains logic and need business validation.
+  TD-005 Phase 1 validation accepts soft rounding; policy is documented but should be reviewed by Finance.
+  TD-006 No automated visual regression or workbook screenshot/PDF export validation yet.
+  TD-007 No formal source mapping for slides 3, 4, 5 against manual PDF yet.
+  TD-008 Database layer remains deferred; CSV staging is acceptable for v0.1 but not final scale.
+
+ACCUMULATED_BACKLOG:
+  BL-001 CR-PQ-0004 refine EXEC.SUMMARY with managerial summaries by entity, entry_type, category and supplier.
+  BL-002 CR-PQ-0005 compare CloseReport.xlsm outputs against May 2026 manual report.
+  BL-003 CR-PQ-0006 create management-ready visible package and acceptance checklist.
+  BL-004 Promote workbook build/update logic from Temp one-shot into canonical tool if workbook automation remains useful.
+  BL-005 Add robust audit that opens workbook and confirms all expected sheets/tables/queries after every workbook change.
+  BL-006 Build Phase 2 usa_cashflow for slides 12-18.
+  BL-007 Build Phase 3 units + sales for slides 8, 10, 11.
+  BL-008 Build Phase 4 loans_ep for slide 9.
+  BL-009 Build Phase 5 budget_bs2 for slide 6.
+  BL-010 Build Phase 6 BS1 flow/view for slide 7.
+  BL-011 Evaluate migration from CSV staging to SQLite/DuckDB after Phase 1 management acceptance.
+
+IDEAS_AND_OPPORTUNITIES:
+  OP-001 Treat CloseReport as a finance data product: raw layer, curated dataset, consumption workbook, governance.
+  OP-002 Keep Excel as the management interface while moving logic into Python/Power Query.
+  OP-003 Add a workbook CHANGE.LOG sheet as local audit trail.
+  OP-004 Add a monthly refresh checklist for Finance.
+  OP-005 Add PDF export from workbook for management review.
+  OP-006 Add Power BI later only after the Excel workflow is validated by users.
+
+PATH_TO_MANAGEMENT_DELIVERABLE:
+  MB-CR-PQ-0004 -> Managerial summaries in EXEC.SUMMARY and F.CMC.
+  MB-CR-PQ-0005 -> Reconcile against May 2026 manual report.
+  MB-CR-PQ-0006 -> Package v0.1 for management: workbook + refresh checklist + known limitations.
+  BATTLE-CR-PHASE1 -> Visible functional Phase 1 Finance Committee workbook.
+  DELIVERABLE -> CloseReport.xlsm v0.1 refreshable, explainable, and reviewable by management.
+
+NEXT_ACTION:
+  Run CR-PQ-0004 to refine managerial summaries in EXEC.SUMMARY using current Movements_Model.

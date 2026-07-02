@@ -170,3 +170,36 @@ NEXT_WORK:
   [ ] Confirm git status and commit corrective baseline.
   [ ] Prepare CloseReport.xlsm Power Query connection to movements.csv.
   [ ] Add date model for English Excel: DATE(year, month, day) / Power Query #date(year, month, day).
+
+==========
+99.60_CR_TEMP_0026_SESSION_CLOSE_STATUS
+==========
+
+STATUS_REPAIR_MARKER: CR_TEMP_0026_SESSION_CLOSE_STATUS
+FECHA...............: 2026-07-02
+HORA_LOCAL..........: 08:45
+
+CURRENT_STATE:
+  FASE_ACTIVA.......: PHASE_1_VISIBLE_FUNCTIONAL_WORKBOOK
+  ENTREGABLE........: CloseReport.xlsm v0.1 local workbook created
+  WORKBOOK_PATH.....: 04.REPORTS/outputs/CloseReport.xlsm
+  VALIDACION........: PASS_SOFT_ROUNDING_ONLY
+  ESTADO_HUMANO.....: workbook opens; control sheets are now visible
+
+WHAT_WORKS_NOW:
+  [x] Python ETL produces movements_clean.csv and movements.csv.
+  [x] movements.csv has movement_id, amount, year, month, day.
+  [x] Validation reconciles 4501 rows and 588 groups.
+  [x] Power Query workbook exists and opens.
+  [x] Workbook includes README, Movements_Model, F.C.KMT, F.CKUM, F.CMC.
+  [x] Workbook includes EXEC.SUMMARY, LAYOUT.CONTRACT and CHANGE.LOG after CR_TEMP_0025.
+
+WHAT_IS_NOT_DONE:
+  [ ] Layout is not yet management-final.
+  [ ] Need managerial summary refinements.
+  [ ] Need comparison against manual May 2026 report.
+  [ ] Need acceptance checklist for Finance/management.
+  [ ] Need decide whether workbook generator becomes canonical tool.
+
+NEXT_ACTION:
+  CR-PQ-0004 refine EXEC.SUMMARY and F.CMC into a management-readable v0.1.
