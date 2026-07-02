@@ -1,0 +1,25 @@
+==========
+00.00_FIRST_VISUAL_REPORT_BUILD_SUMMARY
+==========
+
+GENERATED..........: 2026-07-02T11:31:53
+PROJECT............: CloseReport
+TARGET_PDF_REPORT..: Page 3 / F.C.KMT / Gestora KMT
+CONSTRUCTION_ROUTE.: Bases -> DB -> F.D.KMT.01 -> F.C.KMT
+DATABASE...........: C:\01. GitHub\CloseReport\01.DB\close_report.sqlite
+OUTPUT_WORKBOOK....: C:\01. GitHub\CloseReport\04.REPORTS\outputs\CloseReport_FIRST_VISUAL_REPORT_P0.xlsx
+BASES_ROWS_LOADED..: 4501
+DETAIL_FORMULAS....: 699
+BASES_SUMIFS.......: 129
+PROBE_ROWS.........: 129
+PASS_TOLERANCE.....: 129
+REVIEW_REQUIRED....: 0
+TOLERANCE_UF.......: 0.0001
+
+==========
+01.00_INTERPRETATION
+==========
+
+This is the first construction step for the simplest visual report.
+It does not claim final visual equivalence yet. It proves whether the upstream detail logic in F.D.KMT.01 can be reconstructed from Bases-derived DB logic.
+Any formula that cannot be translated automatically is kept in REVIEW_REQUIRED for Pablo review.

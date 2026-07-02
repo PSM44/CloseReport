@@ -1,0 +1,46 @@
+==========
+00.00_ENGINEERING_REVERSE_FINDINGS
+==========
+
+GENERATED..........: 2026-07-02 10:12:48
+PROJECT............: CloseReport
+MB_ID..............: CR-TEMP-0031
+
+==========
+01.00_CONFIRMED_FINDINGS
+==========
+
+- main.xlsx exists at 03.DATA/raw/current/main.xlsx.
+- Sheet name Inidce is treated as the real sheet name until changed by human decision.
+- Base and Bases are distinct sheets and must not be conflated.
+- PDF 202605 Cierre Mayo.pdf is May 2026 close presented in June 2026; PDF is visual reference only.
+- Reverse engineering must operate at cell/formula/reference level, not sheet-name level.
+- Derived values should not be stored as base facts unless frozen as approved snapshot.
+
+==========
+02.00_SCAN_SUMMARY
+==========
+
+WORKBOOKS_SCANNED..: 9
+INVENTORY_ROWS.....: 101
+TRACE_ROWS.........: 614199
+BASES_REFERENCES...: 582
+EXTERNAL_REFERENCES: 23338
+REF_ERRORS.........: 15200
+
+==========
+03.00_REVIEW_REQUIRED
+==========
+
+- External workbook references detected: 23338. They are marked REVIEW_REQUIRED.
+- #REF! formulas detected: 15200. They are marked REVIEW_REQUIRED.
+
+==========
+04.00_RESOLUTION_REGISTER
+==========
+
+RES-001 | Treat Inidce as actual sheet name, not typo correction.
+RES-002 | Treat Base and Bases as separate sheets.
+RES-003 | Treat PDF as visual output reference; reverse engineer upstream Excel.
+RES-004 | P0 reports are F.C.KMT, F.CKUM, F.CMC from main.xlsx and upstream references.
+RES-005 | Document any ambiguous formula/cell/source as REVIEW_REQUIRED for Pablo review.
