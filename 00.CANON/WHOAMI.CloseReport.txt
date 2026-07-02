@@ -203,3 +203,31 @@ WHAT_IS_NOT_DONE:
 
 NEXT_ACTION:
   CR-PQ-0004 refine EXEC.SUMMARY and F.CMC into a management-readable v0.1.
+==========
+99.95_WHOAMI_SESSION_CLOSE_20260702_1443_POST_KMT_CANONICAL
+==========
+
+STATUS_REPAIR_MARKER: WHOAMI_SESSION_CLOSE_20260702_1443_POST_KMT_CANONICAL
+FECHA...............: 2026-07-02
+HORA_LOCAL..........: 14:43
+
+PROJECT_STATUS:
+  CloseReport rebuilds the monthly finance close report from source Excel workbooks into a local DB and reproducible Excel reports.
+  F.C.KMT P0 is now closed as the first canonical DB-driven dual Excel report.
+
+CURRENT_DELIVERABLE:
+  04.REPORTS\outputs\CloseReport_FC_KMT_DB_REPORTS.xlsx
+
+CURRENT_TOOLING:
+  06.TOOLS\build_fc_kmt_dual_report.py
+  06.TOOLS\run_build_fc_kmt_dual_report.ps1
+
+WHAT_IS_DONE:
+  - F.C.KMT can be regenerated.
+  - Validation is PASS.
+  - review_required_rows is 0.
+  - Docs root was cleaned.
+  - Commit/push milestone was completed before this final close update.
+
+WHAT_IS_NEXT:
+  CR-RPT-0043 build F.CKUM using the F.C.KMT pattern.

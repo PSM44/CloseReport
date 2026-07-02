@@ -467,3 +467,45 @@ EVIDENCE:
 
 NEXT_ACTION:
   CR-TEMP-0037 build dual F.C.KMT report workbook from repaired DB contract.
+==========
+99.95_SESSION_CLOSE_20260702_1443_POST_KMT_CANONICAL_FINAL
+==========
+
+STATUS_REPAIR_MARKER: SESSION_CLOSE_20260702_1443_POST_KMT_CANONICAL_FINAL
+FECHA...............: 2026-07-02
+HORA_LOCAL..........: 14:43
+MOTIVO..............: Formal session close after F.C.KMT P0 canonical builder milestone, commits and push to origin/main.
+
+CURRENT_STATE:
+  BRANCH............: main
+  HEAD_AT_CLOSE.....: b095c58
+  REMOTE_PUSH.......: Confirmed by terminal evidence before this close script; verify with git status/log if required.
+  WORKTREE_AT_START.: CLEAN_BEFORE_CLOSE_UPDATE
+  FC_KMT_P0.........: CLOSED
+  FC_KMT_BUILDER....: 06.TOOLS\build_fc_kmt_dual_report.py
+  FC_KMT_LAUNCHER...: 06.TOOLS\run_build_fc_kmt_dual_report.ps1
+  FC_KMT_BUILD......: PASS
+  REVIEW_REQUIRED...: 0
+  OUTPUT_WORKBOOK...: 04.REPORTS\outputs\CloseReport_FC_KMT_DB_REPORTS.xlsx
+  DOCS_HYGIENE......: REFERENCE_TRACE_REGISTER moved to 05.DOCS\HIST\
+  NEXT_CANDIDATE....: F.CKUM
+  KUM_STATUS........: NOT_STARTED
+
+KEY_DECISIONS:
+  DEC-039 F.C.KMT P0 is the canonical first DB-driven dual Excel report.
+  DEC-040 Generated reports require two variants: EFFICIENT and OS.
+  DEC-041 OS means Original Style.
+  DEC-042 Blank known cells must not be inferred or filled.
+  DEC-043 Cell questions must identify full path, file, sheet and cell.
+  DEC-044 F.CMC remains blocked until KMT and KUM are stable.
+  DEC-045 PDF is visual reference only; Excel/DB/source workbooks remain source path for rebuild.
+
+TECHNICAL_DEBT_ACTIVE:
+  - F.CKUM is not started.
+  - F.CMC must wait until KMT and KUM are stable.
+  - Visual equivalence to management PDF is not fully automated yet.
+  - WHOAMI was updated only if present in 00.CANON.
+  - RADAR/readiness evidence should be regenerated after any final commit.
+
+NEXT_ACTION:
+  Start CR-RPT-0043 for F.CKUM using the F.C.KMT canonical builder pattern.

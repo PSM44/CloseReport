@@ -259,3 +259,39 @@ EVIDENCE:
 
 NEXT_ACTION:
   CR-TEMP-0037 build dual F.C.KMT report workbook from repaired DB contract.
+==========
+11.00_SESSION_CLOSE_20260702_1443_FINAL
+==========
+
+STATUS_REPAIR_MARKER: 11.00_SESSION_CLOSE_20260702_1443_FINAL
+FECHA...............: 2026-07-02
+HORA_LOCAL..........: 14:43
+
+DONE:
+  DONE-012 F.C.KMT P0 is closed as canonical DB-driven dual Excel report.
+  DONE-013 06.TOOLS\run_build_fc_kmt_dual_report.ps1 is the canonical launcher.
+  DONE-014 F.C.KMT latest build status is PASS with review_required_rows=0.
+  DONE-015 Commits be21242, 1aa4a09 and b095c58 were pushed to origin/main before final close.
+  DONE-016 05.DOCS root hygiene completed for the full trace.
+  DONE-017 Final close script CR-CLOSE-0042 created continuity update gate.
+
+TECH_DEBT_ACTIVE:
+  TD-009 F.CKUM is not started.
+  TD-010 F.CMC must wait until KMT and KUM are stable.
+  TD-011 Visual equivalence to management PDF is not fully automated yet.
+  TD-012 WHOAMI/RADAR final freshness must be verified after final close commit.
+
+NEXT_BACKLOG:
+  BL-014 CR-RPT-0043 build F.CKUM dual report using KMT pattern.
+  BL-015 CR-RPT-0044 build F.CMC consolidated report after KMT and KUM.
+  BL-016 CR-VAL-0045 compare pages 3-5 against manual PDF.
+  BL-017 CR-VIS-0046 improve OS visual style to management review level.
+  BL-018 CR-PKG-0047 package CloseReport_Gerencia_v0.1.
+
+IDEAS_AND_OPPORTUNITIES:
+  OP-009 Create a reusable report builder contract parameterized by report code.
+  OP-010 Add DB table/view support for UF month-end values and V00 forecast lines.
+  OP-011 Add visual regression or PDF/screenshot comparison after pages 3-5 are stable.
+
+NEXT_CANDIDATE.....: F.CKUM
+NEXT_CANDIDATE_NOTE: Remains next candidate only; do not start without explicit instruction.
