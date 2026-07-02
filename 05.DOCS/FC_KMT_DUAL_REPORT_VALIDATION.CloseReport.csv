@@ -1,0 +1,17 @@
+﻿scope,item,expected,actual,status,notes
+DB,movements_table,exists,exists,PASS,
+DB,movements_row_count,4501,4501,PASS,
+PROBE,FD_KMT_01_BASES_FORMULA_PROBE,129 rows,129,PASS,UF tolerance 0.0001.
+WORKBOOK,required_sheets,"CONTROL, DB.MOVEMENTS.SAMPLE, F.D.KMT.01.DB, F.C.KMT.EFFICIENT, F.C.KMT.OS, VALIDATION.RESULTS, REVIEW.REQUIRED, REPORT.CONTRACT","CONTROL, DB.MOVEMENTS.SAMPLE, F.D.KMT.01.DB, F.C.KMT.EFFICIENT, F.C.KMT.OS, VALIDATION.RESULTS, REVIEW.REQUIRED, REPORT.CONTRACT",PASS,
+WORKBOOK,final_status,PASS or PASS_WITH_REVIEW,PASS,PASS,Workbook creation completed.
+WORKBOOK,review_required_rows,0 for clean pass,0,PASS,Rows listed in REVIEW.REQUIRED when unresolved dependencies remain.
+WORKBOOK,reopen_after_save,"CONTROL, DB.MOVEMENTS.SAMPLE, F.D.KMT.01.DB, F.C.KMT.EFFICIENT, F.C.KMT.OS, VALIDATION.RESULTS, REVIEW.REQUIRED, REPORT.CONTRACT","CONTROL, DB.MOVEMENTS.SAMPLE, F.D.KMT.01.DB, F.C.KMT.EFFICIENT, F.C.KMT.OS, VALIDATION.RESULTS, REVIEW.REQUIRED, REPORT.CONTRACT",PASS,Workbook re-opened successfully after save.
+WORKBOOK,F.C.KMT.OS_ak_variance_formula,AK10:AK29 = AF(row)-AH(row),PASS,PASS,Validated exported variance formulas in the output workbook.
+WORKBOOK,F.C.KMT.OS_intentional_blanks,"R6:S6, AH19, and AH25:AH28 remain blank",PASS,PASS,Validated intentional visual and no-source blanks in the output workbook.
+WORKBOOK,F.C.KMT.OS_c24_label,C24 displays label from 'KMT '!$D$60,Gastos Generales,PASS,Validated exported visible label value in the output workbook.
+WORKBOOK,F.C.KMT.EFFICIENT_ak_variance_formula,AK10:AK29 = AF(row)-AH(row),PASS,PASS,Validated exported variance formulas in the output workbook.
+WORKBOOK,F.C.KMT.EFFICIENT_intentional_blanks,"R6:S6, AH19, and AH25:AH28 remain blank",PASS,PASS,Validated intentional visual and no-source blanks in the output workbook.
+WORKBOOK,F.C.KMT.EFFICIENT_c24_label,C24 displays label from 'KMT '!$D$60,Gastos Generales,PASS,Validated exported visible label value in the output workbook.
+CLASSIFICATION,fc_kmt_uf_parameters,F6:Q6 and T6:AE6 classified from F.CMC; R6:S6 classified as intentional visual gaps,PASS,PASS,Validated exported UF parameter classifications.
+CLASSIFICATION,fc_kmt_forecast_v00_2026,"AH10:AH29 classified as forecast, visual separator, or intentional no-source blanks per contract",PASS,PASS,Validated exported V00 classifications for the forecast range.
+CLASSIFICATION,fc_kmt_visible_label,C24 classified as VISIBLE_LABEL_FROM_KMT,PASS,PASS,Validated visible label classification for the KMT label cell.

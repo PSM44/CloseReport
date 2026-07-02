@@ -1,0 +1,53 @@
+==========
+00.00_REPORT_OUTPUT_STRATEGY
+==========
+
+GENERATED..........: 2026-07-02T12:12:05
+PROJECT............: CloseReport
+MB_ID..............: CR-TEMP-0036
+TARGET_REPORT......: PDF page 3 / F.C.KMT / Gestora KMT
+ROUTE..............: Bases -> DB -> query/scaffold -> two Excel report variants
+
+==========
+01.00_CONFIRMED_DECISION
+==========
+
+The database must be correct before report generation.
+After DB is correct, one query/scaffold layer must feed two Excel report outputs:
+
+1) EFFICIENT_FORMULAS_REPORT
+   - Purpose: operational future-state report.
+   - Uses efficient formulas and/or query output tables.
+   - Reduces Excel formula debt.
+   - Prioritizes data correctness and maintainability.
+
+2) ORIGINAL_STYLE_FORMULAS_REPORT
+   - Purpose: audit/transition report.
+   - Keeps formula/sheet style close to the original Excel workbook.
+   - Helps compare against the current manual report generation process.
+   - Accepts more formula complexity if needed for traceability.
+
+==========
+02.00_NON_NEGOTIABLES
+==========
+
+- PDF is visual reference only.
+- Excel source formulas/links remain reverse-engineering evidence.
+- DB is the source layer for generated reports.
+- Numerical tolerance for reconstructed values remains UF 0.0001.
+- Cross-report dependencies are blocking until reviewed with Pablo.
+- Formatting matters later, but data and lineage matter first.
+
+==========
+03.00_NEXT_BUILD_TARGET
+==========
+
+CR-TEMP-0037 should build CloseReport_FC_KMT_DB_REPORTS.xlsx with:
+- CONTROL
+- DB.MOVEMENTS.SAMPLE
+- F.D.KMT.01.DB
+- F.C.KMT.EFFICIENT
+- F.C.KMT.ORIGINAL_STYLE
+- VALIDATION.RESULTS
+- REVIEW.REQUIRED
+- REPORT.CONTRACT

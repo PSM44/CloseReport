@@ -1,0 +1,9 @@
+﻿contract_key,contract_value
+report_id,FC_KMT_P0
+run_id,FC_KMT_DUAL_REPORT_20260702_143115
+target_report,PDF page 3 / F.C.KMT / Gestora KMT
+route,Bases -> close_report.sqlite -> query/scaffold -> F.D.KMT.01.DB -> F.C.KMT.EFFICIENT + F.C.KMT.OS
+output_workbook,C:\01. GitHub\CloseReport\04.REPORTS\outputs\CloseReport_FC_KMT_DB_REPORTS.xlsx
+required_sheets,"CONTROL, DB.MOVEMENTS.SAMPLE, F.D.KMT.01.DB, F.C.KMT.EFFICIENT, F.C.KMT.OS, VALIDATION.RESULTS, REVIEW.REQUIRED, REPORT.CONTRACT"
+blocked_cell_policy,Do not block workbook creation; highlight cell and record REVIEW.REQUIRED.
+openpyxl_safety,"copy.copy style cloning, merged-cell safe traversal, get_column_letter dimensions."

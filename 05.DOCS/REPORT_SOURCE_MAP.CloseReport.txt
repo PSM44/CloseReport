@@ -1,0 +1,41 @@
+==========
+00.00_REPORT_SOURCE_MAP
+==========
+
+GENERATED..........: 2026-07-02 10:12:48
+PROJECT............: CloseReport
+PERIOD.............: 2026-05
+PDF_REFERENCE......: 202605 Cierre Mayo.pdf
+PDF_NOTE...........: The visible label jun.-26 is presentation timing; accounting period is May 2026.
+SOURCE_OF_TRUTH....: Excel source files under 03.DATA/raw/current, not PDF.
+
+==========
+01.00_P0_REPORTS_FROM_BASES
+==========
+
+PDF_PAGE...........: 3
+REPORT_NAME........: Fin de mes y proyecciones de caja Gestora (KMT)
+MAIN_WORKBOOK_SHEET: F.C.KMT
+UPSTREAM_PRIORITY..: Bases, plus detail/intermediate sheets discovered by formula trace
+STATUS.............: TO_REVERSE_ENGINEER
+
+PDF_PAGE...........: 4
+REPORT_NAME........: Fin de mes y proyecciones de caja Kumquat Holding
+MAIN_WORKBOOK_SHEET: F.CKUM
+UPSTREAM_PRIORITY..: Bases, plus detail/intermediate sheets discovered by formula trace
+STATUS.............: TO_REVERSE_ENGINEER
+
+PDF_PAGE...........: 5
+REPORT_NAME........: Fin de mes y proyecciones de caja Holding (Kumquat + KMT)
+MAIN_WORKBOOK_SHEET: F.CMC
+UPSTREAM_PRIORITY..: Bases, plus detail/intermediate sheets discovered by formula trace
+STATUS.............: TO_REVERSE_ENGINEER
+
+==========
+02.00_RULES
+==========
+
+- PDF is only visual reference.
+- Excel formulas/links are source for reverse engineering.
+- Cell-level formula/reference trace is mandatory.
+- If any formula/cell/source is ambiguous, mark REVIEW_REQUIRED and ask Pablo.

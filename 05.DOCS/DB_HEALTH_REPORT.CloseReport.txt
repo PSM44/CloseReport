@@ -1,0 +1,45 @@
+==========
+00.00_DB_HEALTH_REPORT
+==========
+
+GENERATED..........: 2026-07-02T12:12:05
+PROJECT............: CloseReport
+MB_ID..............: CR-TEMP-0036
+DATABASE...........: C:\01. GitHub\CloseReport\01.DB\close_report.sqlite
+SOURCE_MOVEMENTS...: C:\01. GitHub\CloseReport\03.DATA\staging\movements.csv
+MAIN_WORKBOOK......: C:\01. GitHub\CloseReport\03.DATA\raw\current\main.xlsx
+
+==========
+01.00_LOAD_RESULT
+==========
+
+MOVEMENTS_ROWS.....: 4501
+CSV_ROWS_INSERTED..: 4501
+FD_KMT_PROBE_ROWS..: 129
+TOTAL_AMOUNT_UF....: 11042.7202
+NULL_AMOUNT_UF_ROWS: 0
+DB_STATUS..........: PASS
+
+==========
+02.00_TABLES_AND_VIEWS
+==========
+
+TABLES:
+- movements
+- load_batches
+- validation_results
+- report_contracts
+- report_outputs_contract
+- fd_kmt_01_bases_formula_probe (if probe available)
+
+VIEWS:
+- vw_movements_typed
+- vw_fd_kmt_01_bases_sumifs_scaffold
+
+==========
+03.00_INTERPRETATION
+==========
+
+- CR_TEMP_0035 reported ERROR:no such table: movements. This run repairs that issue by rebuilding close_report.sqlite deterministically from 03.DATA/staging/movements.csv.
+- The database is now the mandatory layer before generating report workbooks.
+- Report generation must create two Excel variants: efficient formulas and original-style formulas/layout.

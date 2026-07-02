@@ -354,3 +354,116 @@ PATH_TO_MANAGEMENT_DELIVERABLE:
 
 NEXT_ACTION:
   Run CR-PQ-0004 to refine managerial summaries in EXEC.SUMMARY using current Movements_Model.
+==========
+99.70_CR_TEMP_0031_DB_REPORT_REVERSE_ENGINEERING_FOCUS
+==========
+
+STATUS_REPAIR_MARKER: CR_TEMP_0031_DB_REPORT_REVERSE_ENGINEERING_FOCUS
+FECHA...............: 2026-07-02
+HORA_LOCAL..........: 10:12
+
+CURRENT_FOCUS:
+  DRAGONFLYFOCUS....: DB from upstream Excel sources -> report rebuild -> numeric reconciliation.
+  PDF_ROLE..........: visual reference only; not source of truth.
+  PERIOD............: May 2026 close, presented first week of June 2026.
+  FIRST_SOURCE......: 03.DATA/raw/current/main.xlsx
+  INDEX_SHEET.......: Inidce
+  FIRST_DATA_SHEET..: Bases
+  FIRST_REPORTS.....: F.C.KMT, F.CKUM, F.CMC
+
+KEY_DECISIONS:
+  DEC-030 main.xlsx is the P0 initial source workbook.
+  DEC-031 Inidce is treated as the actual sheet name until human correction.
+  DEC-032 Base and Bases are distinct sheets and must not be conflated.
+  DEC-033 Reverse engineering must trace formulas/references at cell level.
+  DEC-034 PDF export and EXEC.SUMMARY are not P0.
+  DEC-035 DuckDB/local DB is acceptable for speed; portability is later.
+  DEC-036 Store facts, assumptions, snapshots and lineage; do not store redundant derivations unless frozen as approved snapshot.
+  DEC-037 Model must distinguish Actual, Projected, Estimated, Budget, Derived and ManualOverride.
+  DEC-038 Future model must support V00 estimated snapshot, actual-to-cutoff snapshot, and updated remaining forecast.
+
+NEXT_ACTION:
+  CR-DB-0001 create local DB from Bases/movements and begin F.C.KMT rebuild query scaffold.
+
+==========
+99.90_CR_TOOL_0042_CANONICAL_FC_KMT_LAUNCHER
+==========
+
+STATUS_REPAIR_MARKER: CR-TOOL-0042_CANONICAL_KMT_LAUNCHER_AND_DOCS_HYGIENE
+FECHA...............: 2026-07-02
+MOTIVO..............: Promote the working F.C.KMT P0 builder to a canonical launcher and clean 05.DOCS root.
+
+CURRENT_STATE:
+  FC_KMT_P0_BUILDER..: CANONICAL
+  LAUNCHER...........: 06.TOOLS\run_build_fc_kmt_dual_report.ps1
+  BUILD_STATUS.......: PASS
+  REVIEW_REQUIRED....: 0
+  WORKBOOK_OUTPUT....: 04.REPORTS\outputs\CloseReport_FC_KMT_DB_REPORTS.xlsx
+  DOCS_HYGIENE.......: REFERENCE_TRACE_REGISTER moved to 05.DOCS\HIST\
+  KUM_STATUS.........: NOT_STARTED
+
+NEXT_ACTION:
+  Keep F.C.KMT P0 stable and treat F.CKUM as the next candidate only when explicitly requested.
+
+==========
+99.70_CR_TEMP_0033_FIRST_VISUAL_REPORT_PROBE
+==========
+
+STATUS_REPAIR_MARKER: CR_TEMP_0033_FIRST_VISUAL_REPORT_PROBE
+FECHA...............: 2026-07-02
+MOTIVO..............: Start construction of simplest visual PDF report from DB logic.
+
+DECISION:
+  First visual report path starts with PDF page 3 / F.C.KMT, but rebuild starts at F.D.KMT.01 because it contains direct SUMIFS logic against Bases.
+
+OUTPUTS:
+  DB................: C:\01. GitHub\CloseReport\01.DB\close_report.sqlite
+  WORKBOOK..........: C:\01. GitHub\CloseReport\04.REPORTS\outputs\CloseReport_FIRST_VISUAL_REPORT_P0.xlsx
+  PROBE_CSV.........: C:\01. GitHub\CloseReport\05.DOCS\FD_KMT_01_BASES_FORMULA_PROBE.CloseReport.csv
+  SUMMARY...........: C:\01. GitHub\CloseReport\05.DOCS\FIRST_VISUAL_REPORT_BUILD_SUMMARY.CloseReport.txt
+
+NEXT_ACTION:
+  Review FD_KMT_01_BASES_FORMULA_PROBE and REVIEW_REQUIRED. If acceptable, proceed to CR-RPT-0001B to create F.C.KMT.DB from rebuilt F.D.KMT.01 logic.
+
+==========
+99.80_CR_TEMP_0035_FC_KMT_VISUAL_AUDIT_REPAIR
+==========
+
+STATUS_REPAIR_MARKER: CR_TEMP_0035_FC_KMT_VISUAL_AUDIT_REPAIR
+FECHA...............: 2026-07-02
+HORA_LOCAL..........: 12:00
+MOTIVO..............: Repair CR_TEMP_0034 failure and build first visual F.C.KMT.DB audit workbook.
+FOCO................: Cell/formula/value/reference registration first; numeric equivalence with tolerance; visual polish later.
+OUTPUTS.............:
+  - 05.DOCS\FC_KMT_VISUAL_BUILD_SUMMARY.CloseReport.txt
+  - 05.DOCS\FC_KMT_VISUAL_VALIDATION.CloseReport.csv
+  - 05.DOCS\FC_KMT_VISUAL_REVIEW_REQUIRED.CloseReport.csv
+  - 05.DOCS\FC_KMT_VISUAL_CELL_CLASSIFICATION.CloseReport.csv
+  - 04.REPORTS\outputs\CloseReport_FC_KMT_DB_VISUAL_AUDIT.xlsx
+NEXT_ACTION.........: Review F.C.KMT visual blocking cells before advancing to KUM.
+
+
+==========
+99.80_CR-TEMP-0036_DB_REPAIR_AND_REPORT_OUTPUT_CONTRACT
+==========
+
+STATUS_REPAIR_MARKER: CR-TEMP-0036
+FECHA...............: 2026-07-02
+HORA_LOCAL..........: 12:12
+MOTIVO..............: Repair DB after CR_TEMP_0035 showed ERROR:no such table: movements and formalize dual Excel output strategy.
+
+CURRENT_DECISION:
+  - Database must be correct before report workbook generation.
+  - First report target remains PDF page 3 / F.C.KMT / Gestora KMT.
+  - DB route: Bases -> movements -> SQL scaffold -> two Excel outputs.
+  - Two report variants required:
+    1) Efficient formulas report.
+    2) Original-style formulas/sheets report.
+
+EVIDENCE:
+  MOVEMENTS_ROWS.....: 4501
+  FD_KMT_PROBE_ROWS..: 129
+  DB_STATUS..........: PASS
+
+NEXT_ACTION:
+  CR-TEMP-0037 build dual F.C.KMT report workbook from repaired DB contract.

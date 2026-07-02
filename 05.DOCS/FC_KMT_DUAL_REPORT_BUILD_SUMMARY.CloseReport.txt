@@ -1,0 +1,60 @@
+==========
+00.00_FC_KMT_DUAL_REPORT_BUILD_SUMMARY
+==========
+
+RUN_ID.............: FC_KMT_DUAL_REPORT_20260702_143115
+GENERATED..........: 2026-07-02T14:31:27
+STATUS.............: PASS
+TARGET_REPORT......: PDF page 3 / F.C.KMT / Gestora KMT
+OUTPUT_WORKBOOK....: C:\01. GitHub\CloseReport\04.REPORTS\outputs\CloseReport_FC_KMT_DB_REPORTS.xlsx
+ARCHIVE_DIR........: C:\01. GitHub\CloseReport\05.DOCS\HIST\20260702_143115
+
+==========
+01.00_VALIDATION
+==========
+
+- DB / movements_table / expected=exists / actual=exists / status=PASS / notes=
+- DB / movements_row_count / expected=4501 / actual=4501 / status=PASS / notes=
+- PROBE / FD_KMT_01_BASES_FORMULA_PROBE / expected=129 rows / actual=129 / status=PASS / notes=UF tolerance 0.0001.
+- WORKBOOK / required_sheets / expected=CONTROL, DB.MOVEMENTS.SAMPLE, F.D.KMT.01.DB, F.C.KMT.EFFICIENT, F.C.KMT.OS, VALIDATION.RESULTS, REVIEW.REQUIRED, REPORT.CONTRACT / actual=CONTROL, DB.MOVEMENTS.SAMPLE, F.D.KMT.01.DB, F.C.KMT.EFFICIENT, F.C.KMT.OS, VALIDATION.RESULTS, REVIEW.REQUIRED, REPORT.CONTRACT / status=PASS / notes=
+- WORKBOOK / final_status / expected=PASS or PASS_WITH_REVIEW / actual=PASS / status=PASS / notes=Workbook creation completed.
+- WORKBOOK / review_required_rows / expected=0 for clean pass / actual=0 / status=PASS / notes=Rows listed in REVIEW.REQUIRED when unresolved dependencies remain.
+- WORKBOOK / reopen_after_save / expected=CONTROL, DB.MOVEMENTS.SAMPLE, F.D.KMT.01.DB, F.C.KMT.EFFICIENT, F.C.KMT.OS, VALIDATION.RESULTS, REVIEW.REQUIRED, REPORT.CONTRACT / actual=CONTROL, DB.MOVEMENTS.SAMPLE, F.D.KMT.01.DB, F.C.KMT.EFFICIENT, F.C.KMT.OS, VALIDATION.RESULTS, REVIEW.REQUIRED, REPORT.CONTRACT / status=PASS / notes=Workbook re-opened successfully after save.
+- WORKBOOK / F.C.KMT.OS_ak_variance_formula / expected=AK10:AK29 = AF(row)-AH(row) / actual=PASS / status=PASS / notes=Validated exported variance formulas in the output workbook.
+- WORKBOOK / F.C.KMT.OS_intentional_blanks / expected=R6:S6, AH19, and AH25:AH28 remain blank / actual=PASS / status=PASS / notes=Validated intentional visual and no-source blanks in the output workbook.
+- WORKBOOK / F.C.KMT.OS_c24_label / expected=C24 displays label from 'KMT '!$D$60 / actual=Gastos Generales / status=PASS / notes=Validated exported visible label value in the output workbook.
+- WORKBOOK / F.C.KMT.EFFICIENT_ak_variance_formula / expected=AK10:AK29 = AF(row)-AH(row) / actual=PASS / status=PASS / notes=Validated exported variance formulas in the output workbook.
+- WORKBOOK / F.C.KMT.EFFICIENT_intentional_blanks / expected=R6:S6, AH19, and AH25:AH28 remain blank / actual=PASS / status=PASS / notes=Validated intentional visual and no-source blanks in the output workbook.
+- WORKBOOK / F.C.KMT.EFFICIENT_c24_label / expected=C24 displays label from 'KMT '!$D$60 / actual=Gastos Generales / status=PASS / notes=Validated exported visible label value in the output workbook.
+- CLASSIFICATION / fc_kmt_uf_parameters / expected=F6:Q6 and T6:AE6 classified from F.CMC; R6:S6 classified as intentional visual gaps / actual=PASS / status=PASS / notes=Validated exported UF parameter classifications.
+- CLASSIFICATION / fc_kmt_forecast_v00_2026 / expected=AH10:AH29 classified as forecast, visual separator, or intentional no-source blanks per contract / actual=PASS / status=PASS / notes=Validated exported V00 classifications for the forecast range.
+- CLASSIFICATION / fc_kmt_visible_label / expected=C24 classified as VISIBLE_LABEL_FROM_KMT / actual=PASS / status=PASS / notes=Validated visible label classification for the KMT label cell.
+
+==========
+02.00_CLASSIFICATION_COUNTS
+==========
+
+- BLANK: 4954
+- FD_KMT_DEPENDENCY: 267
+- FORECAST_V00_2026: 15
+- HARDNUMBER: 91
+- INTENTIONAL_BLANK_NO_SOURCE_DATA: 4
+- INTENTIONAL_BLANK_VISUAL_GAP: 2
+- LOCAL_FORMULA: 189
+- REPORT_PARAMETER_UF_FROM_FCMC: 24
+- TEXT_OR_DATE: 94
+- VARIANCE_VS_V00_2026: 20
+- VISIBLE_LABEL_FROM_KMT: 1
+- VISUAL_SEPARATOR_ROW: 1
+
+==========
+03.00_REVIEW_REQUIRED
+==========
+
+- review_rows: 0
+
+==========
+04.00_ARCHIVED_DOCS
+==========
+
+- none

@@ -1,0 +1,3 @@
+﻿report_id,output_kind,sheet_name,formula_policy,style_policy,status
+FC_KMT_P3,EFFICIENT_EXCEL_FORMULAS,F.C.KMT.EFFICIENT,compact formulas/query table references,close to PDF; not exact original,PLANNED_NEXT
+FC_KMT_P3,ORIGINAL_STYLE_FORMULAS,F.C.KMT.ORIGINAL_STYLE,mirror original sheet/formula style when useful,preserve original workbook feel,PLANNED_NEXT

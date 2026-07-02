@@ -1,0 +1,172 @@
+==========
+00.00_REFERENCE_TRACE_SUMMARY
+==========
+
+PROJECT............: CloseReport
+TRACE_SOURCE.......: C:\01. GitHub\CloseReport\05.DOCS\REFERENCE_TRACE_REGISTER.CloseReport.csv
+TRACE_BYTES........: 221695237
+TRACE_ROWS_TOTAL...: 614199
+FOCUS_P0_ROWS......: 20000
+REVIEW_SAMPLE_ROWS.: 5000
+BASES_REFERENCES...: 1124
+EXTERNAL_REFERENCES: 583373
+REF_ERRORS.........: 15200
+
+==========
+01.00_INTERPRETATION
+==========
+
+- Full REFERENCE_TRACE_REGISTER is intentionally too large for IA upload and must stay local.
+- IA upload should use this summary plus focused extracts, not the full 250MB trace.
+- P0 scope remains F.C.KMT, F.CKUM and F.CMC, with Bases and intermediate detail sheets.
+- External references and #REF! formulas are not blockers for P0 unless they affect pages 3-5 / target sheets.
+- Any ambiguous file/sheet/cell/formula must be escalated for Pablo review.
+
+==========
+02.00_TOP_SOURCE_SHEETS
+==========
+
+- Caja Diaria: 418878
+- Caja Mensual: 31954
+- Dolar: 23470
+- Resumen Presentacion: 21677
+- Control de C. Planificado: 21372
+- Caja Medici: 16922
+- Bases: 15604
+- Control de C. Planificado KS: 8826
+- Control de C. Planificado Corp: 5388
+- Control de C. Planificado BVI: 5384
+- Flujo de Caja Proyectado: 5219
+- BS1. Rec: 4885
+- Flujo de Caja Semanal: 3441
+- Ventas Reales Cierre Mayo: 2433
+- Detalle Banco: 2410
+- BS1.VR: 2358
+- F.D.KMT.01: 1657
+- Detalle Banco Medici : 1558
+- Calendario Costo Financiero: 1470
+- Créditos Be Smart: 1429
+- Caja Consolidada: 1306
+- Detalle Koke: 1281
+- Hoja1: 1189
+- Calendario Financiero : 1176
+- Devengado : 1151
+- Calendario Pago Financiero (2): 996
+- F.CMC: 877
+- Calendario Financiero Prepago: 754
+- Hoja3: 716
+- BS1.CCF: 704
+- D.KMT: 644
+- F.CKUM: 640
+- Devengados Mayo 26: 571
+- Análisis Préstamo BTG: 538
+- Calendario Pago Financiero: 511
+- F.C.KMT: 510
+- KMT : 475
+- D.BB: 439
+- F.D.KUM.01: 426
+- Analisis Nuevo Escenario: 325
+- Flujocaja Cierre Mayo 25: 287
+- Calendario Financiero Actual: 280
+- Calendario Financiero Actua (2): 262
+- Prestamos SN-Kumquat-BeSmart: 248
+- Calendario Pago Financiero V3: 226
+- Calendario Pago Financiero V4: 221
+- Calendario Pago Financiero V1: 203
+- Hoja2: 170
+- Base: 134
+- Resumen KS Garden: 81
+
+==========
+03.00_TOP_REFERENCED_SHEETS
+==========
+
+- Caja Diaria: 170326
+- Detalle Banco: 148378
+- Detalle Banco Medici: 136998
+- Caja Mensual: 14252
+- Resumen Presentacion: 9136
+- Control de C. Planificado: 8922
+- Caja Medici: 5761
+- TB_UF: 3864
+- Control de C. Planificado KS: 3415
+- Control de C. Planificado Corp: 2120
+- Control de C. Planificado BVI: 2120
+- BS1.VR: 1708
+- BS1. Rec: 1138
+- F.D.KMT.01: 950
+- Flujo de Caja Proyectado: 892
+- Dolar: 582
+- Bases: 582
+- Hoja1: 555
+- Flujo de Caja Semanal: 470
+- Flujocaja Cierre Mayo 25: 412
+- Devengados Mayo 26: 398
+- F.D.KUM.01: 347
+- D.KMT: 326
+- Calendario Financiero Prepago: 228
+- Ventas Reales Cierre Mayo: 182
+- F.CKUM: 168
+- F.CMC: 165
+- SUMIFS(Bases: 129
+- [1]Flujo de Caja: 94
+- Calendario Pago Financiero (2): 89
+- F.C.KMT: 76
+- Calendario Pago Financiero: 29
+- TEXT(Bases: 25
+- Analisis Nuevo Escenario: 24
+- Prestamos SN-Kumquat-BeSmart: 23
+- KMT: 21
+- Caja Consolidada: 17
+- D.BB: 14
+- SUM(D.KMT: 14
+- . F.BS2.01: 12
+- Detalle Koke: 7
+- Calendario Financiero: 4
+- Resumen: 4
+- Estatus Operaciones: 3
+- Detalle pagado medici: 3
+- (Hoja1: 2
+- -Hoja1: 2
+- [1]Control de C. Planificado Corp: 2
+- [2]Control de C. Planificado BVI: 2
+- [3]Caja Medici: 2
+
+==========
+04.00_REFERENCE_TYPES
+==========
+
+- SUMIFS: 504216
+- FORMULA_NO_SHEET_REF: 99176
+- SHEET_REFERENCE: 6258
+- LOOKUP: 4446
+- LINKED_WORKBOOK: 103
+
+==========
+05.00_STATUS_COUNTS
+==========
+
+- MAPPED: 575661
+- REVIEW_REQUIRED: 38538
+
+==========
+06.00_TOP_EXTERNAL_REFERENCES
+==========
+
+- flujo_wl_presentacion.xlsx flujo_wl_presentacion.xlsx: 256750
+- flujo_medici.xlsx flujo_medici.xlsx: 252933
+- flujo_sunset_lakes.xlsx flujo_sunset_lakes.xlsx: 21213
+- flujo_caja_be_smart_1_proyectado_cierre_mayo_26.xlsx flujo_caja_be_smart_1_proyectado_cierre_mayo_26.xlsx: 16468
+- flujo_ks_garden.xlsx flujo_ks_garden.xlsx: 9830
+- flujo_jordan_corp.xlsx flujo_jordan_corp.xlsx: 9350
+- flujo_jordan_limited.xlsx flujo_jordan_limited.xlsx: 9337
+- calendario_costo_financiero.xlsx calendario_costo_financiero.xlsx: 7492
+
+==========
+07.00_OUTPUTS
+==========
+
+SUMMARY............: C:\01. GitHub\CloseReport\05.DOCS\REFERENCE_TRACE_SUMMARY.CloseReport.txt
+FOCUS_P0...........: C:\01. GitHub\CloseReport\05.DOCS\REFERENCE_TRACE_FOCUS_P0.CloseReport.csv
+REVIEW_SAMPLE......: C:\01. GitHub\CloseReport\05.DOCS\REFERENCE_TRACE_REVIEW_REQUIRED_SAMPLE.CloseReport.csv
+EXTERNAL_WORKBOOKS.: C:\01. GitHub\CloseReport\05.DOCS\REFERENCE_TRACE_EXTERNAL_WORKBOOKS.CloseReport.csv
