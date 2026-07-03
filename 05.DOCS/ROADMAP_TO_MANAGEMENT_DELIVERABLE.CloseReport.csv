@@ -1,0 +1,7 @@
+MINIBATTLE,OBJETIVO,OUTPUT,BATTLE,ENTREGABLE_GERENCIA,ESTADO
+CR-TEMP-0058,Validate V6 model and update input validator,Validator PASS/PASS_WITH_REVIEW for V6,BATTLE-01 Input Governance,Dennis-ready validated input workflow,NEXT
+CR-TEMP-0059,Prepare Dennis handoff package,Email/instructions + final V6 path,BATTLE-01 Input Governance,Dennis can fill June input,OPEN
+CR-TEMP-0060,Load Dennis real input and validate,READY/REVIEW/REJECTED CSVs,BATTLE-02 Real June Close Intake,Validated June close dataset,WAITING_FOR_INPUT
+CR-TEMP-0061,Stage READY rows to real DB,stg/fact insert report,BATTLE-03 DB Migration,June data in close_report.sqlite safely,BLOCKED
+CR-TEMP-0062,Generate first manager-facing report from DB,Excel/PDF/dashboard candidate,BATTLE-04 Management Reporting,Visible functional deliverable to gerencia,OPEN
+CR-TEMP-0063,IA review and freeze period,review report + freeze marker,BATTLE-05 Close Governance,Auditable closed June period,OPEN

@@ -1,0 +1,12 @@
+==========
+00.00_IDEAS_AND_OPPORTUNITIES
+==========
+
+UPDATED_LOCAL.....: 2026-07-03 18:15 Santiago Chile
+
+1. Add a clean manager-facing preview workbook or dashboard after V6 validator passes.
+2. Add a cost_center_group layer across projects for comparable management reports.
+3. Add a period-rate governance table in DB, not only hidden Excel sheet.
+4. Add apartment-sales subledger model for promises, escrituras, pies, refunds, mortgage disbursements and reversals.
+5. Add validation colors or status columns in MOVEMENTS_INPUT for Dennis after first real input feedback.
+6. Create a management demo: "June close input to validated DB to report output" using sample and then real data.
