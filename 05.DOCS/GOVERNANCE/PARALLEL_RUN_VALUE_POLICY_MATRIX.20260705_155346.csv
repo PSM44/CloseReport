@@ -1,0 +1,5 @@
+value_policy,meaning,allowed_in_mvp,allowed_as_final_root,requires_source_cell,requires_d1_or_admin_approval,typical_status
+ROOT_CONFIRMED,Confirmed root input/hard number,YES,YES,YES,YES,APPROVED
+TRANSITIONAL_LEGACY,Legacy value used temporarily to reproduce corporate-truth report,YES,NO,YES,YES,REVIEW_REQUIRED
+FORMULA_PENDING,Formula-derived value suspected/known but formula not integrated yet,YES,NO,YES,YES,OPEN
+FORMULA_DERIVED,Derived value with formula known and reproducible from DB inputs,YES,YES,YES,YES,APPROVED_OR_REVIEW

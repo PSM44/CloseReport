@@ -1,0 +1,33 @@
+==========
+00.00_DENNIS_INPUT_TEMPLATE_V3_STREAM_GUIDE
+==========
+
+OUTPUT_TEMPLATE:
+C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.DENNIS_READY.V3_STREAM.xlsx
+
+SOURCE_TEMPLATE:
+C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.DENNIS_READY.xlsx
+
+CONFIRMED SOURCE SHEET:
+C:\01. GitHub\CloseReport\03.DATA\raw\current\main.xlsx > Bases
+
+BASES STRUCTURE:
+Bases!A1:N1 = Empresa | Fecha | Proveedor | Factura | Detalle | Monto | Forma de Pago | Centro de Costo | Detalle2 | Ingreso/Egreso | Monto 2 | UF | Ano | Mes
+
+EXAMPLE SHEET:
+C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.DENNIS_READY.V3_STREAM.xlsx > MOVEMENTS_INPUT.Example
+
+EXAMPLE FILTER:
+Bases!M:M = 2026
+Bases!N:N = 5
+
+STREAMING FIX:
+This version uses iter_rows(min_col=1,max_col=14,values_only=True).
+It avoids read_only random ws.cell() access, which caused the 0056B2 hang.
+
+NOTE POLICY:
+Use ASCII-only text in comments to avoid mojibake. Use canonico/categoria/descripcion without accents in notes.
+
+IMPORTANT:
+MOVEMENTS_INPUT.Example uses period_id=2026-05 as historical reference only.
+Dennis must complete MOVEMENTS_INPUT with period_id=2026-06.

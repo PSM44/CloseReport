@@ -1,0 +1,26 @@
+==========
+00.00_DB_DRYRUN_STAGE_TEST_SAMPLE_STATUS_2026_06
+==========
+VALIDATION_STATUS=PASS
+PERIOD_ID=2026-06
+READY_ROWS_CSV=C:\01. GitHub\CloseReport\05.DOCS\JUNE_INPUT_TEST_SAMPLE_READY_FOR_MIGRATION_2026-06.CloseReport.csv
+REVIEW_ROWS_CSV=C:\01. GitHub\CloseReport\05.DOCS\JUNE_INPUT_TEST_SAMPLE_REVIEW_REQUIRED_2026-06.CloseReport.csv
+DRYRUN_DB_PATH=C:\01. GitHub\CloseReport\99.TEMP\DRYRUN_STAGE_TEST_SAMPLE_TO_DB_2026_06.20260703_161827\close_report_2026_06_TEST_SAMPLE_DRYRUN.sqlite
+DRYRUN_TABLE=stg_movements_input_test_sample_2026_06
+READY_ROWS_READ=2
+ROWS_STAGED=2
+ROWS_SKIPPED_REVIEW=2
+REAL_DB_PATH=C:\01. GitHub\CloseReport\01.DB\close_report.sqlite
+REAL_DB_MODIFIED=NO
+DB_BINARY_COPIED=NO
+
+INTERPRETATION:
+Only READY_FOR_MIGRATION rows from the controlled test sample were staged.
+REVIEW_REQUIRED rows were intentionally skipped.
+The real DB was not opened or modified.
+
+NEXT_ACTION:
+If ROWS_STAGED>0, approve staging logic.
+Then either:
+1. deliver CATALOGS_READY template to Dennis, or
+2. create real staging script CR_TEMP_0055D_STAGE_VALIDATED_JUNE_INPUT_TO_DB after Dennis provides rows.

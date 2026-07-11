@@ -1,0 +1,6 @@
+register_code,register_name,path,status,purpose,next_action
+A,Accumulated Q&A,C:\01. GitHub\CloseReport\05.DOCS\GOVERNANCE\ACCUMULATED_QA.CloseReport.md,ACTIVE,Preserve project questions and answers,Update after every decision-bearing Q&A
+B,Accumulated Project Ideas,C:\01. GitHub\CloseReport\05.DOCS\GOVERNANCE\ACCUMULATED_PROJECT_IDEAS.CloseReport.md,ACTIVE,Preserve project-related ideas,Promote ideas to backlog/decision/risk as needed
+C,Accumulated Non-Project Ideas,C:\01. GitHub\CloseReport\05.DOCS\GOVERNANCE\ACCUMULATED_NON_PROJECT_IDEAS.CloseReport.md,ACTIVE,Preserve useful non-project ideas without scope creep,Review separately outside CloseReport
+D,Accumulated Skills/GRCS Opportunities,C:\01. GitHub\CloseReport\05.DOCS\GOVERNANCE\ACCUMULATED_SKILLS_GRCS_OPPORTUNITIES.CloseReport.md,ACTIVE,Preserve reusable workflow improvement opportunities,Review in Skills/GRCS context
+INDEX,Accumulated Registers Index,C:\01. GitHub\CloseReport\05.DOCS\GOVERNANCE\ACCUMULATED_REGISTERS_INDEX.CloseReport.md,ACTIVE,Define register system and update rule,Keep synchronized

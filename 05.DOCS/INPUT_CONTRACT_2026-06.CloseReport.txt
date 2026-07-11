@@ -1,0 +1,18 @@
+==========
+00.00_INPUT_CONTRACT_2026_06
+==========
+PERIOD_ID=2026-06
+PREVIOUS_PERIOD_LOCKED=2026-05
+PREVIOUS_PERIOD_STATUS=FROZEN_SNAPSHOT
+PRODUCT_DIRECTION=OFFLINE_DESKTOP_NOW__WEB_ONLINE_LATER
+
+Objective: Dennis feeds June 2026 without modifying May 2026 frozen.
+
+Template:
+C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.xlsx
+
+Required columns:
+period_id, entity_code, project_id, cost_center_id, category_id, subcategory_id, movement_type, movement_date, amount, currency, uf_value, amount_uf, value_type, counterparty, description, source_reference, notes.
+
+UX/UI target buttons:
+Validar datos, Migrar DB, Visualizar diagrama de relaciones, Generar reportes, RevisiÃ³n IA, Congelar periodo.

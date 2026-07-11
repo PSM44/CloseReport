@@ -1,0 +1,44 @@
+========== V7_R2_LOOKUPS_AND_EXAMPLE_PATCH_REPORT ==========
+GENERATED..........: 2026-07-04T00:51:02
+INPUT_XLSX.........: C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.ADMIN_READY.V7_CONTROLLED.xlsx
+OUTPUT_XLSX........: C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.ADMIN_READY.V7_CONTROLLED.R2.xlsx
+FINAL_STATUS.......: PASS
+WARNINGS_COUNT.....: 0
+FAILURES_COUNT.....: 0
+
+========== PATCH_MATRIX ==========
+lookups_v7_cost_center_visible | PASS | Created 358 visible cost_center_code values. Sample=['CC-100-00', 'CC-100-01', 'CC-100-02', 'CC-100-03', 'CC-100-04', 'CC-100-05', 'CC-100-06', 'CC-100-07', 'CC-100-08', 'CC-100-09']
+lookups_v7_value_type | PASS | Created 5 value_type values: ['ACTUAL', 'ESTIMATED', 'PROJECTED', 'BUDGET', 'MANUAL_OVERRIDE']
+movement_cost_center_validation | PASS | Repointed MOVEMENTS_INPUT!D2:D1000 to _LOOKUPS_V7 visible list. Removed validations=1
+movement_value_type_validation | PASS | Repointed MOVEMENTS_INPUT!O2:O1000 to _LOOKUPS_V7. Removed validations=1
+example_headers_added | PASS | Added missing headers to MOVEMENTS_INPUT.Example: movement_date, counterparty
+visible_sheets | PASS | Visible sheets enforced. Changed=0
+verify_visible_sheets | PASS | Visible sheets OK.
+verify_lookups_v7_cost_center | PASS | cc_count=358; internal_count=0
+verify_example_headers | PASS | All required example headers present.
+verify_validations | PASS | Validation counts={'cost_center_code': 1, 'value_type': 1}
+
+========== CHECKS ==========
+{
+  "visible_sheets": [
+    "README",
+    "MOVEMENTS_INPUT",
+    "MOVEMENTS_INPUT.Example"
+  ],
+  "lookups_v7_cc_count": 358,
+  "lookups_v7_internal_count": 0,
+  "example_missing_headers": [],
+  "validation_counts": {
+    "cost_center_code": 1,
+    "value_type": 1
+  }
+}
+
+========== WARNINGS ==========
+NONE
+
+========== FAILURES ==========
+NONE
+
+========== NEXT_ACTION ==========
+Run CR-TEMP-0058S verification against ADMIN_READY.V7_CONTROLLED.R2.xlsx.

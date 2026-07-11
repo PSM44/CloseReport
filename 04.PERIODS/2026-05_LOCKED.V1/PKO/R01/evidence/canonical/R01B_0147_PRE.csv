@@ -1,0 +1,13 @@
+key,value,exists,sha256
+root,C:\01. GitHub\CloseReport,True,
+temp,C:\Users\aazcl\Downloads\GlobalTemp.CierreMes,True,
+final_0143f,C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED.V1\PKO\R01\current\R01_B.FINAL_0143F.20260711_125534.xlsx,True,2a19588e4a95f877f578be3242ff45447c37f2cf983800ee07ae4d3138bb0030
+db,C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED\03_PKO\PKO.R01.2026-05.v001\_internal\PKO.R01.db.2026-05.v001.sqlite,True,e7b1ce0b9514abfb4ddf4d3caeef58b641047e1e14a65edb312276287f85b192
+main_xlsx,C:\01. GitHub\CloseReport\03.DATA\raw\current\main.xlsx,True,b6f14d10763ab120750ab59d48c4e0c14ad68e031a20643d81a742a4f3f86fe5
+feedback_0146,C:\Users\aazcl\Downloads\GlobalTemp.CierreMes\CR_DB_0146_FEEDBACK.json,True,550d1abfaf58f7210eadc64169b417efae67edc71ae04be3fc4a398ed572a2fe
+canonical_control,C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED.V1\PKO\R01\control\canonical,True,
+canonical_evidence,C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED.V1\PKO\R01\evidence\canonical,True,
+canonical_docs,C:\01. GitHub\CloseReport\05.DOCS\R01\canonical,True,
+r26_csv,C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED.V1\PKO\R01\control\canonical\R01B_R26.csv,True,ab169aedcff0621a251e743bf8343d1c89adaee26d54c9d9090f7e5661dec27b
+gate_csv,C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED.V1\PKO\R01\control\canonical\R01B_GATE.csv,True,a4000d27f2423bee8f90662987f7714fb84bcef699321e33e54f9c0dbf20a5b1
+review_csv,C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED.V1\PKO\R01\control\canonical\R01B_REVIEW.csv,True,a4ae179187e5d789d12ceea90e687656f0e6a765060e859c5e021c1cda9b327d

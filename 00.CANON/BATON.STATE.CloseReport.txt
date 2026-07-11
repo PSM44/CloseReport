@@ -2,93 +2,89 @@
 00.00_BATON_STATE_CLOSEREPORT
 ==========
 
-ID_UNICO..........: BATON.STATE.CLOSEREPORT.20260703_1815
+ID_UNICO..........: BATON.STATE.CLOSEREPORT.20260711_1732
 PROJECT...........: CloseReport / PS.CierreMES
 ROOT..............: C:\01. GitHub\CloseReport
-UPDATED_LOCAL.....: 2026-07-03 18:15 Santiago Chile
+UPDATED_LOCAL.....: 2026-07-11 17:32 Santiago Chile
 STATUS............: ACTIVE
-SESSION_STATUS....: CLOSED_WITH_LOCAL_CONTINUITY_UPDATED_PENDING_GIT_RADAR_CONFIRMATION
+SESSION_STATUS....: CLOSED_WITH_LOCAL_CONTINUITY_UPDATED
 
 ==========
 01.00_CURRENT_STATE
 ==========
 
 Active workstream:
-- June 2026 close input workflow.
-- Current artifact: Dennis-ready Excel input template.
-- Current best file:
-  C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.DENNIS_READY.V6_DIMENSIONS.xlsx
+- Reporte 1 / R01_B closure and continuity hardening.
+- Current final artifact:
+  C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED.V1\PKO\R01\current\R01_B.FINAL_0143F.20260711_125534.xlsx
 
-Confirmed latest PASS:
-- CR-TEMP-0056E
-- OUTPUT_TEMPLATE_CREATED=YES
-- VISIBLE_SHEETS=README|MOVEMENTS_INPUT|MOVEMENTS_INPUT.Example
-- PERIOD_RATES_SHEET_CREATED=YES
-- COST_CENTER_HEADER_RENAMED=YES
-- COST_CENTER_CODES_NORMALIZED=44
-- CURRENCY_FORMULA_COLUMNS_ADDED=YES
-- DB_MODIFIED=NO
-- COMMIT_PUSH_PERFORMED=NO
+Confirmed state:
+- CR-DB-0143F = PASS.
+- CR-DB-0144 = PASS.
+- CR-DB-0145 = PASS.
+- CR-DB-0146 = PASS.
+- CR-DB-0147 = PASS_WITH_REVIEW.
+- TECHNICAL_ACCEPTANCE = APPROVED.
+- D1_HUMAN_REVIEW = APPROVED.
+- ADMIN_SIGNOFF = PENDING.
+- VISUAL_REFINEMENT = PENDING_NON_BLOCKING.
+- DB_LINEAGE = DOCUMENTED_AS_PLAN_NOT_APPLIED.
+- DB_MODIFIED = NO.
+- WORKBOOKS_MODIFIED = NO.
+- COMMIT_PUSH_PERFORMED = NO.
 
 ==========
 02.00_KEY_DECISIONS
 ==========
 
-1. MOVEMENTS_INPUT must not be open/free-form.
-2. Only README, MOVEMENTS_INPUT and MOVEMENTS_INPUT.Example are visible to Dennis.
-3. MOVEMENTS_INPUT.Example sits next to MOVEMENTS_INPUT and is reference only.
-4. Project and cost center dimensions are separated:
-   - project_id carries project context.
-   - cost_center_code is visible without project prefix, e.g. CC-200-09.
-   - logical uniqueness is project_id + cost_center_code.
-5. uf_value is monthly per period, not per row.
-6. _PERIOD_RATES stores period_id, uf_monthly_clp, usd_monthly_clp.
-7. amount_uf and amount_usd are derived from amount + currency + monthly period rates.
-8. Apartment sales lifecycle must include promesa, escritura, pie, cuotas, desistimiento, reembolso, hipotecario, cambio de unidad and reversa.
-9. Do not delete original sales on desistimiento; register reversal/refund/payment movements separately.
+1. R01_B.FINAL_0143F.20260711_125534.xlsx is the active technical/human-approved workbook candidate.
+2. R01_B.FINAL_ACCEPTED.CR_DB_0142.20260711_005838.xlsx stays as superseded/observed evidence.
+3. main.xlsx remains benchmark/bootstrap historical only, never runtime dependency.
+4. DB lineage for '. F.BS2.01' source depth is documented but not applied because schema-safe idempotent registration was not available in 0147.
+5. Visual refinement remains non-blocking for technical closure.
+6. Canonical control/evidence/docs under R01 should be preferred over long historical filenames.
 
 ==========
 03.00_NEXT_ACTION
 ==========
 
-CR-TEMP-0058_VALIDATE_V6_AND_UPDATE_0055B_VALIDATOR
+ADMIN_SIGNOFF_REGISTRATION or MANAGEMENT_DEMO_PACKAGE
 
 Objective:
-Validate V6 workbook and update the real-input validator to accept:
-- cost_center_code + project_id;
-- period rates from _PERIOD_RATES;
-- derived amount_uf / amount_usd;
-- visible-sheet contract.
-
-Do not stage real DB until Dennis fills MOVEMENTS_INPUT.
+- Register Admin signoff if it is obtained.
+- Otherwise prepare the management/demo package using the canonical R01 set.
 
 ==========
 04.00_BLOCKERS_AND_BREACHES
 ==========
 
-- No fresh RADAR evidence was provided in this close interaction.
-- No git commit/push was requested in CR-TEMP-0056E.
-- 0055B validator still reflects the pre-V6 model and must be updated before validating Dennis real input.
-- Existing canonical catalogs still need a formal cost_center_group / rollup strategy if not already implemented.
+- Admin signoff is still pending.
+- DB lineage remains a documented migration plan, not an applied DB registration.
+- Git working tree is not clean; continuity close does not change commit/push state.
+- Readiness is local/session-level, not a formal project readiness pipeline.
 
 ==========
 05.00_HANDOFF_TO_NEXT_AI
 ==========
 
 Start by inspecting:
-1. C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.DENNIS_READY.V6_DIMENSIONS.xlsx
-2. C:\01. GitHub\CloseReport\05.DOCS\DENNIS_INPUT_TEMPLATE_V6_DIMENSIONS_SUMMARY_2026-06.CloseReport.json
-3. C:\01. GitHub\CloseReport\05.DOCS\DIMENSION_SEPARATION_AND_PERIOD_RATES_POLICY_2026-06.CloseReport.txt
-4. C:\01. GitHub\CloseReport\05.DOCS\COST_CENTER_CODE_NORMALIZATION_V6.CloseReport.csv
-5. C:\01. GitHub\CloseReport\05.DOCS\SESSION_CLOSE.CloseReport.20260703_1815.txt
+1. C:\01. GitHub\CloseReport\05.DOCS\R01\canonical\R01B_SESSION_CLOSE.md
+2. C:\01. GitHub\CloseReport\05.DOCS\R01\canonical\R01B_BACKLOG_ACC.md
+3. C:\01. GitHub\CloseReport\05.DOCS\R01\canonical\R01B_TECHDEBT.md
+4. C:\01. GitHub\CloseReport\05.DOCS\R01\canonical\R01B_DB_LINEAGE_PLAN.md
+5. C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED.V1\PKO\R01\control\canonical\R01B_CLOSE.csv
+6. C:\Users\aazcl\Downloads\GlobalTemp.CierreMes\CR_DB_0148_READINESS.json
 
-Then implement CR-TEMP-0058, not DB migration.
+Then choose:
+- ADMIN_SIGNOFF_REGISTRATION, or
+- MANAGEMENT_DEMO_PACKAGE, or
+- DB_LINEAGE_REGISTRATION follow-up only if schema changes are explicitly approved.
 
 ==========
 06.00_CHANGELOG
 ==========
 
-2026-07-03 18:15
-- Refreshed after CR-TEMP-0056E PASS.
-- Updated target from CATALOGS_READY / V5_LAYOUT to V6_DIMENSIONS.
-- Captured dimension separation and monthly period-rate decision.
+2026-07-11 17:32
+- Rebased CloseReport continuity from June input-template work to R01_B closure state.
+- Recorded 0143F/0144/0145/0146 PASS and 0147 PASS_WITH_REVIEW.
+- Pointed next action to admin signoff or management demo instead of template validation.

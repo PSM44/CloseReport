@@ -1,0 +1,43 @@
+==========
+00.00_CATALOG_SCOPE_AWARE_REMAINING_CRITICALS_FIX
+==========
+
+ACTION:
+Fixed the remaining known scope-aware catalog criticals from CR_TEMP_0055A4.
+
+1. ENTITY scope collisions:
+Read 18 entity+alias collision keys from:
+C:\01. GitHub\CloseReport\05.DOCS\CATALOG_SCOPE_AWARE_ALIAS_COLLISIONS_2026-06.CloseReport.csv
+
+Changed 40 alias rows in:
+C:\01. GitHub\CloseReport\02.CONFIG\catalogs\current\dim_cost_center_alias.CloseReport.csv
+
+New assignment:
+scope=NEEDS_CONTEXT
+review_status=MANUAL_REVIEW_REQUIRED
+confidence=ENTITY_COLLISION_REVIEW
+classification_source=ENTITY_SCOPE_COLLISION
+
+2. dim_cost_center missing cost_center_name:
+Ensured cost_center_name exists and is populated using canonical/source/name fallback.
+
+3. dim_currency invalid/missing currency:
+Rebuilt canonical currency catalog with:
+CLP
+USD
+UF
+
+BACKUPS:
+C:\01. GitHub\CloseReport\02.CONFIG\catalogs\current\dim_cost_center_alias.CloseReport.pre_0055A5.20260703_155536.csv
+C:\01. GitHub\CloseReport\02.CONFIG\catalogs\current\dim_cost_center.CloseReport.pre_0055A5.20260703_155536.csv
+C:\01. GitHub\CloseReport\02.CONFIG\catalogs\current\dim_currency.CloseReport.pre_0055A5.20260703_155536.csv
+
+PERIOD SNAPSHOT UPDATED:
+C:\01. GitHub\CloseReport\02.CONFIG\catalogs\2026-06\dim_cost_center_alias.CloseReport.csv
+C:\01. GitHub\CloseReport\02.CONFIG\catalogs\2026-06\dim_cost_center.CloseReport.csv
+C:\01. GitHub\CloseReport\02.CONFIG\catalogs\2026-06\dim_currency.CloseReport.csv
+
+NEXT:
+Rerun CR_TEMP_0055A4_VALIDATE_SCOPE_AWARE_CATALOGS.
+Expected result: CRITICAL_ISSUES=0.
+MIGRATION_BLOCKING_ALIASES may remain >0 and is acceptable; those rows block automatic migration until context resolves them.

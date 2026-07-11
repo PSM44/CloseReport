@@ -2,19 +2,30 @@
 00.00_WHOAMI_CLOSEREPORT
 ==========
 
-UPDATED_LOCAL.....: 2026-07-03 18:15 Santiago Chile
+UPDATED_LOCAL.....: 2026-07-11 17:32 Santiago Chile
 PROJECT...........: CloseReport / PS.CierreMES
 
-CloseReport is a finance data product for monthly close/reporting.
-Current stage: June 2026 input-template and staging workflow.
+CloseReport is a monthly close/reporting product with DB-first direction and Excel output parity constraints.
+
+Current stage:
+- R01_B technical closure reached.
+- Human D1 review approved.
+- Admin signoff pending.
+- DB lineage for the last corrected dependency is documented as plan, not yet applied.
 
 Current human-operational status:
-- The Dennis-ready template has evolved to V6_DIMENSIONS.
-- Only README, MOVEMENTS_INPUT and MOVEMENTS_INPUT.Example should be visible to Dennis.
-- The best candidate workbook is:
-  C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.DENNIS_READY.V6_DIMENSIONS.xlsx
-- Real DB has not been modified by the latest minibattles.
-- Next human-visible objective is to validate V6 and hand off to Dennis.
+- Active workbook candidate:
+  C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED.V1\PKO\R01\current\R01_B.FINAL_0143F.20260711_125534.xlsx
+- Benchmark remains:
+  C:\01. GitHub\CloseReport\03.DATA\raw\current\main.xlsx
+- Original workbook remains:
+  C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED.V1\PKO\R01\current\R01_B.xlsx
+- DB was not modified by the R01_B closure sequence.
+- Canonical evidence/docs now live under:
+  C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED.V1\PKO\R01\control\canonical
+  C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED.V1\PKO\R01\evidence\canonical
+  C:\01. GitHub\CloseReport\05.DOCS\R01\canonical
 
 Next action:
-Run CR-TEMP-0058 to validate V6 and update 0055B validator for cost_center_code + project_id and monthly period rates.
+- Register Admin signoff if available.
+- Otherwise package the management/demo path from canonical R01 artifacts.

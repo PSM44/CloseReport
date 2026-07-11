@@ -1,0 +1,35 @@
+==========
+00.00_CATALOG_ALIAS_SCOPE_FIX_2026_06
+==========
+
+ACTION:
+Rebuilt dim_cost_center_alias as a scope-aware alias catalog.
+
+CANONICAL FILE UPDATED:
+C:\01. GitHub\CloseReport\02.CONFIG\catalogs\current\dim_cost_center_alias.CloseReport.csv
+
+PERIOD SNAPSHOT UPDATED:
+C:\01. GitHub\CloseReport\02.CONFIG\catalogs\2026-06\dim_cost_center_alias.CloseReport.csv
+
+BACKUP:
+C:\01. GitHub\CloseReport\02.CONFIG\catalogs\current\dim_cost_center_alias.CloseReport.pre_0055A3.20260703_154222.csv
+
+INPUT CLASSIFICATION:
+C:\01. GitHub\CloseReport\05.DOCS\CATALOG_ALIAS_COLLISION_CLASSIFICATION_2026-06.CloseReport.csv
+
+ALIASES_READ=2296
+ALIASES_WRITTEN=2296
+SCOPE_GLOBAL=1374
+SCOPE_ENTITY=442
+SCOPE_NEEDS_CONTEXT=480
+MANUAL_REVIEW_REQUIRED=205
+
+POLICY:
+- Do not treat every cost-center alias as global.
+- GLOBAL aliases can be auto-resolved without additional context.
+- ENTITY aliases require entity_code.
+- NEEDS_CONTEXT aliases require entity/project/manual review before migration.
+- TRUE_COLLISION rows are preserved but cannot be auto-resolved.
+
+NEXT:
+Run a scope-aware catalog validation or rerun CR_TEMP_0055A after updating validator logic.

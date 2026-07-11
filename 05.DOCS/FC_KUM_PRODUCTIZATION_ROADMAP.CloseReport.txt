@@ -1,0 +1,38 @@
+==========
+00.00_FC_KUM_PRODUCTIZATION_ROADMAP
+==========
+MB_ID.....................: CR-TEMP-0050
+REPORT....................: F.CKUM
+STATUS....................: RUNNABLE_PRECANONICAL_PASS_WITH_REVIEW
+PRODUCT_DIRECTION.........: DB_PLUS_UX_UI_MULTIUSER
+
+CloseReport is not intended to remain an Excel automation tool. Excel and PDF are migration, comparison and export artifacts. The target operating model is database + UX/UI + workflow + dynamic reports.
+
+CURRENT OPERATIONAL PATHS
+DB........................: C:\01. GitHub\CloseReport\01.DB\close_report.sqlite
+Trigger...................: C:\01. GitHub\CloseReport\06.TOOLS\run_build_fc_kum_dual_report.ps1
+Builder...................: C:\01. GitHub\CloseReport\06.TOOLS\build_fc_kum_dual_report.py
+Output....................: C:\01. GitHub\CloseReport\04.REPORTS\outputs\CloseReport_FC_KUM_DB_REPORTS.xlsx
+Original workbook.........: C:\01. GitHub\CloseReport\03.DATA\raw\current\main.xlsx
+Compare sheet.............: C:\01. GitHub\CloseReport\03.DATA\raw\current\main.xlsx > F.CKUM
+Compare detail............: C:\01. GitHub\CloseReport\03.DATA\raw\current\main.xlsx > F.D.KUM.01
+Visual PDF................: C:\01. GitHub\CloseReport\03.DATA\raw\202605_Cierre\202605 Cierre Mayo.pdf > page 4
+
+CURRENT REVIEW STATE
+Review required rows......: 32
+Output only candidates....: 24
+Keep review required......: 8
+
+TARGET ARCHITECTURE
+1. Legacy Excel/PDF reverse engineering.
+2. Structured DB as operational source of truth.
+3. Business rules and validations outside legacy workbooks.
+4. UX/UI with forms, buttons, review states and multiuser operation.
+5. Dynamic reports and exportable Excel/PDF outputs.
+
+DO NOT DO YET
+- Do not start F.CMC.
+- Do not treat Excel output as source of truth.
+- Do not edit output workbook as source data.
+- Do not canonicalize F.CKUM as closed while review rows remain.
+- Do not rely on 99.TEMP for operational files.

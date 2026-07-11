@@ -1,0 +1,27 @@
+==========
+00.00_JUNE_INPUT_READY_STATUS_2026_06
+==========
+VALIDATION_STATUS=PASS_WITH_REVIEW
+INPUT_TEMPLATE=C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.CATALOGS_READY.xlsx
+SHEET=MOVEMENTS_INPUT
+HEADER_ROW=1
+ROWS_READ=0
+ROWS_READY_FOR_MIGRATION=0
+ROWS_REVIEW_REQUIRED=0
+ROWS_REJECTED=0
+INPUT_ISSUES=0
+CRITICAL_ISSUES=0
+REVIEW_ISSUES=0
+
+POLICY:
+- May 2026 remains frozen.
+- June 2026 input is staging only until migrated.
+- Currency must be explicit: CLP, USD, UF.
+- amount is source amount in source currency.
+- amount_uf requires controlled conversion if source currency is CLP/USD.
+- NEEDS_CONTEXT cost-center aliases do not auto-migrate.
+
+NEXT_ACTION:
+If CRITICAL_ISSUES=0 and ROWS_READY_FOR_MIGRATION>0, proceed to CR_TEMP_0055C_STAGE_JUNE_INPUT_TO_DB.
+If ROWS_READ=0, deliver template to Dennis or populate MOVEMENTS_INPUT first.
+If CRITICAL_ISSUES>0, fix JUNE_INPUT_ISSUES_2026-06.CloseReport.csv.

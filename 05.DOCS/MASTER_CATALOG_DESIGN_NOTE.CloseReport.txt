@@ -1,0 +1,26 @@
+==========
+00.00_MASTER_CATALOG_DESIGN_NOTE
+==========
+
+The raw cost center workbook is not law.
+It is a seed/reference source.
+
+Final catalog rule:
+- canonical catalogs live in 02.CONFIG/catalogs/current;
+- period snapshots live in 02.CONFIG/catalogs/YYYY-MM;
+- raw inputs remain under 03.DATA/raw;
+- docs can describe catalogs but do not serve as canonical catalog storage.
+
+Why:
+CloseReport needs stable IDs, aliases and normalized dimensions to support multiple projects, future DB migration, desktop use now and web use later.
+
+Manual entry policy:
+Users should select IDs from catalogs whenever possible.
+Free text is evidence only, not a final key.
+
+Amount policy:
+- amount = source amount in source currency
+- currency = CLP/USD/UF
+- uf_value = explicit UF used when applicable
+- amount_uf = normalized UF only when derived by controlled rule
+- FX/UF should not be silently inferred

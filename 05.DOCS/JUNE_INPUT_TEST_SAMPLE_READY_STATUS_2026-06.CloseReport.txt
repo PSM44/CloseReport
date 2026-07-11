@@ -1,0 +1,23 @@
+==========
+00.00_JUNE_INPUT_TEST_SAMPLE_READY_STATUS_2026_06
+==========
+VALIDATION_STATUS=PASS_WITH_REVIEW
+TEST_TEMPLATE=C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.TEST_SAMPLE.xlsx
+SOURCE_TEMPLATE=C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.CATALOGS_READY.xlsx
+SHEET=MOVEMENTS_INPUT
+ROWS_INSERTED=6
+ROWS_READ=6
+ROWS_READY_FOR_MIGRATION=2
+ROWS_REVIEW_REQUIRED=2
+ROWS_REJECTED=2
+INPUT_ISSUES=4
+CRITICAL_ISSUES=2
+REVIEW_ISSUES=2
+
+INTERPRETATION:
+This is a controlled test sample, not Dennis final input.
+The test must prove READY_FOR_MIGRATION, REVIEW_REQUIRED, and REJECTED behavior.
+
+NEXT_ACTION:
+If ROWS_READY_FOR_MIGRATION>0, ROWS_REVIEW_REQUIRED>0, and ROWS_REJECTED>0, input validation logic is usable.
+Then deliver CATALOGS_READY template to Dennis or proceed to a controlled DB staging dry run using only READY rows from the test sample.

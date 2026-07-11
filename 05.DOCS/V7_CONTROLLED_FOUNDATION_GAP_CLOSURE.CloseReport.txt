@@ -1,0 +1,96 @@
+==========
+V7_CONTROLLED_FOUNDATION_GAP_CLOSURE
+==========
+
+GENERATED..........: 2026-07-04T01:12:38
+PROJECT............: CloseReport / PS.CierreMES
+MB_ID..............: CR-DB-0066-PATCH-SCHEMA-V7-CONTROLLED-FOUNDATION
+
+==========
+01.00_INPUT_GAPS_FROM_0058U
+==========
+
+0058U returned PASS_WITH_REVIEW, not FAIL.
+
+Warnings to close at schema/design level:
+1. F.CKUM has cross-report dependency formula(s).
+2. V7 R2 input does not yet model debt/loan schedule for F.CKUM side table.
+3. V7 R2 workbook does not enforce hard-close/reopen governance.
+4. Classification rules are not persisted in DB.
+
+==========
+02.00_GAP_CLOSURE_MAPPING
+==========
+
+GAP: Debt / loan schedule missing
+CLOSED_BY_PROPOSAL:
+- debt_simple_projection
+
+STATUS:
+- DESIGN_PATCHED
+- NOT_MIGRATED
+- NOT_VALIDATED_AGAINST_REAL_REPORT_YET
+
+GAP: Period close / reopen governance missing
+CLOSED_BY_PROPOSAL:
+- dim_period_close
+
+STATUS:
+- DESIGN_PATCHED
+- NOT_MIGRATED
+
+GAP: Classification rules not persisted
+CLOSED_BY_PROPOSAL:
+- classification_rule
+- approval_log
+- validation_log
+
+STATUS:
+- DESIGN_PATCHED
+- NOT_MIGRATED
+
+GAP: record_type / movement_type / source_type separation
+CLOSED_BY_PROPOSAL:
+- dim_record_type
+- dim_movement_type
+- dim_source_type
+- movement_staging_v7
+
+STATUS:
+- DESIGN_PATCHED
+- NOT_MIGRATED
+
+GAP: UF/USD monthly period rates need DB control
+CLOSED_BY_PROPOSAL:
+- dim_period_rate
+
+STATUS:
+- DESIGN_PATCHED
+- NOT_MIGRATED
+
+GAP: Cross-report dependencies in F.CKUM
+CLOSED_BY_PROPOSAL:
+- NOT CLOSED by this schema patch.
+- Must be handled by F.CKUM builder/report reconciliation.
+
+STATUS:
+- STILL_REVIEW_REQUIRED
+
+==========
+03.00_NON_GOALS
+==========
+
+This minibattle does not:
+- apply SQL to real close_report.sqlite;
+- load real data;
+- change V7 R2 workbook;
+- resolve F.CKUM cross-report formulas;
+- implement UI/D1 editor;
+- commit/push.
+
+==========
+04.00_NEXT_ACTION
+==========
+
+Run CR-DB-0066B_VALIDATE_SCHEMA_PATCH_NO_MIGRATION.
+

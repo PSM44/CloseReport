@@ -1,0 +1,66 @@
+========== V7_CONTROLLED_FOUNDATION_SCHEMA_VALIDATION ==========
+GENERATED..........: 2026-07-04T10:58:57
+SCHEMA_PATH........: C:\01. GitHub\CloseReport\01.DB\schema\07.v7_controlled_foundation.sql
+SCHEMA_SHA256......: 005d4f4856bb322f7cf3830081928bfbc55a7d4b72ca4aa5205581e668caebc6
+TEMP_DB............: C:\01. GitHub\CloseReport\99.TEMP\CR_DB_0066B_SCHEMA_VALIDATION.tmp.sqlite
+REAL_DB_MODIFIED...: NO
+MIGRATION_EXECUTED.: NO
+FINAL_STATUS.......: PASS
+WARNINGS_COUNT.....: 0
+FAILURES_COUNT.....: 0
+
+========== CHECKS ==========
+INPUT | schema_exists | expected=exists | actual=exists | status=PASS | C:\01. GitHub\CloseReport\01.DB\schema\07.v7_controlled_foundation.sql
+INPUT | schema_sha256 | expected=hash | actual=005d4f4856bb322f7cf3830081928bfbc55a7d4b72ca4aa5205581e668caebc6 | status=PASS | 
+SQL_EXECUTE | executescript | expected=success | actual=success | status=PASS | Executed against temporary SQLite DB only.
+TABLE_EXISTS | dim_record_type | expected=exists | actual=exists | status=PASS | 
+TABLE_COLUMNS | dim_record_type | expected=>=1 | actual=5 | status=PASS | record_type,description,is_active,sort_order,governance_note
+TABLE_EXISTS | dim_movement_type | expected=exists | actual=exists | status=PASS | 
+TABLE_COLUMNS | dim_movement_type | expected=>=1 | actual=6 | status=PASS | movement_type,description,sign_policy,is_active,sort_order,governance_note
+TABLE_EXISTS | dim_source_type | expected=exists | actual=exists | status=PASS | 
+TABLE_COLUMNS | dim_source_type | expected=>=1 | actual=5 | status=PASS | source_type,description,reliability_rank,is_active,governance_note
+TABLE_EXISTS | dim_period_rate | expected=exists | actual=exists | status=PASS | 
+TABLE_COLUMNS | dim_period_rate | expected=>=1 | actual=12 | status=PASS | period_id,uf_monthly_clp,usd_monthly_clp,rate_policy,source_primary,source_secondary,approved_by,approved_at,locked_at,notes,created_at,updated_at
+TABLE_EXISTS | dim_period_close | expected=exists | actual=exists | status=PASS | 
+TABLE_COLUMNS | dim_period_close | expected=>=1 | actual=14 | status=PASS | period_id,close_status,lock_actuals,lock_rates,lock_commitments,closed_by,closed_at,reopened_by,reopened_at,reopen_reason,approval_required,notes,created_at,updated_at
+TABLE_EXISTS | classification_rule | expected=exists | actual=exists | status=PASS | 
+TABLE_COLUMNS | classification_rule | expected=>=1 | actual=19 | status=PASS | rule_id,rule_name,rule_scope,match_field,match_operator,match_value,output_field,output_value,priority,confidence,effective_from_period,effective_to_period,is_active,approved_by,approved_at,source_reference,notes,created_at,updated_at
+TABLE_EXISTS | validation_log | expected=exists | actual=exists | status=PASS | 
+TABLE_COLUMNS | validation_log | expected=>=1 | actual=15 | status=PASS | validation_id,run_id,validation_scope,artifact_path,source_table,source_row_id,field_name,severity,validation_code,validation_message,suggested_fix,status,resolved_by,resolved_at,created_at
+TABLE_EXISTS | approval_log | expected=exists | actual=exists | status=PASS | 
+TABLE_COLUMNS | approval_log | expected=>=1 | actual=13 | status=PASS | approval_id,approval_scope,artifact_path,source_table,source_row_id,approval_status,requested_by,requested_at,approved_by,approved_at,rejection_reason,notes,created_at
+TABLE_EXISTS | debt_simple_projection | expected=exists | actual=exists | status=PASS | 
+TABLE_COLUMNS | debt_simple_projection | expected=>=1 | actual=26 | status=PASS | debt_projection_id,period_id,entity_code,project_id,debt_label,lender_counterparty,borrower_counterparty,debt_type,currency,opening_principal,requested_disbursement,principal_payment,interest_payment,fees_payment,closing_principal,annual_rate,rate_type,maturity_date,source_type,source_reference,approval_status,approved_by,approved_at,notes,created_at,updated_at
+TABLE_EXISTS | movement_staging_v7 | expected=exists | actual=exists | status=PASS | 
+TABLE_COLUMNS | movement_staging_v7 | expected=>=1 | actual=31 | status=PASS | staging_id,batch_id,period_id,entity_code,project_id,cost_center_code,resolved_cost_center_id,category_id,movement_type,movement_date,amount,currency,period_uf_value,period_usd_value,amount_uf,amount_usd,record_type,source_type,value_type,counterparty,description,source_reference,notes,classification_status,validation_status,approval_status,created_by,approved_by,approved_at,created_at,updated_at
+VIEW_EXISTS | vw_movement_staging_v7_ready | expected=exists | actual=exists | status=PASS | 
+VIEW_EXISTS | vw_period_rate_contract_check | expected=exists | actual=exists | status=PASS | 
+VIEW_EXISTS | vw_v7_controlled_foundation_tables | expected=exists | actual=exists | status=PASS | 
+SEED_ROWS | dim_record_type | expected=>=6 | actual=6 | status=PASS | 
+SEED_VALUES | dim_record_type | expected=all expected values present | actual=missing= | status=PASS | 
+SEED_ROWS | dim_movement_type | expected=>=6 | actual=6 | status=PASS | 
+SEED_VALUES | dim_movement_type | expected=all expected values present | actual=missing= | status=PASS | 
+SEED_ROWS | dim_source_type | expected=>=8 | actual=8 | status=PASS | 
+SEED_VALUES | dim_source_type | expected=all expected values present | actual=missing= | status=PASS | 
+INSERT_CONTRACT | dim_period_rate_insert | expected=executes | actual=executes | status=PASS | Temporary DB only.
+INSERT_CONTRACT | dim_period_close_insert | expected=executes | actual=executes | status=PASS | Temporary DB only.
+INSERT_CONTRACT | classification_rule_insert | expected=executes | actual=executes | status=PASS | Temporary DB only.
+INSERT_CONTRACT | validation_log_insert | expected=executes | actual=executes | status=PASS | Temporary DB only.
+INSERT_CONTRACT | approval_log_insert | expected=executes | actual=executes | status=PASS | Temporary DB only.
+INSERT_CONTRACT | debt_simple_projection_insert | expected=executes | actual=executes | status=PASS | Temporary DB only.
+INSERT_CONTRACT | movement_staging_v7_insert | expected=executes | actual=executes | status=PASS | Temporary DB only.
+VIEW_QUERY | vw_movement_staging_v7_ready | expected=queryable | actual=rows_sample=1 | status=PASS | 
+VIEW_QUERY | vw_period_rate_contract_check | expected=queryable | actual=rows_sample=1 | status=PASS | 
+VIEW_QUERY | vw_v7_controlled_foundation_tables | expected=queryable | actual=rows_sample=5 | status=PASS | 
+CONTRACT_VIEW | vw_period_rate_contract_check_test_period | expected=returns 2099-01 | actual=[('2099-01', 'PASS')] | status=PASS | 
+TEMP_DB | created | expected=yes | actual=yes | status=PASS | C:\01. GitHub\CloseReport\99.TEMP\CR_DB_0066B_SCHEMA_VALIDATION.tmp.sqlite
+TEMP_DB | size_bytes | expected=>0 | actual=98304 | status=PASS | 
+
+========== WARNINGS ==========
+NONE
+
+========== FAILURES ==========
+NONE
+
+========== NEXT_ACTION ==========
+CR-REP-0067_RECONCILE_FCKUM_BUILDER_TO_V7_R2_OR_CREATE_MIGRATION_PLAN.

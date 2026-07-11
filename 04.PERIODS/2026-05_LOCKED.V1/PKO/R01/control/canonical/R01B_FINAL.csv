@@ -1,0 +1,2 @@
+artifact_role,path,sha256,status,source_wbs,workbook_sheet_primary,workbook_range_primary,key_gate_status,human_signoff_required,specific_fixed_range,dependency_sheet_added_or_expanded
+CORRECTED_FINAL_ARTIFACT,C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED.V1\PKO\R01\current\R01_B.FINAL_0143F.20260711_125534.xlsx,2a19588e4a95f877f578be3242ff45447c37f2cf983800ee07ae4d3138bb0030,TECHNICAL_PASS_HUMAN_SIGNOFF_PENDING,CR-DB-0143F,F.D.KUM.01,C3:AF67,SOURCE_DEPTH=PASS;NUMERIC=PASS;GLOBAL=PASS;FBS2_INTERNAL=PASS;FINAL_PACKAGE=PASS,YES,F.D.KUM.01!R26:AC26,'. F.BS2.01'!G35:R54

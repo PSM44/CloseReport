@@ -1,0 +1,22 @@
+==========
+00.00_FC_KUM_REVIEW_GUIDE
+==========
+
+STATUS...................: RUNNABLE_PRECANONICAL_PASS_WITH_REVIEW
+REVIEW_REQUIRED_ROWS.....: 32
+OUTPUT_ONLY_CANDIDATES...: 24
+KEEP_REVIEW_REQUIRED.....: 8
+CANONICALIZATION_READY...: NO
+
+CÃ³mo revisar:
+- Abrir el workbook output y revisar primero F.CKUM.OS.
+- Comparar F.CKUM.OS contra main.xlsx > F.CKUM y F.D.KUM.01.
+- Comparar visualmente contra C:\01. GitHub\CloseReport\03.DATA\raw\202605_Cierre\202605 Cierre Mayo.pdf pÃ¡gina 4.
+
+ResoluciÃ³n humana vigente:
+- 24 celdas quedaron clasificadas como OUTPUT_ONLY_CANDIDATE, principalmente referencias tempranas row 4 hacia F.CMC.
+- 8 celdas deben mantenerse REVIEW_REQUIRED por consolidaciÃ³n o cruces con F.C.KMT/F.CMC.
+- No aplicar cambios automÃ¡ticos todavÃ­a; primero responder la matriz de resoluciÃ³n humana.
+
+Fuente de resoluciÃ³n usada:
+Resolution matrix rebuilt from permanent FC_KUM_REVIEW_REQUIRED.CloseReport.csv because no latest FCKUM_REVIEW_RESOLUTION.* folder remained in TEMP.

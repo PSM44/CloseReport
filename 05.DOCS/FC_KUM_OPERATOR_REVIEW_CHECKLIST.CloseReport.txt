@@ -1,0 +1,45 @@
+==========
+00.00_FC_KUM_OPERATOR_REVIEW_CHECKLIST
+==========
+RUN FROM ANY POWERSHELL LOCATION
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "C:\01. GitHub\CloseReport\06.TOOLS\run_build_fc_kum_dual_report.ps1"
+
+Do not use ./run_build_fc_kum_dual_report.ps1 unless the terminal is already located in:
+C:\01. GitHub\CloseReport\06.TOOLS
+
+OPEN OUTPUT
+C:\01. GitHub\CloseReport\04.REPORTS\outputs\CloseReport_FC_KUM_DB_REPORTS.xlsx
+
+REVIEW ORDER
+1. F.CKUM.OS - Original Style sheet for human/management visual review.
+2. F.CKUM.EFFICIENT - technical/efficient sheet for engineering.
+3. REVIEW.REQUIRED - unresolved dependencies.
+4. VALIDATION.RESULTS - validation evidence.
+5. REPORT.CONTRACT - report contract.
+
+COMPARE
+C:\01. GitHub\CloseReport\04.REPORTS\outputs\CloseReport_FC_KUM_DB_REPORTS.xlsx > F.CKUM.OS
+against
+C:\01. GitHub\CloseReport\03.DATA\raw\current\main.xlsx > F.CKUM
+
+C:\01. GitHub\CloseReport\04.REPORTS\outputs\CloseReport_FC_KUM_DB_REPORTS.xlsx > F.D.KUM.01.DB
+against
+C:\01. GitHub\CloseReport\03.DATA\raw\current\main.xlsx > F.D.KUM.01
+
+Visual comparison:
+C:\01. GitHub\CloseReport\03.DATA\raw\202605_Cierre\202605 Cierre Mayo.pdf > page 4
+
+STYLE CHECK FOR F.CKUM.OS
+- #DAE9F8
+- #156082
+- #F2F2F2
+- #E2EFDA
+- borders
+- font colors
+- row heights
+- column widths
+- merged cells
+- number formats
+
+DATA ADAPTATION
+The output adapts to changed data only if source data is updated, the DB is refreshed, and the trigger is rerun. Output workbook is derived/regenerable.

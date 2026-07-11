@@ -1,0 +1,2 @@
+db_path,backup_path,sha256_before,backup_sha256,sha256_after,db_modified,rollback_sql
+C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED\03_PKO\PKO.R01.2026-05.v001\_internal\PKO.R01.db.2026-05.v001.sqlite,,e7b1ce0b9514abfb4ddf4d3caeef58b641047e1e14a65edb312276287f85b192,,e7b1ce0b9514abfb4ddf4d3caeef58b641047e1e14a65edb312276287f85b192,False,

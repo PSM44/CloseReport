@@ -1,0 +1,42 @@
+==========
+00.00_DIMENSION_SEPARATION_AND_PERIOD_RATES_POLICY
+==========
+
+OUTPUT_TEMPLATE:
+C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.DENNIS_READY.V6_DIMENSIONS.xlsx
+
+COST CENTER DECISION:
+Do not expose project-prefixed cost center IDs to Dennis.
+Visible input should use cost_center_code, e.g. CC-200-09, while project context is carried by project_id.
+
+NOT RECOMMENDED AS USER-FACING INPUT:
+CC-BARNES-200-09
+CC-KUM-600-12
+CC-KOKE-600-05
+
+RECOMMENDED USER-FACING INPUT:
+project_id = BARNES / KUM / KOKE / relevant project
+cost_center_code = CC-200-09 / CC-600-12 / CC-600-05
+
+TECHNICAL NOTE:
+If the same cost_center_code exists in multiple projects, uniqueness is composite:
+project_id + cost_center_code.
+A hidden/internal surrogate may still exist in DB, but it should not be the user-facing value.
+
+MONTHLY UF/USD DECISION:
+uf_value is not requested per row.
+Period rates are held once per period in hidden sheet:
+_PERIOD_RATES
+
+Formula policy:
+- If currency=CLP: amount_uf=amount/uf_monthly_clp and amount_usd=amount/usd_monthly_clp.
+- If currency=UF: amount_uf=amount and amount_usd=amount*uf_monthly_clp/usd_monthly_clp.
+- If currency=USD: amount_usd=amount and amount_uf=amount*usd_monthly_clp/uf_monthly_clp.
+
+REAL ESTATE SALES:
+Keep movement types for:
+VENTA_PROMESA, VENTA_ESCRITURA, PAGO_PIE, CUOTA_PIE, DESISTIMIENTO, REEMBOLSO_PIE,
+PAGO_HIPOTECARIO, DESEMBOLSO_HIPOTECARIO, CAMBIO_UNIDAD, REVERSA_VENTA.
+
+Do not delete original sales when desistimiento occurs.
+Register reversal/desistimiento and refund/payment as separate movements.

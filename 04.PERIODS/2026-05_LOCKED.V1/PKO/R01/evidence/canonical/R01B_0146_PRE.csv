@@ -1,0 +1,9 @@
+key,value,exists,sha256
+root,C:\01. GitHub\CloseReport,True,
+temp,C:\Users\aazcl\Downloads\GlobalTemp.CierreMes,True,
+feedback_0145,C:\Users\aazcl\Downloads\GlobalTemp.CierreMes\CR_DB_0145_FEEDBACK.json,True,bea1ef2bb70b87535ab768d5044125530c02610e6b8a3d70c6b5db279cf40669
+final_0143f,C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED.V1\PKO\R01\current\R01_B.FINAL_0143F.20260711_125534.xlsx,True,2a19588e4a95f877f578be3242ff45447c37f2cf983800ee07ae4d3138bb0030
+r01_b_original,C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED.V1\PKO\R01\current\R01_B.xlsx,True,199d672041f0fdb49ce8409bb2a0bc85aedc0d65e73ad4f94c6b7d665827c87f
+superseded_0142,C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED.V1\PKO\R01\current\R01_B.FINAL_ACCEPTED.CR_DB_0142.20260711_005838.xlsx,True,d5ca467dac126642fb31d18d4f5ec452d280a70466de870cebb0b5c81e008c72
+db,C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED\03_PKO\PKO.R01.2026-05.v001\_internal\PKO.R01.db.2026-05.v001.sqlite,True,e7b1ce0b9514abfb4ddf4d3caeef58b641047e1e14a65edb312276287f85b192
+main_xlsx,C:\01. GitHub\CloseReport\03.DATA\raw\current\main.xlsx,True,b6f14d10763ab120750ab59d48c4e0c14ad68e031a20643d81a742a4f3f86fe5

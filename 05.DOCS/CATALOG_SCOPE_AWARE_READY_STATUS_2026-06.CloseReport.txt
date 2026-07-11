@@ -1,0 +1,26 @@
+==========
+00.00_CATALOG_SCOPE_AWARE_READY_STATUS_2026_06
+==========
+VALIDATION_STATUS=PASS_WITH_REVIEW
+CATALOG_DIR=C:\01. GitHub\CloseReport\02.CONFIG\catalogs\current
+CATALOGS_CHECKED=8
+ISSUES_COUNT=0
+CRITICAL_ISSUES=0
+WARNING_ISSUES=0
+
+SCOPE_GLOBAL=1374
+SCOPE_ENTITY=402
+SCOPE_NEEDS_CONTEXT=520
+GLOBAL_ALIAS_COLLISIONS=0
+ENTITY_SCOPE_COLLISIONS=0
+MIGRATION_BLOCKING_ALIASES=520
+
+INTERPRETATION:
+- GLOBAL aliases must be unique globally.
+- ENTITY aliases must be unique within entity_code.
+- NEEDS_CONTEXT aliases are not catalog errors, but cannot be auto-migrated without entity/project/manual context.
+- If CRITICAL_ISSUES=0, catalogs are structurally ready for input validation.
+- If MIGRATION_BLOCKING_ALIASES>0, input validation must keep those rows in review until context resolves them.
+
+NEXT_ACTION:
+If CRITICAL_ISSUES=0 proceed to CR_TEMP_0055B_VALIDATE_JUNE_INPUT_TEMPLATE.

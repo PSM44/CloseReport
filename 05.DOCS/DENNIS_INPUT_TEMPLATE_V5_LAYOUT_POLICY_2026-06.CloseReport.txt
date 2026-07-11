@@ -1,0 +1,45 @@
+==========
+00.00_DENNIS_INPUT_TEMPLATE_V5_LAYOUT_POLICY
+==========
+
+OUTPUT_TEMPLATE:
+C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.DENNIS_READY.V5_LAYOUT.xlsx
+
+SOURCE_TEMPLATE:
+C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.DENNIS_READY.V4_REVIEW.xlsx
+
+VISIBLE SHEETS:
+README, MOVEMENTS_INPUT, MOVEMENTS_INPUT.Example
+
+SHEET ORDER REQUIREMENT:
+MOVEMENTS_INPUT must be immediately followed by MOVEMENTS_INPUT.Example.
+EXAMPLE_ADJACENT=True
+
+HIDDEN SHEETS COUNT:
+11
+
+COST CENTER POLICY:
+Best practice is to keep cost_center_id unique but not overloaded as the only carrier of project meaning.
+Codes like CC-BARNES-200-09, CC-KUM-600-12 and CC-KOKE-600-05 are acceptable as operational unique IDs if the model also stores:
+- entity_code
+- project_id
+- cost_center_group
+- category_id
+- subcategory_id
+
+Avoid excessive disaggregation by using rollups/groupings. The report layer should group equivalent cost center groups across projects.
+
+REAL ESTATE SALES POLICY:
+For apartment sales, the movement_type list must include lifecycle/reversal events:
+- VENTA_PROMESA
+- VENTA_ESCRITURA
+- PAGO_PIE
+- CUOTA_PIE
+- DESISTIMIENTO
+- REEMBOLSO_PIE
+- PAGO_HIPOTECARIO
+- DESEMBOLSO_HIPOTECARIO
+- CAMBIO_UNIDAD
+- REVERSA_VENTA
+
+Do not delete the original sale when there is a desistimiento. Register the reversal/desistimiento and the refund/payment movement separately.

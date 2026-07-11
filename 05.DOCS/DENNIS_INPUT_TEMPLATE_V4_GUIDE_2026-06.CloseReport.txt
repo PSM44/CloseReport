@@ -1,0 +1,30 @@
+==========
+00.00_DENNIS_INPUT_TEMPLATE_V4_GUIDE
+==========
+
+OUTPUT_TEMPLATE:
+C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.DENNIS_READY.V4_REVIEW.xlsx
+
+SOURCE_TEMPLATE:
+C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.DENNIS_READY.V3_STREAM.xlsx
+
+FIXES:
+1. Scanned all workbook cells/comments for mojibake.
+2. Normalized notes to ASCII: catalogo, revision, canonico, categoria, descripcion.
+3. Rebuilt MOVEMENTS_INPUT.Example from:
+   C:\01. GitHub\CloseReport\03.DATA\raw\current\main.xlsx > Bases!A1:N4502
+4. amount_uf / uf_value visually formatted with max 3 decimals.
+5. Negative numeric values formatted in red.
+6. project_id and cost_center_id are populated when resolved by catalogs/aliases.
+7. category_id is populated with fallback category when Bases has no explicit category source.
+
+CATEGORY POLICY:
+Bases has no explicit category column. Reports can technically be generated with blank/unclassified categories only if the report groups them as review/unclassified, but final migration should not treat blank category_id as clean data.
+
+VALUE_TYPE POLICY:
+For these May 2026 historical rows, value_type=ACTUAL.
+The field remains relevant for the database because CloseReport must distinguish ACTUAL vs estimated/projected/budget/manual override values in later periods and reports.
+
+REFERENCE SHEETS:
+C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.DENNIS_READY.V4_REVIEW.xlsx > MOVEMENTS_INPUT
+C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.DENNIS_READY.V4_REVIEW.xlsx > MOVEMENTS_INPUT.Example

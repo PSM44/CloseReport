@@ -1,0 +1,36 @@
+==========
+00.00_CATALOG_DESIGN_DECISION_2026_06
+==========
+
+MB_ID=CR-TEMP-0054B
+
+DECISION:
+The file(s) under:
+C:\01. GitHub\CloseReport\03.DATA\raw\Centros de costos
+
+are not law and are not canonical. They are source/inspiration/evidence only.
+
+Canonical, perfected and functional catalogs are created under:
+C:\01. GitHub\CloseReport\02.CONFIG\catalogs\current
+
+Period-specific copies are created under:
+C:\01. GitHub\CloseReport\02.CONFIG\catalogs\2026-06
+
+RATIONALE:
+The operational DB/UI needs reusable dimensions across projects and future reports.
+Raw workbooks may contain historic naming, typos, inconsistent labels or structures.
+Therefore the final source of truth must be a curated catalog layer.
+
+CURRENCY POLICY:
+Amounts can be CLP, USD or UF.
+The input must keep currency explicit.
+No currency is inferred from description text.
+
+ENCODING POLICY:
+Control labels must use ASCII uppercase when needed:
+REVISION IA, not RevisiÃ³n IA.
+
+COUNTS:
+cost_centers=543
+cost_center_aliases=2296
+source_map_rows=6

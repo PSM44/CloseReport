@@ -1,0 +1,112 @@
+# PARALLEL_RUN_LEGACY_TRUTH_AND_VALUE_CLASSIFICATION.CloseReport
+
+Generated: 2026-07-05 15:53:46
+MB_ID: CR-HUMAN-0083-PARALLEL-RUN-AND-D1-QUESTIONS-POLICY-NO-DB-LOAD
+
+## 01. Product transition rule
+
+For the transition period, the original Excel/PDF reports remain the temporary corporate truth.
+
+CloseReport must run in parallel:
+
+1. Forms and DB capture/report data.
+2. DB generates efficient semi-clones of the original Excel reports.
+3. Generated outputs are reconciled against the original Excel/PDF reports.
+4. The legacy dependency is reduced only after numerical consistency is proven.
+
+## 02. Parallel-run duration
+
+FIRST_3_MONTHS_AFTER_ALL_SEMI_CLONE_REPORTS_ARE_OPERATIONAL
+
+This is not fixed to June-August 2026 unless that is when all semi-clone reports become operational.
+
+## 03. Value classification
+
+| value_policy | Meaning | Typical use |
+|---|---|---|
+| ROOT_CONFIRMED | Confirmed root input/hard number. | True source values approved by business owner. |
+| TRANSITIONAL_LEGACY | Legacy value used temporarily because upstream formula/source is not yet integrated. | Semi-clone replication during parallel run. |
+| FORMULA_PENDING | Known/suspected derived value whose business formula is not fully reconstructed yet. | Backlog for later normalization. |
+| FORMULA_DERIVED | Derived value with formula known and reproducible from DB inputs. | DB/report calculation. |
+
+## 04. Rule for transitional hard numbers
+
+A formula-derived value may be loaded as a transitional hard number when:
+
+- original Excel/PDF is still corporate truth;
+- upstream formula/source is unknown, unavailable, or not yet integrated;
+- the value is required to generate a semi-clone;
+- source-cell traceability is preserved;
+- the value is explicitly marked TRANSITIONAL_LEGACY or FORMULA_PENDING.
+
+Do not mark such a value as ROOT_CONFIRMED until confirmed by the business owner or upstream data contract.
+
+## 05. Required traceability fields
+
+- eport_id
+- period_id
+- source_workbook
+- source_sheet
+- source_cell
+- source_range
+- metric_code
+- metric_name
+- mount_value
+- currency_or_unit
+- period_grain
+- ggregation_type
+- alue_policy
+- source_label_original
+- source_label_normalized
+- eview_status
+- question_id
+- pproved_by
+- pproved_at
+- 
+otes
+
+## 06. Confirmed examples
+
+### UF monthly closing values
+
+- main.xlsx > F.D.KUM.01!E3:AG3
+- Meaning: UF value in CLP for the last day of each month.
+- Treatment: DB transversal period rate.
+- Suggested table: dim_period_rate.
+- Source: Banco Central de Chile; SII as secondary/contrast; Admin approval at close.
+
+### Financing hard numbers
+
+- main.xlsx > F.D.KMT.01!D57:AD57
+- Meaning: financing by period and year accumulated hard numbers.
+- Examples:
+  - main.xlsx > F.D.KMT.01!D57 = total financing for 2024.
+  - main.xlsx > F.D.KMT.01!Q57 = total financing for 2025.
+- Treatment: DB hard numbers, source-cell traceability mandatory.
+
+- main.xlsx > F.D.KUM.01!E51:AC51
+- Meaning: financing-related hard numbers.
+- Treatment: DB hard numbers, source-cell traceability mandatory.
+
+### Pending D1 semantic question
+
+- main.xlsx > F.D.KUM.01!E44:AC44
+- Formula: F.D.KUM.01!E51:AC51 - F.D.KMT.01!E57:AC57
+- Treatment: reproduce as semi-clone calculation if needed; business meaning remains pending for D1.
+
+## 07. Naming correction
+
+Use Financiamiento.
+
+Do not use Financiamento in normalized labels.
+
+If the legacy workbook contains Financiamento, preserve it only as source_label_original, and use Financiamiento as source_label_normalized.
+
+## 08. Not allowed
+
+- Calling the semi-clone a final replacement before parallel-run validation.
+- Marking transitional legacy values as root-confirmed.
+- Dropping source-cell traceability.
+- Silently copying legacy formulas as final architecture.
+- Removing Excel/PDF corporate truth before approval.
+

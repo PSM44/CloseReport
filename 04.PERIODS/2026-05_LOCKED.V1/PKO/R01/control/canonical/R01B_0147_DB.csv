@@ -1,0 +1,2 @@
+db_modified,table_name,row_count_before,rows_inserted,row_count_after,marker,status,reason
+False,report_dependency_cell_rule,158,0,158,CR_DB_0147,SKIPPED,REQUIRED_COLUMNS_MISSING

@@ -1,0 +1,11 @@
+key,value
+final_status,PASS
+artifact,R01_B.FINAL_0143F.20260711_125534.xlsx
+technical_acceptance,APPROVED
+d1_human_review,APPROVED
+admin_signoff,PENDING
+visual_refinement,PENDING_NON_BLOCKING
+db_modified,NO
+workbooks_modified,NO
+commit_push_performed,NO
+recommended_next_wbs,DOCUMENT_HYGIENE_EXECUTION or DB_LINEAGE_REGISTRATION

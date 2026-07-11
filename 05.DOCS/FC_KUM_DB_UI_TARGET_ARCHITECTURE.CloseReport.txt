@@ -1,0 +1,27 @@
+==========
+00.00_FC_KUM_DB_UI_TARGET_ARCHITECTURE
+==========
+01_RAW_IMPORT
+Legacy Excel files, main.xlsx and historical PDFs.
+
+02_DB_CORE
+Current local DB: C:\01. GitHub\CloseReport\01.DB\close_report.sqlite
+Future multiuser DB: PostgreSQL or equivalent.
+
+03_BUSINESS_RULES
+Report formulas become explicit rules. Cross-report dependencies become DB views/functions or remain review-required until defined.
+
+04_WORKFLOW
+Period open/closed state, draft/reviewed/approved reports, review-required queue, exception handling and audit log.
+
+05_UX_UI
+Forms for loading/updating data, buttons for refresh/build/export, review queues, permissions and multiuser access.
+
+06_REPORTING
+Excel exports, PDF exports, dashboard views and committee package outputs.
+
+CURRENT BRIDGE
+C:\01. GitHub\CloseReport\03.DATA\raw\current\main.xlsx -> C:\01. GitHub\CloseReport\01.DB\close_report.sqlite -> C:\01. GitHub\CloseReport\06.TOOLS\build_fc_kum_dual_report.py -> C:\01. GitHub\CloseReport\04.REPORTS\outputs\CloseReport_FC_KUM_DB_REPORTS.xlsx
+
+IMPORTANT NAMING
+F.D.KUM.01.DB is a derived/rebuilt Excel sheet, not the physical database. The physical DB is C:\01. GitHub\CloseReport\01.DB\close_report.sqlite.

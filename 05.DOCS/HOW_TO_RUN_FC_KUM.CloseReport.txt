@@ -1,0 +1,34 @@
+==========
+00.00_HOW_TO_RUN_FC_KUM
+==========
+STATUS:
+F.CKUM is RUNNABLE_PRECANONICAL_PASS_WITH_REVIEW.
+
+DATABASE
+C:\01. GitHub\CloseReport\01.DB\close_report.sqlite
+
+TRIGGER
+C:\01. GitHub\CloseReport\06.TOOLS\run_build_fc_kum_dual_report.ps1
+
+RUN
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "C:\01. GitHub\CloseReport\06.TOOLS\run_build_fc_kum_dual_report.ps1"
+
+OUTPUT
+C:\01. GitHub\CloseReport\04.REPORTS\outputs\CloseReport_FC_KUM_DB_REPORTS.xlsx
+
+REVIEW
+F.CKUM.OS = Original Style sheet for human/management visual review.
+F.CKUM.EFFICIENT = technical/efficient sheet for engineering.
+F.D.KUM.01.DB = derived/rebuilt intermediate sheet, not the real DB.
+REVIEW.REQUIRED = unresolved cells/dependencies.
+VALIDATION.RESULTS = validation evidence.
+
+COMPARE AGAINST ORIGINAL
+C:\01. GitHub\CloseReport\03.DATA\raw\current\main.xlsx > F.CKUM
+C:\01. GitHub\CloseReport\03.DATA\raw\current\main.xlsx > F.D.KUM.01
+
+VISUAL PDF
+C:\01. GitHub\CloseReport\03.DATA\raw\202605_Cierre\202605 Cierre Mayo.pdf > page 4
+
+IF DATA CHANGES
+Update source data, refresh/load DB, rerun trigger. Do not manually edit output workbook as source data.

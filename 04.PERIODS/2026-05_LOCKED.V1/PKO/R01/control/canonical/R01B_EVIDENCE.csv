@@ -1,0 +1,14 @@
+evidence_id,path,exists,sha256,role,notes
+feedback_0143f,C:\Users\aazcl\Downloads\GlobalTemp.CierreMes\CR_DB_0143F_FEEDBACK.json,True,4019e4e05a77d1118c13df9fd00ce4c213ca7f2e4ef0c1d2bee2fdfeb689e3e1,SOURCE_WBS_FEEDBACK,CR-DB-0143F PASS feedback.
+ps_com_summary_0143f,C:\Users\aazcl\Downloads\GlobalTemp.CierreMes\CR_DB_0143F_PS_COM_SUMMARY.json,True,760378f2ec815d048dcbadfe535ef476f330219322376cb7983b625bf0c3bd79,SOURCE_WBS_COM_SUMMARY,Excel COM calculation summary for 0143F.
+r26_csv,C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED.V1\PKO\R01\control\R01B_0143F_R26.csv,True,ab169aedcff0621a251e743bf8343d1c89adaee26d54c9d9090f7e5661dec27b,R26_VALIDATION,12/12 cached values validated.
+gate_csv,C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED.V1\PKO\R01\control\R01B_0143F_GATE.csv,True,a4000d27f2423bee8f90662987f7714fb84bcef699321e33e54f9c0dbf20a5b1,GLOBAL_GATE,C3:AF67 dependency/security gate.
+cache_csv,C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED.V1\PKO\R01\control\R01B_0143F_CACHE.csv,True,0368e65fd16a7019171506cb235b986d244c473f9c27c7a1cf21541793f65084,CACHE_EVIDENCE,Cache confirmation evidence.
+promo_csv,C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED.V1\PKO\R01\control\R01B_0143F_PROMO.csv,True,a0fa5151a687efe35579d0b299d8b8da0276eaf286b3b2b11d09477f85c52a9b,PROMOTION_MANIFEST,Promotion evidence for final 0143F.
+report_md,C:\01. GitHub\CloseReport\05.DOCS\REPORTS\R01B_0143F_REPORT.md,True,1e1e5d6493d4ab8dbf7a33cae78ce583bbfb13b5e454791f8e8e9643a7ccffb7,TECHNICAL_REPORT,0143F technical report.
+gov_md,C:\01. GitHub\CloseReport\05.DOCS\GOVERNANCE\R01B_0143F_GOV.md,True,5035251e1581b45ea0217cefe3263222936f4089c3c059bc78c04abb09085f73,GOVERNANCE_REPORT,0143F governance note.
+final_0143f,C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED.V1\PKO\R01\current\R01_B.FINAL_0143F.20260711_125534.xlsx,True,2a19588e4a95f877f578be3242ff45447c37f2cf983800ee07ae4d3138bb0030,CORRECTED_FINAL_ARTIFACT,Final corrected technical artifact pending human signoff.
+final_0142,C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED.V1\PKO\R01\current\R01_B.FINAL_ACCEPTED.CR_DB_0142.20260711_005838.xlsx,True,d5ca467dac126642fb31d18d4f5ec452d280a70466de870cebb0b5c81e008c72,SUPERSEDED_ARTIFACT,Observed prior final kept as evidence.
+r01_b_original,C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED.V1\PKO\R01\current\R01_B.xlsx,True,199d672041f0fdb49ce8409bb2a0bc85aedc0d65e73ad4f94c6b7d665827c87f,ORIGINAL_WORKBOOK,Original workbook not modified in 0144.
+db,C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED\03_PKO\PKO.R01.2026-05.v001\_internal\PKO.R01.db.2026-05.v001.sqlite,True,e7b1ce0b9514abfb4ddf4d3caeef58b641047e1e14a65edb312276287f85b192,DB_READONLY_REFERENCE,DB preserved read-only.
+main_xlsx,C:\01. GitHub\CloseReport\03.DATA\raw\current\main.xlsx,True,b6f14d10763ab120750ab59d48c4e0c14ad68e031a20643d81a742a4f3f86fe5,BENCHMARK_BOOTSTRAP_HISTORICAL,"Historical benchmark only, not runtime dependency."

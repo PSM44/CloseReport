@@ -1,0 +1,12 @@
+==========
+00.00_DENNIS_WORKFLOW_2026_06
+==========
+1. May 2026 remains frozen.
+2. Dennis fills/pastes June rows into:
+C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.xlsx
+3. Use IDs/dropdowns instead of free-form project names.
+4. Validate aliases, IDs, categories, cost centers and amounts.
+5. Validated rows move to DB through future [Migrar DB].
+6. Reports are generated from DB.
+7. AI review assists but does not approve.
+8. Human approval freezes June 2026.

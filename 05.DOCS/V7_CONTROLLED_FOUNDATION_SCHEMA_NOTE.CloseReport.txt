@@ -1,0 +1,108 @@
+==========
+V7_CONTROLLED_FOUNDATION_SCHEMA_NOTE
+==========
+
+GENERATED..........: 2026-07-04T01:12:38
+PROJECT............: CloseReport / PS.CierreMES
+MB_ID..............: CR-DB-0066-PATCH-SCHEMA-V7-CONTROLLED-FOUNDATION
+ROOT...............: C:\01. GitHub\CloseReport
+SCHEMA_FILE........: C:\01. GitHub\CloseReport\01.DB\schema\07.v7_controlled_foundation.sql
+DB_MODIFIED........: NO
+MIGRATION_EXECUTED.: NO
+COMMIT_PUSH........: NO
+
+==========
+01.00_PURPOSE
+==========
+
+This minibattle creates a schema/documentation patch only.
+
+It does not apply changes to:
+- C:\01. GitHub\CloseReport\01.DB\close_report.sqlite
+- production/staging data
+- real movements
+- real period close
+
+It responds to the PASS_WITH_REVIEW findings from:
+CR-TEMP-0058U-VERIFY-V7-R2-AND-EXAMPLE-TO-FCKUM
+
+==========
+02.00_OBJECTS_PROPOSED
+==========
+
+01. dim_record_type
+    Controls ACTUAL, BUDGET, FORECAST, COMMITMENT, SCHEDULE, ADJUSTMENT.
+
+02. dim_movement_type
+    Controls INCOME, EXPENSE, TRANSFER, FINANCING, OPENING_BALANCE, REVERSAL.
+
+03. dim_source_type
+    Controls ACCOUNTING, BANK, MANUAL_ADMIN, SYSTEM_CALCULATED, SALES_FORECAST,
+    PURCHASE_ORDER, DEBT_SCHEDULE, LEGACY_EXCEL.
+
+04. dim_period_rate
+    Moves UF/USD monthly rate governance from Excel-only _PERIOD_RATES toward DB.
+
+05. dim_period_close
+    Establishes OPEN / SOFT_CLOSED / HARD_CLOSED / REOPENED.
+
+06. classification_rule
+    Persists Admin/AI classification rules.
+
+07. validation_log
+    Persists validation findings.
+
+08. approval_log
+    Persists approval trail.
+
+09. debt_simple_projection
+    Minimal table for F.CKUM financing / loan request side table.
+
+10. movement_staging_v7
+    Controlled movement staging contract aligned with:
+    CloseReport_Input_Template_2026-06.ADMIN_READY.V7_CONTROLLED.R2.xlsx
+
+==========
+03.00_DESIGN_DECISIONS
+==========
+
+- This is not a full debt module.
+- debt_simple_projection is intentionally minimal and report-driven.
+- period rates are monthly per period, not row-level manual input.
+- closed periods should be protected from normal edits.
+- classification rules require approval trail.
+- movement_type, record_type and source_type are separated.
+- D1 naming is operational standard; do not use Dennis-ready naming going forward.
+
+==========
+04.00_RISKS
+==========
+
+RISK-001:
+Existing older schema files and validators may still reference pre-V7 fields like uf_value
+or cost_center_id as a visible input.
+
+RISK-002:
+movement_staging_v7 is additive. It does not replace current movement_staging until
+migration plan is approved.
+
+RISK-003:
+debt_simple_projection may be insufficient if F.CKUM loan request table later requires
+installment-level amortization, covenant tracking or multiple refinances.
+
+RISK-004:
+classification_rule needs a controlled rule resolver in a future minibattle.
+
+==========
+05.00_RECOMMENDED_NEXT_ACTION
+==========
+
+CR-DB-0066B_VALIDATE_SCHEMA_PATCH_NO_MIGRATION
+
+Objective:
+- Parse 07.v7_controlled_foundation.sql against a temporary SQLite database.
+- Confirm all tables/views compile.
+- Confirm seed rows insert.
+- Confirm no real DB is touched.
+- Produce validation report.
+

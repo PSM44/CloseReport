@@ -1,0 +1,31 @@
+==========
+00.00_CATALOG_VALIDATION_PLAN_2026_06
+==========
+
+RAW_SOURCE_POLICY:
+INSPIRATION_ONLY_NOT_CANONICAL
+
+Meaning:
+The workbook under 03.DATA/raw/Centros de costos is a reference/inspiration source only.
+The canonical, perfected and functional catalogs are created separately under:
+C:\01. GitHub\CloseReport\02.CONFIG\catalogs\current
+
+Period snapshot:
+C:\01. GitHub\CloseReport\02.CONFIG\catalogs\2026-06
+
+Counts:
+ENTITIES=7
+PROJECTS=7
+PROJECT_ALIASES=14
+COST_CENTERS=543
+COST_CENTER_ALIASES=2296
+CATEGORIES=9
+
+Currency:
+CLP, USD, UF
+
+Encoding:
+Use ASCII uppercase button labels. Example: REVISION IA.
+
+Next:
+Review catalog files, then proceed to CR_TEMP_0055_VALIDATE_JUNE_UPLOAD.

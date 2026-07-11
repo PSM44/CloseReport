@@ -1,0 +1,47 @@
+==========
+00.00_DENNIS_INPUT_TEMPLATE_GUIDE_2026_06
+==========
+
+TEMPLATE:
+C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.DENNIS_READY.xlsx
+
+SOURCE:
+C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.CATALOGS_READY.xlsx
+
+SHEET TO COMPLETE:
+C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.DENNIS_READY.xlsx > MOVEMENTS_INPUT
+
+MAIN CHANGE:
+MOVEMENTS_INPUT is no longer an open/free-form sheet. It now includes header comments and dropdown validations.
+
+FIELDS THAT SHOULD BE SELECTED, NOT TYPED FREELY:
+- period_id
+- entity_code
+- project_id
+- cost_center_id
+- category_id
+- subcategory_id
+- movement_type
+- currency
+- value_type
+
+FIELDS THAT MAY BE FREE-TEXT BUT SHOULD NOT REPLACE STRUCTURED FIELDS:
+- project_alias
+- cost_center_alias
+- description
+- source_reference
+- notes
+
+POLICY:
+- Avoid manual/hand-entered numeric or textual codes when a catalog selector exists.
+- category_id, subcategory_id, movement_type, project_id and period_id must be controlled values.
+- currency must be CLP, USD or UF.
+- amount is source amount in source currency.
+- May 2026 remains frozen.
+- June input remains staging until validated and migrated.
+
+BASES SCAN:
+A scan was created to identify workbook sheets with names containing "base":
+C:\01. GitHub\CloseReport\05.DOCS\MAIN_WORKBOOK_BASES_SHEET_SCAN.CloseReport.csv
+
+Use that scan to confirm whether the historical useful sheet was named Base, Bases or similar.

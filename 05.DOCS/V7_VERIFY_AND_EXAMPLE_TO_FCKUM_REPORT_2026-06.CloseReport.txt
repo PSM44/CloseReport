@@ -1,0 +1,106 @@
+========== V7_VERIFY_AND_EXAMPLE_TO_FCKUM_REPORT ==========
+GENERATED..........: 2026-07-04T00:41:44
+INPUT_XLSX.........: C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.ADMIN_READY.V7_CONTROLLED.xlsx
+MAIN_XLSX..........: C:\01. GitHub\CloseReport\03.DATA\raw\current\main.xlsx
+FINAL_STATUS.......: FAIL
+WARNINGS_COUNT.....: 4
+FAILURES_COUNT.....: 3
+
+========== CHECKS ==========
+V7_WORKBOOK | sheet_README | expected=exists | actual=exists | status=PASS | C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.ADMIN_READY.V7_CONTROLLED.xlsx
+V7_WORKBOOK | sheet_MOVEMENTS_INPUT | expected=exists | actual=exists | status=PASS | C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.ADMIN_READY.V7_CONTROLLED.xlsx
+V7_WORKBOOK | sheet_MOVEMENTS_INPUT.Example | expected=exists | actual=exists | status=PASS | C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.ADMIN_READY.V7_CONTROLLED.xlsx
+V7_WORKBOOK | sheet__LOOKUPS | expected=exists | actual=exists | status=PASS | C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.ADMIN_READY.V7_CONTROLLED.xlsx
+V7_WORKBOOK | sheet__PERIOD_RATES | expected=exists | actual=exists | status=PASS | C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.ADMIN_READY.V7_CONTROLLED.xlsx
+V7_WORKBOOK | visible_sheets | expected=README,MOVEMENTS_INPUT,MOVEMENTS_INPUT.Example | actual=README,MOVEMENTS_INPUT,MOVEMENTS_INPUT.Example | status=PASS | Only README, MOVEMENTS_INPUT, MOVEMENTS_INPUT.Example should be visible.
+MOVEMENTS_INPUT | header_period_id | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT | header_entity_code | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT | header_project_id | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT | header_cost_center_code | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT | header_category_id | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT | header_movement_type | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT | header_movement_date | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT | header_amount | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT | header_currency | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT | header_period_uf_value | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT | header_period_usd_value | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT | header_amount_uf | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT | header_amount_usd | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT | header_value_type | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT | header_counterparty | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT | header_description | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT | header_source_reference | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT | header_notes | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT | value_type_validation_column | expected=O2:O1000 has validation | actual=1 validation(s) | status=PASS | Expected value_type in column O.
+MOVEMENTS_INPUT | cost_center_code_validation_column | expected=D2:D1000 has validation | actual=1 validation(s) | status=PASS | Expected cost_center_code in column D.
+MOVEMENTS_INPUT | period_uf_value_formula_count | expected=999 formulas | actual=999 | status=PASS | Formula count should be high because rows 2:1000 are system-calculated.
+MOVEMENTS_INPUT | period_usd_value_formula_count | expected=999 formulas | actual=999 | status=PASS | Formula count should be high because rows 2:1000 are system-calculated.
+MOVEMENTS_INPUT | amount_uf_formula_count | expected=999 formulas | actual=999 | status=PASS | Formula count should be high because rows 2:1000 are system-calculated.
+MOVEMENTS_INPUT | amount_usd_formula_count | expected=999 formulas | actual=999 | status=PASS | Formula count should be high because rows 2:1000 are system-calculated.
+LOOKUPS | cost_center_code_visible_values | expected=no CC-ENTITY-* internal ids | actual=sample=['CC-100-00', 'CC-100-01', 'CC-100-02', 'CC-100-03', 'CC-100-04', 'CC-100-05', 'CC-100-06', 'CC-100-07', 'CC-100-08', 'CC-100-09'], internal_like_count=4 | status=FAIL | cost_center_code list must be visible code only.
+PERIOD_RATES | header_period_id | expected=exists | actual=exists | status=PASS | 
+PERIOD_RATES | header_uf_monthly_clp | expected=exists | actual=exists | status=PASS | 
+PERIOD_RATES | header_usd_monthly_clp | expected=exists | actual=exists | status=PASS | 
+PERIOD_RATES | rows | expected=at least one period row | actual=2 | status=PASS | 
+MOVEMENTS_INPUT.Example | non_empty_rows | expected=>=1 | actual=108 | status=PASS | Example must have rows to validate coverage.
+MOVEMENTS_INPUT.Example | header_period_id | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT.Example | header_entity_code | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT.Example | header_project_id | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT.Example | header_cost_center_code | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT.Example | header_category_id | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT.Example | header_movement_type | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT.Example | header_movement_date | expected=exists | actual=missing | status=FAIL | 
+MOVEMENTS_INPUT.Example | header_amount | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT.Example | header_currency | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT.Example | header_period_uf_value | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT.Example | header_period_usd_value | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT.Example | header_amount_uf | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT.Example | header_amount_usd | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT.Example | header_value_type | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT.Example | header_counterparty | expected=exists | actual=missing | status=FAIL | 
+MOVEMENTS_INPUT.Example | header_description | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT.Example | header_source_reference | expected=exists | actual=exists | status=PASS | 
+MOVEMENTS_INPUT.Example | header_notes | expected=exists | actual=exists | status=PASS | 
+MAIN_WORKBOOK | sheet_F.CKUM | expected=exists | actual=exists | status=PASS | C:\01. GitHub\CloseReport\03.DATA\raw\current\main.xlsx
+MAIN_WORKBOOK | sheet_F.D.KUM.01 | expected=exists | actual=exists | status=PASS | C:\01. GitHub\CloseReport\03.DATA\raw\current\main.xlsx
+MAIN_WORKBOOK | sheet_Bases | expected=exists | actual=exists | status=PASS | C:\01. GitHub\CloseReport\03.DATA\raw\current\main.xlsx
+FCKUM_FORMULA_PROFILE | total_formula_cells | expected=profile | actual=640 | status=PASS | 
+FCKUM_FORMULA_PROFILE | refs_detail | expected=profile | actual=335 | status=PASS | 
+FCKUM_FORMULA_PROFILE | refs_bases | expected=profile | actual=0 | status=PASS | 
+FCKUM_FORMULA_PROFILE | refs_cross_report | expected=profile | actual=32 | status=PASS | 
+FCKUM_FORMULA_PROFILE | refs_external | expected=profile | actual=0 | status=PASS | 
+FCKUM_FORMULA_PROFILE | refs_ref_error | expected=profile | actual=0 | status=PASS | 
+FCKUM_FORMULA_PROFILE | local_formula | expected=profile | actual=273 | status=PASS | 
+FCKUM_FORMULA_PROFILE | static_or_blank | expected=profile | actual=5190 | status=PASS | 
+
+========== INPUT_TO_FCKUM_MATRIX ==========
+Actual cashflow | monthly income lines | READY_IF_ROWS_EXIST | required=period_id, entity_code, project_id, category_id, movement_type, movement_date, amount, currency | source=MOVEMENTS_INPUT.Example
+Actual cashflow | monthly expense lines | READY_IF_ROWS_EXIST | required=period_id, entity_code, project_id, category_id, movement_type, movement_date, amount, currency | source=MOVEMENTS_INPUT.Example
+Actual cashflow | monthly investments | REVIEW | required=category_id or cost_center_code identifying investment rows | source=MOVEMENTS_INPUT.Example
+Actual cashflow | monthly financing | REVIEW | required=movement_type=FINANCING plus category/debt tag | source=MOVEMENTS_INPUT.Example
+Rates | UF values by month | READY | required=dim_period_rate.period_id + uf_monthly_clp | source=_PERIOD_RATES
+Rates | USD values by month | READY | required=dim_period_rate.period_id + usd_monthly_clp | source=_PERIOD_RATES
+Cumulative | opening/carry-forward balance | REVIEW | required=previous period closing balance or opening balance movement | source=MOVEMENTS_INPUT.Example / DB
+Debt | loan request side table | GAP | required=debt_simple_projection or financing schedule | source=NOT_IN_V7_CORE
+Governance | period lock | GAP | required=dim_period_close | source=NOT_IN_V7_CORE
+Governance | classification approval | GAP | required=classification_rule / validation_log | source=NOT_IN_V7_CORE
+
+========== GAPS ==========
+GAP-FCKUM-003 | WARN | FCKUM | F.CKUM has 32 cross-report dependency formula(s). | ACTION=Do not mark final PASS until reviewed.
+GAP-V7-001 | WARN | DEBT | V7 input does not yet model debt/loan schedule for F.CKUM side table. | ACTION=Add debt_simple_projection in next DB/schema patch if F.CKUM side table is required.
+GAP-V7-002 | WARN | PERIOD_CLOSE | V7 workbook does not yet enforce hard-close/reopen governance. | ACTION=Add dim_period_close schema and Admin policy before real close.
+GAP-V7-003 | WARN | CLASSIFICATION | Category classification rules are not yet persisted in V7 workbook/DB. | ACTION=Add classification_rule and approval log in DB patch.
+
+========== WARNINGS ==========
+- F.CKUM has 32 cross-report dependency formula(s).
+- V7 input does not yet model debt/loan schedule for F.CKUM side table.
+- V7 workbook does not yet enforce hard-close/reopen governance.
+- Category classification rules are not yet persisted in V7 workbook/DB.
+
+========== FAILURES ==========
+- LOOKUPS.cost_center_code_visible_values: cost_center_code list must be visible code only.
+- MOVEMENTS_INPUT.Example.header_movement_date: missing
+- MOVEMENTS_INPUT.Example.header_counterparty: missing
+
+========== NEXT_ACTION ==========
+If PASS_WITH_REVIEW: patch DB schema for dim_period_rate, dim_period_close, classification_rule and debt_simple_projection, then reconcile F.CKUM builder to V7.

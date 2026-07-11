@@ -1,0 +1,7 @@
+==========
+00.00_OFFLINE_DESKTOP_TO_WEB_ROADMAP
+==========
+Phase 1: Excel template + SQLite DB + PowerShell triggers + Excel outputs.
+Phase 2: Excel control panel buttons: Validar datos, Migrar DB, Visualizar diagrama de relaciones, Generar reportes, RevisiÃ³n IA, Congelar periodo.
+Phase 3: Local UI: Streamlit, HTML local + Python backend, or Power Apps if available.
+Phase 4: Web multiuser: PostgreSQL/managed DB, backend API, auth, roles, approvals, audit log and dashboard.

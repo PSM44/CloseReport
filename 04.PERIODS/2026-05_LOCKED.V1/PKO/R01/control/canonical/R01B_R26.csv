@@ -1,0 +1,13 @@
+﻿cell,target_formula,target_cached_value,benchmark_formula,benchmark_cached_value,source_cell,source_formula_or_value,source_cached_value,diff_abs,diff_pct,result
+R26,=+'. F.BS2.01'!G54,0,=+'. F.BS2.01'!G54,0,G54,=SUM(G35:G52),0,0.0,0.0,MATCH
+S26,=+'. F.BS2.01'!H54,297.0443102116981,=+'. F.BS2.01'!H54,297.0443102116981,H54,=SUM(H35:H52),297.0443102116981,0.0,0.0,MATCH
+T26,=+'. F.BS2.01'!I54,0,=+'. F.BS2.01'!I54,0,I54,=SUM(I35:I52),0,0.0,0.0,MATCH
+U26,=+'. F.BS2.01'!J54,0,=+'. F.BS2.01'!J54,0,J54,=SUM(J35:J52),0,0.0,0.0,MATCH
+V26,=+'. F.BS2.01'!K54,0,=+'. F.BS2.01'!K54,0,K54,=SUM(K35:K52),0,0.0,0.0,MATCH
+W26,=+'. F.BS2.01'!L54,0,=+'. F.BS2.01'!L54,0,L54,=SUM(L35:L52),0,0.0,0.0,MATCH
+X26,=+'. F.BS2.01'!M54,0,=+'. F.BS2.01'!M54,0,M54,=SUM(M35:M52),0,0.0,0.0,MATCH
+Y26,=+'. F.BS2.01'!N54,0,=+'. F.BS2.01'!N54,0,N54,=SUM(N35:N52),0,0.0,0.0,MATCH
+Z26,=+'. F.BS2.01'!O54,0,=+'. F.BS2.01'!O54,0,O54,=SUM(O35:O52),0,0.0,0.0,MATCH
+AA26,=+'. F.BS2.01'!P54,0,=+'. F.BS2.01'!P54,0,P54,=SUM(P35:P52),0,0.0,0.0,MATCH
+AB26,=+'. F.BS2.01'!Q54,0,=+'. F.BS2.01'!Q54,0,Q54,=SUM(Q35:Q52),0,0.0,0.0,MATCH
+AC26,=+'. F.BS2.01'!R54,0,=+'. F.BS2.01'!R54,0,R54,=SUM(R35:R52),0,0.0,0.0,MATCH

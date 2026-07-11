@@ -1,0 +1,2 @@
+artifact_role,path,sha256,previous_status,superseded_by,reason,action
+PREVIOUS_FINAL_OBSERVED,C:\01. GitHub\CloseReport\04.PERIODS\2026-05_LOCKED.V1\PKO\R01\current\R01_B.FINAL_ACCEPTED.CR_DB_0142.20260711_005838.xlsx,d5ca467dac126642fb31d18d4f5ec452d280a70466de870cebb0b5c81e008c72,ACCEPTED_WITH_LINEAGE_OBSERVATION,R01_B.FINAL_0143F.20260711_125534.xlsx,F.D.KUM.01!R26:AC26 originally had hard numbers / incomplete lineage; fixed through '. F.BS2.01' source-depth expansion in CR-DB-0143F.,KEEP_AS_HISTORICAL_EVIDENCE_DO_NOT_DELETE

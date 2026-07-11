@@ -1,0 +1,21 @@
+==========
+00.00_CATALOG_READY_STATUS_2026_06
+==========
+VALIDATION_STATUS=PASS_WITH_REVIEW
+CATALOG_DIR=C:\01. GitHub\CloseReport\02.CONFIG\catalogs\current
+CATALOGS_CHECKED=8
+ISSUES_COUNT=291
+CRITICAL_ISSUES=291
+WARNING_ISSUES=0
+ALIAS_COLLISIONS=283
+
+POLICY:
+- Raw cost centers are inspiration only, not canonical law.
+- Canonical catalogs live under 02.CONFIG/catalogs/current.
+- Period snapshot lives under 02.CONFIG/catalogs/2026-06.
+- Currency must be explicit: CLP, USD, UF.
+- Manual free-text must map through aliases or remain in validation errors.
+
+NEXT_ACTION:
+If CRITICAL_ISSUES=0 proceed to CR_TEMP_0055B_VALIDATE_JUNE_INPUT_TEMPLATE.
+If CRITICAL_ISSUES>0 review CATALOG_ISSUES_2026-06.CloseReport.csv.

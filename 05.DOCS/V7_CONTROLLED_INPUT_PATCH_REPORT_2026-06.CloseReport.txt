@@ -1,0 +1,23 @@
+========== V7_CONTROLLED_INPUT_PATCH_REPORT ==========
+GENERATED..........: 2026-07-03T23:43:27
+INPUT_XLSX.........: C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.DENNIS_READY.V6_DIMENSIONS.xlsx
+OUTPUT_XLSX........: C:\01. GitHub\CloseReport\04.REPORTS\inputs\2026-06\CloseReport_Input_Template_2026-06.ADMIN_READY.V7_CONTROLLED.xlsx
+FINAL_STATUS.......: PASS
+
+========== PATCH_MATRIX ==========
+visible_sheets | PASS | Visible contract enforced. Changed sheets: 0
+value_type_validation | PASS | Applied to MOVEMENTS_INPUT!O2:O1000. Removed validations: 0
+cost_center_code_validation | PASS | Applied visible code list to MOVEMENTS_INPUT!D2:D1000. Removed validations: 2
+period_rate_formulas | PASS | Applied 3996 formulas.
+period_rates_sheet | PASS | _PERIOD_RATES documented as dim_period_rate source.
+sheet_protection | PASS | MOVEMENTS_INPUT protected lightly; input columns unlocked.
+
+========== WARNINGS ==========
+NONE
+
+========== FAILURES ==========
+NONE
+
+========== NEXT_ACTION ==========
+Open V7 workbook and verify MOVEMENTS_INPUT dropdowns for value_type and cost_center_code.
+Do not hand off to D1 until Admin validates field contract and F.CKUM example coverage.

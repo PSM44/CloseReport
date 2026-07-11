@@ -1,0 +1,54 @@
+==========
+00.00_CATALOG_ALIAS_FIX_PLAN_2026_06
+==========
+
+SOURCE:
+C:\01. GitHub\CloseReport\05.DOCS\CATALOG_ALIAS_COLLISIONS_2026-06.CloseReport.csv
+
+CLASSIFICATION_OUTPUT:
+C:\01. GitHub\CloseReport\05.DOCS\CATALOG_ALIAS_COLLISION_CLASSIFICATION_2026-06.CloseReport.csv
+
+TOTAL_COLLISIONS=283
+CONTEXTUAL_ALIAS_OK=166
+GENERIC_ALIAS_NEEDS_CONTEXT=31
+TRUE_COLLISION=86
+DROP_ALIAS=0
+MANUAL_REVIEW=0
+
+INTERPRETATION:
+Most collisions are not necessarily bad data. They are caused by treating every cost-center alias as a global alias.
+Cost-center aliases must support scope.
+
+RECOMMENDED MODEL CHANGE:
+dim_cost_center_alias should include:
+- alias_raw
+- alias_key
+- cost_center_id
+- entity_code
+- project_id
+- scope
+- confidence
+- review_status
+
+Allowed scope:
+- GLOBAL
+- ENTITY
+- PROJECT
+- COST_CENTER
+- NEEDS_CONTEXT
+
+RULES:
+1. Numeric source codes such as 100-00 are ENTITY scoped, not GLOBAL.
+2. Generic labels such as GASTOS, REMUNERACIONES, IMPUESTOS and GASTOS GENERALES are not globally resolvable.
+3. If an alias maps to several targets inside the same entity, classify as TRUE_COLLISION and review manually.
+4. June input validation must require entity_code and/or project_id when resolving contextual cost-center aliases.
+
+NEXT MINIBATTLE:
+CR_TEMP_0055A3_FIX_ALIAS_SCOPE
+
+EXPECTED ACTION IN 0055A3:
+- Do not delete canonical cost centers.
+- Rebuild dim_cost_center_alias with a scope column.
+- Preserve raw aliases as evidence.
+- Mark generic aliases as NEEDS_CONTEXT unless entity/project context resolves them.
+- Rerun CR_TEMP_0055A after applying scope-aware aliases.
