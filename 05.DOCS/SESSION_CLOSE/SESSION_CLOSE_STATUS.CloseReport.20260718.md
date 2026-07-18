@@ -62,8 +62,11 @@ Target cells:
 ## Close status
 
 SESSION_CLOSE_PREPARATION=PASS
-COMMIT_PERFORMED=NO
-PUSH_PERFORMED=NO
-FINAL_SESSION_CLOSED=NO
+COMMIT_PERFORMED=YES
+PUSH_PERFORMED=YES
+FINAL_SESSION_CLOSED=YES
 
-The session becomes formally closed only after exact staged-scope review, commit, push, and local/remote HEAD verification.
+Preparation commit: ccaf045446e0df526508ed53961eb47915a855d2
+Preparation push verification: PASS
+Finalization commit: SELF
+Final push verification: recorded by the closing TOVS.
